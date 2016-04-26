@@ -21,7 +21,7 @@ class InfoClassController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    //'delete' => ['post'],
                 ],
             ],
         ];
@@ -54,7 +54,7 @@ class InfoClassController extends Controller
             $obj['tlist'] = $tlist;
             $classList[$key] = $obj;
         }
-        
+
        
         // 在当前页获取数据项的数目
         $pageSize = $dataProvider->getPagination()->getPageSize();
@@ -122,10 +122,29 @@ class InfoClassController extends Controller
 		$response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = \Tool::toResJson(1,$this->findModel($id));
-		
+
         //return $this->render('view', [
         //    'model' => $this->findModel($id),
         //]);
+    }
+
+    public function actionUpdate()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+
+        $id = Yii::$app->request->post('icl_id');
+        $model = $this->findModel($id);
+        $model->load(Yii::$app->request->post(),"");
+        if ($model->save()) {
+            // return $this->redirect(['view', 'id' => $model->is_id]);
+            $response->data = \Tool::toResJson(1, $model->icl_id);
+        } else {
+            $response->data = \Tool::toResJson(0, "修改失败");
+            // return $this->render('update', [
+            //     'model' => $model,
+            // ]);
+        }
     }
 
     /**
