@@ -1,0 +1,29 @@
+
+delete from activity;
+delete from article ;
+delete from attent;
+delete from class_teacher;
+delete from course;
+delete from eval_work    ;
+delete from exam  ;
+delete from exam_score  ; 
+delete from homework;
+delete from info_class  ; 
+delete from info_college ;
+delete from info_curriculum;
+delete from info_discipline;
+delete from info_student ;
+delete from info_teacher ;
+delete from message ;
+delete from mg_curriculum;
+delete from outline ;
+delete from reply ;
+delete from stu_work;
+delete from topic ;
+
+
+
+
+$response = Yii::$app->response;
+$response->format = \yii\web\Response::	;
+$response->content = json_encode(\Tool::toResJson(1, $model->id));
