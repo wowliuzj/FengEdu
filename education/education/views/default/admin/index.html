@@ -43,9 +43,13 @@
                 </div>
             </form>
             <div class="widget-content nopadding">
+                <form id="selForm">
                 <table class="table table-bordered with-check">
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" />
+                            </th>
                             <th style="width:30%">姓名</th>
                             <th style="width:30%">手机号</th>
                             <th>操作</th>
@@ -55,11 +59,14 @@
                                        
                     </tbody>
                 </table>
+                </form>
             </div>
         </div>
         <div class="rows">
             <div class="span6">
-               
+                <button style="margin-left:10px" type="button" id="del_btn">
+                    删除
+                </button>
             </div>
             <div class="pagination pagination-right" style="margin-right:10px;">
                 <ul>

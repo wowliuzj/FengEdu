@@ -217,14 +217,14 @@ class InfoClassController extends Controller
         }
         $strIds = implode(",", $ids);
         if($strIds == ''){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败1");
+            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
             return;
         }
-        
+
         $sql = "delete from ".InfoClass::tableName()." where icl_id in(".$strIds.")";
         $res = Yii::$app->db->createCommand($sql)->execute();
         if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败2");
+            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
         }else{
             $response->data = \Tool::toResJson(1, "删除成功");
         }

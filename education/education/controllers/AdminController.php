@@ -8,6 +8,8 @@ use app\education\models\AdminSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\education\models\Teacher;
+use app\education\models\Student;
 
 /**
  * AdminController implements the CRUD actions for Admin model.
@@ -22,6 +24,7 @@ class AdminController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'deletes' => ['post'],
                 ],
             ],
         ];
@@ -237,6 +240,67 @@ class AdminController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeletes()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+
+        $request = Yii::$app->request;
+        $idArray = $request->post();
+        $ids = array();
+        foreach($idArray as $k=>$v){
+            $index = strrpos($k,'did');
+            if($index === false){
+                continue;
+            }
+            array_push($ids,$v);
+        }
+        $strIds = implode(",", $ids);
+        if($strIds == ''){
+            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            return;
+        }
+
+        $transaction = NULL;
+        try
+        {
+            $transaction = Yii::$app->db->beginTransaction();
+            foreach($ids as $row)
+            {
+                $model = $this->findModel($row);
+                if(empty($model)) continue;
+                switch($model->ftype)
+                {
+                    case 3:
+                    case 4:
+                        $teacher = Teacher::findOne($model->fid);
+                        if(!empty($teacher)) $teacher->delete();
+                        break;
+                    case 5:
+                        $student = Student::findOne($model->fid);
+                        $student->parent_name = null;
+                        $student->parent_phone = null;
+                        $student->save();
+                        break;
+                    case 6:
+                        $student = Student::findOne($model->fid);
+                        if(!empty($student)) $student->delete();
+                        break;
+                    default:
+                        break;
+                }
+                $model->delete();
+            }
+            $transaction->commit();
+            $response->data = \Tool::toResJson(1, "删除成功");
+        }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
+        }
     }
 
     /**
