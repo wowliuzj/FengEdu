@@ -21,7 +21,7 @@ class InfoClassController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    //'delete' => ['post'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -200,14 +200,31 @@ class InfoClassController extends Controller
         }
     }
 
-    public function actionDeletes($ids)
+    public function actionDeletes()
     {
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".InfoClass::tableName()." where icl_id in(".$ids.")";
+
+        $request = Yii::$app->request;
+        $idArray = $request->get();
+        $ids = array();
+        foreach($idArray as $k=>$v){
+            $index = strrpos($k,'dicl_id');
+            if($index === false){
+                continue;
+            }
+            array_push($ids,$v);
+        }
+        $strIds = implode(",", $ids);
+        if($strIds == ''){
+            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败1");
+            return;
+        }
+        
+        $sql = "delete from ".InfoClass::tableName()." where icl_id in(".$strIds.")";
         $res = Yii::$app->db->createCommand($sql)->execute();
         if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败2");
         }else{
             $response->data = \Tool::toResJson(1, "删除成功");
         }

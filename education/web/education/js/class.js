@@ -1,5 +1,6 @@
 $(document).ready(function(){
     search();
+    delChecked();
 });
 
 var formObj = $('#formId');
@@ -45,6 +46,9 @@ function showResponse(responseText, statusText)  {
         var list = responseText.data.list;
         var data_body = $("#data_body");
         var cnt = '<tr>\
+                <td>\
+                    <input type=\'checkbox\' name=\'dicl_id#icl_id#\' value=\'#icl_id#\'/>\
+                </td>\
                 <td style="text-align:center">#icl_number#</td>\
                 <td style="text-align:center">#tlist#</td>\
                 <td style="text-align:center">#status#</td>\
@@ -65,7 +69,7 @@ function showResponse(responseText, statusText)  {
                         </li>';
 
 
-            temp = cnt.replace("#icl_number#",list[key].icl_number).replace("#tlist#", cnt1).replace("#icl_id#",list[key].icl_id).replace("#status#",status[list[key].status]);
+            temp = cnt.replace("#icl_number#",list[key].icl_number).replace("#tlist#", cnt1).replace(/#icl_id#/g,list[key].icl_id).replace("#status#",status[list[key].status]);
             data_body.append(temp);
 
             var cnt2 = $("#tlist"+key);
@@ -96,4 +100,29 @@ function edit(id){
 }
 function add(){
     document.location.href="index.php?r=/education&page=class/add";
+}
+
+//删除选中
+function delChecked(){
+
+    var options = {
+        success:   showResponse,  //处理完成
+        url: "index.php?r=/education/info-class/deletes",
+        resetForm: false,
+        dataType:  'json'
+    };
+    function showResponse(responseText, statusText)  {
+        if(responseText.s == 1){
+            alert("删除成功");
+            search();
+        }else{
+            $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
+        }
+    }
+    var del_btn = $('#del_btn');
+    del_btn.click(function() {
+        var classForm = $('#classForm');
+        classForm.ajaxSubmit(options);
+        return false;
+    });
 }

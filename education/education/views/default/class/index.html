@@ -17,9 +17,13 @@
                 </div>
             </form>
             <div class="widget-content nopadding">
+                <form id="classForm">
                 <table class="table table-bordered with-check">
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" />
+                            </th>
                             <th style="width:30%">班级</th>
                             <th style="widht:30%">授课教师</th>
                             <th style="width:30%">状态</th>
@@ -30,13 +34,14 @@
                                        
                     </tbody>
                 </table>
+                </form>
             </div>
         </div>
         <div class="rows">
             <div class="span6">
-                <!-- <button style="margin-left:5px" type="button" id="del_btn">
+                 <button style="margin-left:5px" type="button" id="del_btn">
                     删除
-                </button> -->
+                </button>
                 <button style="margin-left:15px" type="button" onclick="add()" id="modify_btn">
                     添加
                 </button>
