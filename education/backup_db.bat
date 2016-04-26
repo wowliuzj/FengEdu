@@ -1,0 +1,1 @@
+mysqldump -uroot -p123456 education > education.sql
