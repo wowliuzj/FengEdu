@@ -1,0 +1,72 @@
+<style type="text/css">
+    .im_wrapper img{}
+    @media (min-width: 970px) {.im_wrapper img{margin:10px; }}
+    @media (max-width: 480px) {.im_wrapper img{margin-left:110px; }}
+    @media (min-width: 481px) and (max-width: 970px) {.im_wrapper img{margin-left:-110px; }}
+</style>
+<div class="widget-box"style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+<!-- <div class="widget-box"style="margin-left:10px;margin-right:10px;"> -->
+<div id="im_wrapper" class="im_wrapper">
+    <div style="background-image:url('uploads/1.jpg') no-repeat 4px 5px;"></div>
+</div>
+</div>
+<div class="pagination pagination-right" style="margin-right:10px;">
+    <input type="hidden" name="page" id="page" value="1"/>
+    <ul>
+        <li id="liPageFirst">
+            <a id="pageFirst" href="#">首页</a>
+        </li>
+        <li id="liPagePrevious">
+            <a id="pagePrevious" href="#">上一页</a>
+        </li>
+        <li>
+           <a id="pageNo" href="#"></a>
+        </li>
+        <li id="liPageNext">
+            <a id="pageNext" href="#">下一页</a>
+        </li>
+        <li id="liPageLast">
+            <a id="pageLast" href="#">末页</a>
+        </li>
+    </ul>
+<!-- </div> -->
+</div>
+<script src="education/js/wall.js"></script>
+<script type="text/javascript">
+    function seachPage(){
+        var page = $("#page").val();
+        var url1 = "index.php?r=/education/stu-work/wall&page="+page;
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            async:false,
+            success: function(response) {
+                if (response.s == 1) {
+                    var data = response.data.list;
+                    var wall = $("#im_wrapper");
+                    wall.empty();
+                    for(var i = 0; i < data.length;i++){
+                        var obj = data[i];
+                        var simg = obj.simg;                    
+                        wall.append('<img width="100px" shid="'+obj.id+'" title="学生：'+obj.is_name+',校区：'+obj.ic_name+',指导教师：'+obj.it_name+'" height="100px" src="'+simg+'" sname="'+obj.is_name+'" tname="校区：'+obj.ic_name+'" camname="指导教师：'+obj.it_name+'"/>');
+                        //
+                        //<div style="background:url('+simg+') no-repeat 4px 5px"></div>
+                    }
+                    pageSearch(seachPage, response.data.pageNo);
+                      $('#im_wrapper').createPhoto({
+                        //这里可以传递默认值中的参数，比如scale放大倍数
+                        scale : '2'
+                      });
+                }else
+                {
+                    alert("数据错误"+data);
+                }
+            },
+        error: function(data) {
+            alert("错误信息"+data);
+        },
+    });
+}
+seachPage();
+</script>

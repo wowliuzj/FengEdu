@@ -1,0 +1,65 @@
+<div class="row-fluid">
+  <div class="widget-box"style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box"style="margin-left:10px;margin-right:10px">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li><a id="tab_id1" data-toggle="tab" href="#tab1">班会通知</a></li>
+            <li class="active"><a id="tab_id2" data-toggle="tab" href="#tab2">活动通知</a></li>
+            <li><a id="tab_id3" data-toggle="tab" href="#tab3">活动总结</a></li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div id="tab1" class="tab-pane active">
+            <script>
+              $("#tab_id1").click(function(){
+                document.location.href='index.php?r=/education&page=activity/index';
+              });
+            </script>
+          </div>
+          <div id="tab2" class="tab-pane">
+            <script>
+              $("#tab_id2").click(function(){
+                document.location.href='index.php?r=/education&page=activity/index_hdtz';
+              });
+            </script>
+          </div>
+          <div id="tab3" class="tab-pane">
+            <script>
+              $("#tab_id3").click(function(){
+                document.location.href='index.php?r=/education&page=activity/index_hdzj';
+              });
+            </script>
+          </div>
+        </div>
+
+        <div class="widget-content tab-content">
+          <div class="control-group">
+            <form id="fbinfoform" method="post" class="form-vertical" style="margin-top:10px;" action="index.php?r=/education/activity/create">
+              <input type="text" class="span3" style="margin-top:-1px;" placeholder="标题" name="name"/>
+              <select name="cid" id="select" style="width:200px;">
+                
+              </select>
+              <input type="hidden"  name="type" value="2"/>
+              <div class="controls">
+                <textarea name="desc" class="textarea_editor span12" rows="6" placeholder="Enter text ..."></textarea>
+              </div>
+              <input type="submit" value="发布" class="btn btn-success">
+              
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="education/js/activity.js"></script> 
+<script type="text/javascript">
+  getClassList("select");
+</script>
+
+
+
+

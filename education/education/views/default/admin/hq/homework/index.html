@@ -1,0 +1,98 @@
+<div class="row-fluid">
+	<div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+		<!-- <div class="widget-content"> -->
+			<div class="widget-box"style="margin-left:10px;margin-right:10px;">
+	        	<div class="widget-title" > 
+	        		<ul class="nav nav-tabs">
+	        			<li class="active"><a id="tab_id1" data-toggle="tab" href="#tab1">作业布置情况</a></li>
+            			<li><a id="tab_id2" data-toggle="tab" href="#tab2">作业查看</a></li>
+	        		</ul>
+	          	</div>	
+
+	          	<div class="tab-content">
+	          		<div id="tab1" class="tab-pane active">
+	          			<script>
+	          				$("#tab_id1").click(function(){
+	          					document.location.href='index.php?r=/education&page=admin/hq/homework/index';
+	          				});
+	          			</script>
+	          		</div>
+	          		<div id="tab2" class="tab-pane">
+	          			<script>
+	          				$("#tab_id2").click(function(){
+	          					document.location.href='index.php?r=/education&page=admin/hq/homework/index_2';
+	          				});
+	          			</script>
+	          		</div>
+	          	</div>
+
+		    	<form id="admin-hq-homework-query-form" method="get" class="form-vertical" action="index.php?r=/education/homework/query">
+		        	<input type="hidden" name="page" id="page" value="1"/>
+		            <!-- <div class="controls" style="margin-left:360px; margin-top:-65px;"> -->
+		            <div class="controls" style="margin-left:10px; margin-top:10px; margin-bottom:10px;">
+		        		<select name="campus_id" id="campus_id" style="width:200px;">
+		                
+		        		</select>
+
+		        		<select name="tid" id="tid" style="width:200px;">
+		                
+		        		</select>
+		        		
+						<span ><input style="margin-top:1px;" type="submit" value="确定"/></span>
+		            </div>
+
+		        </form>
+
+
+	          	<div class="widget-content nopadding">
+	            		<input type="hidden" name="page" id="page" value="1"/>
+	              		<table class="table table-bordered">
+	                		<thead>
+	                  			<tr>
+	                    			<th>教师</th>
+	                    			<th>授课班级</th>
+			                    	<th>科目</th>
+			                    	<th>作业名称</th>
+			                    	<th>查看</th>
+			               		</tr>
+	                		</thead>
+	                		<tbody id="student_list_tbody_id">
+
+	                		</tbody>
+	              		</table>
+	          	</div>
+			</div>
+		    <div class="rows">
+		    	<div class="pagination pagination-right" style="margin-right:10px;">
+		        	<ul>
+		          		<li id="liPageFirst">
+		            		<a id="pageFirst" href="#">首页</a>
+		          		</li>
+		        		<li id="liPagePrevious">
+		            		<a id="pagePrevious" href="#">上一页</a>
+		          		</li>
+		          		<li>
+		             		<a id="pageNo" href="#">0</a>
+		          		</li>
+		          		<li id="liPageNext">
+		            		<a id="pageNext" href="#">下一页</a>
+		          		</li>
+		          		<li id="liPageLast">
+		            		<a id="pageLast" href="#">末页</a>
+		          		</li>
+		        	</ul>
+		      	</div>
+		    </div>
+<!-- 
+		</div> -->
+	</div>
+</div>
+
+<script src="education/js/hq.js"></script> 
+
+<script type="text/javascript">
+$(document).ready(function(){
+	getSchoolList("campus_id");
+	getTeacherList("tid", null);
+});
+</script>

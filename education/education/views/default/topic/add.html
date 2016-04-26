@@ -1,0 +1,31 @@
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>发起问答</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal" method="post" action="index.php?r=/education/topic/create" id="formId" name="formId" novalidate="novalidate">
+            <div style="margin-left:10px;margin-top:10px;">
+              <label >标题</label>
+              <div style="margin-top:10px;">
+                <input class="required" type="text" name="title" id="title">
+              </div>
+            </div>
+            <div style="margin-left:10px;margin-top:10px;">
+              <label>内容</label>
+              <div style="margin-right:10px;margin-bottom:10px;">
+                <textarea name="desc" class="required textarea_editor span12" rows="10" placeholder="输入信息内容 ..."></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <input type="submit" value="保存" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="education/js/topic_add.js"/>

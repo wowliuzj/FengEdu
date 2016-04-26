@@ -1,0 +1,46 @@
+<div class="row-fluid">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th">
+                    </i>
+                </span>
+                <h5>
+                    添加权限
+                </h5>
+            </div><form id="formId" method="post" action="index.php?r=/education/access/create">
+            <input type="hidden" name="r_id" id="r_id" value=""/>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered with-check">
+                    <thead>
+                        <tr>
+                            <th style="width:30%"><input type="checkbox" id="title-table-checkbox"/>权限名</th>
+                            <th style="width:30%"><input type="checkbox" id="title-table-checkbox"/>访问地址</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data_body">
+                       <tr>
+                        <td style="text-align:center"><input type="#checkbox#" name="#p_id#" id="#p_id#" value="#p_id_value#"/>#alias#</td>
+                         <td style="text-align:center">#p_name#</td>
+                       </tr>                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+         <div class="rows">
+            <div class="span6">
+                <button style="margin-left:15px" type="submit"  id="modify_btn">
+                    添加
+                </button>
+            </div>
+            <div class="pagination pagination-right">
+                   <br>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="education/js/add_permission.js"/>
+
+

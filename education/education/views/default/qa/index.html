@@ -1,0 +1,133 @@
+﻿
+  <div class="row-fluid">
+    <!-- <div class="span12"> -->
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+        <div class="widget-title" > <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>互动区</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table table-bordered ">
+           <thead>
+                  <tr>
+                    
+                    <th>问题</th>
+                    <th>学生</th>
+                    <th>发布时间</th>
+                    <th>查看</th>
+                    
+                  </tr>
+                </thead>
+                  <tbody id = "msg_body">
+                        
+                                              
+                  </tbody>
+          </table>
+        </div>
+         </div>
+
+         <form class="form-horizontal">
+        <input type="hidden" name="page" id="page" value="1"/>
+        <div class="pagination pagination-right" style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+             </form>
+        </div>
+      </div>
+    </div>
+       
+
+<script type="text/javascript">
+
+var tempList = null;
+
+$(document).ready(function(){
+
+  getTopicMsg()
+
+});
+
+
+
+ function getTopicMsg()
+    {
+        
+        var url1 = "index.php?r=/education/topic/index";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+                
+                tempList = data.data.list;
+                var msg_body = $("#msg_body");
+                msg_body.empty();
+                for (key in tempList)
+                {
+                  
+                 var temp = "<tr>\
+                    <td style='text-align:center'>"+tempList[key].title+"</td>\
+                     <td style='text-align:center'>"+tempList[key].name+"</td>\
+                      <td style='text-align:center'>"+tempList[key].time+"</td>\
+                        <td style='text-align:center'><input   style='width:55px' value='查看' class='btn btn-success' onclick='clickBtn7(" + key + ")'></td>\
+                  </tr>"
+
+                  msg_body.append(temp);
+                  
+                }
+               
+                pageSearch(getTopicMsg,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    function clickBtn7 (key) {
+      var data = tempList[key]
+      // document.location.href='index.php?r=/education&page=qa/replies&id=' + id;
+      //  alert(id + title + name + desc + time);
+      // var id = "&id="+ encodeURI(data.id);
+      // var title = "&title="+encodeURI(data.title);
+      // var name = "&name="+encodeURI(data.name);
+      // var desc = "&desc="+encodeURI(data.desc);
+      // var time = "&time="+encodeURI(data.time);
+      // alert(data);
+      // store.set("y_id","123213")
+      store.set("y_id",data.id);
+      store.set("y_title",data.title);
+      store.set("y_name",data.name);
+      store.set("y_desc",data.desc);
+      store.set("y_time",data.time);
+
+      // alert(id + title + name + desc + time);
+      // document.location.href='index.php?r=/education&page=qa/replies' + id + title + name + desc + time;
+      document.location.href='index.php?r=/education&page=qa/replies';
+
+      // body...
+      
+    }
+
+
+
+
+</script>
+

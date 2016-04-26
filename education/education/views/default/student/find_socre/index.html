@@ -1,0 +1,40 @@
+<div class="row-fluid">
+	<div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+		<div class="widget-box " style="margin-left:10px;margin-right:10px;">
+	    	<div class="widget-title" style=""> 
+	        	<h5>成绩查询</h5>
+	        	<!-- <h5 style="float:right; margin-right:20px;"></h5> -->
+	        	<!-- <input type="text" placeholder="手机号" name="is_name" id="is_name" style="margin-top:3px; margin-left:80px;"/> -->
+	        	<div style="line-height:30px;">
+	        		<form id="home-work-form" method="get" class="form-vertical" action="index.php?r=/education/exam/score">
+	        			<!-- <input type="checkbox" style="">全部成绩 -->
+	        			<!-- <input type="submit" value="确定" class="btn btn-success" style="margin-top:1px;"> -->
+	        		</form>
+	        	</div>
+	      	</div>	
+	    	<div class="widget-content nopadding">
+	        	<!-- <form id="alterform" method="get" class="form-vertical" action="index.php?r=/education/attent/mod-status"> -->
+	            	<table class="table table-bordered">
+	           			<thead>
+	                  		<tr>
+		                    	<th>姓名</th>
+		                    	<th>科目</th>
+	    	                	<th>成绩</th>
+	        	            	<th>时间</th>
+	            	        	<th>备注</th>
+	                		</tr>
+	                	</thead>
+	                	<tbody id="student_list_tbody_id">
+
+	                	</tbody>
+	              	</table>
+	            <!-- </form> -->
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+<script src="education/js/exam.js"></script> 
+<script type="text/javascript">
+	getHomeWorkFindSocre();
+</script>

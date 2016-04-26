@@ -1,0 +1,89 @@
+<div class="row-fluid">
+	<div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+		<!-- <div class="widget-content"> -->
+			<div class="widget-box"style="margin-left:10px;margin-right:10px;">
+	        	<div class="widget-title" > 
+	        		<!-- <span class="icon"> <i class="icon-th"></i> </span> -->
+	            	<h5><a href="index.php?r=/education&page=student/homework/index_1_1">出勤情况</a></h5>
+	          	</div>
+	          		
+		    	<form id="admin-campus-attent-query-form" method="get" class="form-vertical" action="index.php?r=/education/attent/tongji">
+		        	<input type="hidden" name="page" id="page" value="1"/>
+		            <!-- <div class="controls" style="margin-left:360px; margin-top:-65px;"> -->
+		            <div class="controls" style="margin-left:10px; margin-top:10px; margin-bottom:10px;">
+			            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:0px; margin-left:0px;">
+			            	<input id="input_start_time" type="text" value="起始时间" name="start_time" data-date-format="yyyy-mm-dd" class="span11"
+			              		style="margin-top:-5px; margin-left:0px; width:100px;">
+							<span class="add-on" style="margin-top:-5px;"><i class="icon-th" ></i></span> 
+			            </div>
+
+			            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:0px; margin-left:0px;">
+							<input id="input_end_time" type="text" value="结束时间" name="end_time" data-date-format="yyyy-mm-dd" class="span11"
+			              		style="margin-top:-5px; margin-left:0px; width:100px;">
+							<span class="add-on" style="margin-top:-5px;"><i class="icon-th" ></i></span> 
+			            </div>
+
+		        		<select name="cid" id="cid" style="width:200px;">
+		                
+		        		</select>
+
+						<span ><input style="margin-top:-15px;" type="submit" value="确定"/></span>
+		            </div>
+
+		        </form>
+
+
+	          	<div class="widget-content nopadding">
+	            	<!-- <form id="home-work-form" method="get" class="form-vertical" action="index.php?r=/education/homework/index"> -->
+	            		<input type="hidden" name="page" id="page" value="1"/>
+	              		<table class="table table-bordered">
+	                		<thead>
+	                  			<tr>
+	                    			<th>姓名</th>
+	                    			<th>正常</th>
+			                    	<th>迟到</th>
+			                    	<th>早退</th>
+			                    	<th>旷课</th>
+			                    	<th>事假</th>
+			                    	<th>病假</th>
+			               		</tr>
+	                		</thead>
+	                		<tbody id="student_list_tbody_id">
+
+	                		</tbody>
+	              		</table>
+	            	<!-- </form> -->
+	          	</div>
+			</div>
+		    <div class="rows">
+		    	<div class="pagination pagination-right" style="margin-right:10px;">
+		        	<ul>
+		          		<li id="liPageFirst">
+		            		<a id="pageFirst" href="#">首页</a>
+		          		</li>
+		        		<li id="liPagePrevious">
+		            		<a id="pagePrevious" href="#">上一页</a>
+		          		</li>
+		          		<li>
+		             		<a id="pageNo" href="#">0</a>
+		          		</li>
+		          		<li id="liPageNext">
+		            		<a id="pageNext" href="#">下一页</a>
+		          		</li>
+		          		<li id="liPageLast">
+		            		<a id="pageLast" href="#">末页</a>
+		          		</li>
+		        	</ul>
+		      	</div>
+		    </div>
+
+		<!-- </div> -->
+	</div>
+</div>
+
+<script src="education/js/campus.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+	getAllClassList("cid", null);
+});
+</script>

@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="css/colorpicker.css" />
+<link rel="stylesheet" href="css/datepicker.css" />
+<div class="row-fluid">
+	<div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+		<div class="widget-box" style="margin-left:10px;margin-right:10px;">
+			<div class="widget-title">
+				<ul class="nav nav-tabs">
+		            <li class="active"><a id="tab_id1" data-toggle="tab" href="#tab1">出勤情况</a></li>
+		            <li><a id="tab_id2" data-toggle="tab" href="#tab2">课程进度</a></li>
+		            <li><a id="tab_id3" data-toggle="tab" href="#tab3">历史作业</a></li>
+				</ul>
+			</div>
+
+			<div class="tab-content">
+	          <div id="tab1" class="tab-pane active">
+	            <script>
+	              $("#tab_id1").click(function(){
+	                document.location.href='index.php?r=/education&page=student/study/index';
+	              });
+	            </script>
+	          </div>
+	          <div id="tab2" class="tab-pane">
+	            <script>
+	              $("#tab_id2").click(function(){
+	                document.location.href='index.php?r=/education&page=student/study/index_2';
+	              });
+	            </script>
+	          </div>
+	          <div id="tab3" class="tab-pane">
+	            <script>
+	              $("#tab_id3").click(function(){
+	                document.location.href='index.php?r=/education&page=student/study/index_3';
+	              });
+	            </script>
+	          </div>
+			</div>
+			<form id="study-cq-form" method="get" class="form-vertical" style="margin-top:20px;" action="index.php?r=/education/attent/my-attent">
+	        	<div class="controls" style="margin-top:10px;">
+	            	<label style="margin-top:5px; margin-left:10px;">统计时间</label>
+		            <div style="margin-top:-25px; margin-left:80px;">
+		             	本周<input id="benzhou" type="radio" style="margin-left:1px;" name="tjsjstate" checked>
+		            	本月<input id="benyue" type="radio" style="margin-left:1px;" name="tjsjstate">
+		            </div>
+
+		            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:10px; margin-left:-57px;">
+		              <!-- <label class="control-label" style="margin-top:5px;">起始时间</label> -->
+		              <input id="input_start_time" type="text" value="起始时间" name="start_time" data-date-format="yyyy-mm-dd" class="span11"
+		              style="margin-top:-32px; margin-left:60px; width:100px;">
+		              <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span> 
+		            </div>
+
+		            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:80px; margin-left:-171px;">
+		              <input id="input_end_time" type="text" value="结束时间" name="end_time" data-date-format="yyyy-mm-dd" class="span11"
+		              style="margin-top:-32px; margin-left:30px; width:100px;">
+		              <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span> 
+		            </div>
+
+	           	 	<span ><input style="margin-top:-20px; margin-left:5px;" type="submit" value="确定"/></span>
+	          	</div>
+			</form>
+          	<div class="widget-content nopadding">
+            	<!-- <form id="alterform" method="post" class="form-vertical" action="index.php?r=/education/attent/mod-status"> -->
+              		<table class="table table-bordered">
+                		<thead>
+                  			<tr>
+                    			<th>姓名</th>
+                    			<th>正常</th>
+		                    	<th>迟到</th>
+		                    	<th>早退</th>
+		                    	<th>旷课</th>
+		                    	<th>事假</th>
+		                    	<th>病假</th>
+		               		</tr>
+                		</thead>
+                		<tbody id="student_list_tbody_id">
+
+                		</tbody>
+              		</table>
+            	<!-- </form> -->
+          	</div>
+		</div>
+	</div>
+</div>
+<script src="education/js/attent.js"></script> 
+<script src="education/js/homework.js"></script> 
+<script type="text/javascript">
+	$("#input_start_time").val(getWeekStartDate());
+	$("#input_end_time").val(getWeekEndDate());
+</script>

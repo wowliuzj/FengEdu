@@ -1,0 +1,38 @@
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:5px;margin_right:5px">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>提交教学大纲</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal" method="post" action="index.php?r=/education/outline/create" id="formId" novalidate="novalidate"  enctype="multipart/form-data">
+            <div class="control-group">
+              <label class="control-label">标题</label>
+              <div class="controls">
+                <input class="required" type="text" name="title" id="title">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">授课班级</label>
+              <div class="controls">
+                <select class="required" name="cid" id="cid" style="width:140px">
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">大纲内容</label>
+              <div class="controls">
+                <input class="required" type="file" name="excel_file" id="excel_file">
+              </div>
+            </div>
+            <div class="form-actions">
+              <input type="submit" value="保存" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="education/js/outline_add.js"/>

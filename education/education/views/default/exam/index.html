@@ -1,0 +1,64 @@
+<div class="row-fluid">
+  <div class="widget-box"style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box"style="margin-left:10px;margin-right:10px;">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li class="active"><a id="tab_id1" data-toggle="tab" href="#tab1">考试通知</a></li>
+            <li><a id="tab_id2" data-toggle="tab" href="#tab2">成绩发布</a></li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          <div id="tab1" class="tab-pane active">
+            <script>
+              $("#tab_id1").click(function(){
+                document.location.href='index.php?r=/education&page=exam/index';
+              });
+            </script>
+          </div>
+          <div id="tab2" class="tab-pane">
+            <script>
+              $("#tab_id2").click(function(){
+                document.location.href='index.php?r=/education&page=exam/index_cjfb';
+              });
+            </script>
+          </div>
+        </div>
+
+        <div class="widget-content tab-content">
+            <div class="control-group">
+              <form id="fbinfoform" method="post" class="form-vertical" style="margin-top:10px;" action="index.php?r=/education/exam/create">
+                <div class="control-group">
+                  <div class="controls" style="margin-left:4px; margin-top:0px; margin-bottom:10px;">
+                    <select name="cid" id="fbinfoform-select" style="width:200px; ">
+                    
+                    </select>
+                  </div>
+                  <div class="controls" style="margin-left:4px; margin-top:0px;">
+                    <select name="title" id="subject" style="width:200px; ">
+                    
+                    </select>
+                  </div>
+                  <!-- <label class="control-label">考试时间 :</label> -->
+                  <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:5px; margin-left:-30px;">
+                    <input id="input_end_time" type="text" value="考试时间" name="time" data-date-format="yyyy-mm-dd" class="span11"
+                    style="margin-top:-0px; margin-left:30px; width:100px;">
+                    <span class="add-on" style="margin-top:0px;"><i class="icon-th" ></i></span> 
+                  </div>
+                </div>
+                <div class="controls">
+                  <textarea name="desc" class="textarea_editor span12" rows="6" placeholder="Enter text ..."></textarea>
+                </div>
+                <input type="submit" value="发布" class="btn btn-success">
+              </form>
+              
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="education/js/exam.js"></script>

@@ -1,0 +1,79 @@
+<!-- <div class="container-fluid"> -->
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+                <div class="widget-title bg_ly" >
+                    <!-- <span class="icon"><i class="icon-chevron-down"></i></span> -->
+                    <h5 id="companyId"></h5>
+                </div>
+                <div class="widget-content nopadding" id="comInfos">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <hr> -->
+
+
+
+<script type="text/javascript">
+    // getArticle();
+    $(document).ready(function(){
+
+        var id = $.getUrlVar('id');
+        var type = $.getUrlVar('type');
+
+        var typeInfo = getCompanyType(parseInt(type));
+
+
+        var url1 = "index.php?r=/education/article/view&id="+id;
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+  //  "id": 1,
+  //   "title": "aaaa",
+  //   "content": "werwerrrrrrrrrrrr11111111111",
+  //   "time": "2015-09-17 15:41:57",
+  //   "type": 1
+  // }
+            success: function(data) {
+                var companyId = document.getElementById("companyId");
+                companyId.innerHTML=typeInfo;
+                
+                var comInfos = document.getElementById("comInfos");
+                
+
+                var title = data.data.title;
+                var time = data.data.time;
+                var content = data.data.content;
+
+                 var temp = "<span style='width:100%;text-align:center;margin-left:20%;margin-right:20%;font-weight:bold'> " + title + "</span><span style='width:100%;text-align:center;margin-left:30%;margin-right:30%;display:block;font-weight:bold'>" + time + " </span>\
+                    <p><span > " + '&nbsp' +content+ " </span></p>"
+
+                  comInfos.innerHTML=temp;
+
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+       
+
+    });    
+
+    function getCompanyType(type){
+        switch(type){
+            case 1:
+            return "企业介绍";
+            case 2:
+            return "项目信息";
+            case 3:
+            return "实习岗位";
+            case 4:
+            return "就业岗位";
+        }
+    }
+
+</script>

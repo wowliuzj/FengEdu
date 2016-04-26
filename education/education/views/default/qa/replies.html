@@ -1,0 +1,179 @@
+﻿
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd">
+        <div class="widget-title" style="border:none"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5 id="replyTitle"></h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table ">
+                  <tbody id = "reply_body">
+                        
+                      <!--  <tr>
+                        <td>
+                          <label id="time" name="time">时间</label>
+                          <textarea name="cnt" id="cnt" class=" span12"></textarea>
+                          <textarea name="reply_msg" id="reply_msg" class="span12"></textarea>
+                        </td>
+                        </tr> -->
+                         
+                  </tbody>
+          </table>
+         
+        </div>
+         <form class="form-horizontal">
+        <input type="hidden" name="page" id="page" value="1"/>
+        <div class="pagination pagination-right">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+             </form>
+             <form id="form_1">
+              <textarea style="width:90%;margin-left:10px;" name='content'  id = "textA" class="span12" rows="2" placeholder="请输入 ..."></textarea>
+              <input  value='回复' class='btn btn-success' style="margin-left:10px;margin_top:5px;width:60px;margin-bottom:5px;" onclick='clickBtn10()'>
+              </form>
+        </div>
+      </div>
+    </div>
+
+
+
+<script type="text/javascript">
+
+var tempURL = "";
+
+$(document).ready(function(){
+
+  getReplyList()
+
+});
+
+
+
+ function getReplyList()
+    {
+        // var id = decodeURI($.getUrlVar("id"));
+        // var topic_title = decodeURI($.getUrlVar("title"));
+        // var topic_name = decodeURI($.getUrlVar("name"));
+        // var topic_desc = decodeURI($.getUrlVar("desc"));
+        // var topic_time = decodeURI($.getUrlVar("time"));
+        // alert(id+ ";" + topic_title+ ";" +topic_name+ ";" +topic_desc+ ";" +topic_time+ ";"  )
+
+        var id = store.get("y_id");
+        var topic_title = store.get("y_title");
+        var topic_name = store.get("y_name");
+        var topic_desc = store.get("y_desc");
+        var topic_time = store.get("y_time");
+        // store.remove("y_id");
+        // store.remove("y_title");
+        // store.remove("y_name");
+        // store.remove("y_desc");
+        // store.remove("y_time");
+
+        var replyTitle = document.getElementById("replyTitle");
+        replyTitle.innerHTML=topic_name + "的问题";
+
+
+  
+       tempURL = "index.php?r=/education/reply/index&tid="+id;
+        $.ajax({
+            type: "get",
+            url: tempURL,
+            dataType: "json", 
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var reply_body = $("#reply_body");
+                reply_body.empty();
+
+                var temp = " <tr>\
+                              <td>\
+                          <span><strong>" + topic_title + "</strong></span>\
+                          <span style='text-align:right;display:inline;float:right' id='time' name='time'>"+ topic_time + "</span>\
+                          <div class='widget-box' id='cnt' name='cnt' style='padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #cdcdcd'>"+ topic_desc +"</div>\
+                        </td>\
+                        </tr>"
+                reply_body.append(temp);
+
+
+                for (key in list)
+                {
+                  var floor = list[key].floor;
+                  var name = list[key].name;
+                  var content = list[key].content;
+                  var time = list[key].time;
+                  // var floor = 1;
+                  // var name = "123";
+                  // var content = "456";
+                  // var time = "1984-12-21";
+
+                 var temp = " <tr>\
+                              <td>\
+                          <span>"+name+"的回复</span>\
+                           <font font-size:1px; color='red'><span>["+floor+"楼]</span></font>\
+                            <span id='time' name='time' style='display:inline;float:right'>"+ time + "</span>\
+                          <div class='widget-box' id='cnt' name='cnt' style='padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #cdcdcd'>"+ content +"</div>\
+                        </td>\
+                        </tr>"
+                  reply_body.append(temp);
+                }
+               
+               
+               
+                pageSearch(getReplyList,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    //回复
+    function clickBtn10(){
+          var textA = document.getElementById("textA");
+          if (textA.value == null || textA.value == "") {alert("回复内容不能为空！");return;};
+
+          var replay_form = $("#form_1");
+          var id = store.get("y_id");
+          var tempU =  "index.php?r=/education/reply/create";
+          var options = {
+                  type: "post",
+                  url: tempU,
+                  success:       showResponse,  //处理完成 
+                  resetForm: true, 
+                  data: {"tid":id},
+                  dataType:  'json' 
+              };
+              function showResponse(responseText, statusText)  {
+                if(responseText.s == 1){
+                      alert("回复成功");
+                      // document.location.href=tempURL;
+                      document.location.href='index.php?r=/education&page=qa/replies';
+                }else{
+                  alert(responseText.data);
+                      $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
+                      
+                }
+              }
+          replay_form.ajaxSubmit(options);
+    }
+
+   
+
+</script>

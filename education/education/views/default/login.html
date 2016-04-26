@@ -1,0 +1,95 @@
+<script src="education/js/login.js"></script> 
+<link rel="stylesheet" href="education/css/login.css" />
+<div id="errormsg"></div>
+<div id="loginbox">            
+    <form id="loginform" method="post" class="form-vertical" action="index.php?r=/education/admin/login">
+         <div class="control-group normal_text"> <h3><img src="img/logo.png" alt="Logo" /></h3></div>
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lg"><i class="icon-user"></i></span><input type="text" id="user_name" name="user_name" placeholder="账号"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_ly"><i class="icon-lock"></i></span><input id="user_pwd" name="user_pwd" type="password" placeholder="密码"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <span class="pull-left" style="display:none"><a href="#" class="flip-link btn btn-info" id="to-recover">忘记密码?</a></span>
+            <span class="pull-right"><input type="submit" id="login" value="登录" class="btn btn-success"/></span>
+        </div>
+    </form>
+    <form id="recoverform" action="#" class="form-vertical">
+        <p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a password.</p>
+        
+            <div class="controls">
+                <div class="main_input_box">
+                    <span class="add-on bg_lo"><i class="icon-envelope"></i></span><input type="text" placeholder="手机号码" />
+                </div>
+            </div>
+       
+        <div class="form-actions">
+            <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; 返回登录</a></span>
+            <span class="pull-right"><a id="reecover" class="btn btn-info"/>找回密码</a></span>
+        </div>
+    </form>
+</div>
+<script>
+// /*
+    // 判断浏览器名称和版本
+    // 目前只能判断:ie/firefox/chrome/opera/safari
+    // 2012年5月16日23:47:08
+    // 浏览器内核UA:UA;
+    // 浏览器内核名称:NV.name;
+    // 浏览器内核版本:NV.version;
+    // 浏览器外壳名称:NV.shell;
+// */
+var NV = {};
+var UA = navigator.userAgent.toLowerCase();
+try
+{
+    NV.name=document.all?'ie':
+    (UA.indexOf("firefox")>0)?'firefox':
+    (UA.indexOf("chrome")>0)?'chrome':
+    window.opera?'opera':
+    window.openDatabase?'safari':
+    'unkonw';
+}catch(e){};
+try
+{
+    NV.version=(NV.name=='ie')?UA.match(/msie ([\d.]+)/)[1]:
+    (NV.name=='firefox')?UA.match(/firefox\/([\d.]+)/)[1]:
+    (NV.name=='chrome')?UA.match(/chrome\/([\d.]+)/)[1]:
+    (NV.name=='opera')?UA.match(/opera.([\d.]+)/)[1]:
+    (NV.name=='safari')?UA.match(/version\/([\d.]+)/)[1]:
+    '0';
+}catch(e){};
+try
+{
+    NV.shell=(UA.indexOf('360ee')>-1)?'360极速浏览器':
+    (UA.indexOf('360se')>-1)?'360安全浏览器':
+    (UA.indexOf('aoyou')>-1)?'遨游浏览器':
+    (UA.indexOf('theworld')>-1)?'世界之窗浏览器':
+    (UA.indexOf('worldchrome')>-1)?'世界之窗极速浏览器':
+    (UA.indexOf('greenbrowser')>-1)?'绿色浏览器':
+    (UA.indexOf('mqqbrowser')>-1)?'MQQ浏览器':
+    (UA.indexOf('qqbrowser')>-1)?'QQ浏览器':
+    (UA.indexOf('baidu')>-1)?'百度浏览器':
+    (UA.indexOf(' se ')>-1)?'搜狗浏览器':
+    '未知或无壳';
+}catch(e){}
+/*
+document.write('<div><p>浏览器UA='+UA+
+'</p><p>浏览器名称='+NV.name+
+'</p><p>浏览器版本='+NV.version+
+'</p><p>浏览器外壳='+NV.shell+'</p></div>');
+*/
+if(NV.shell == 'MQQ浏览器'){
+    $("#user_name").css("margin-top","2px");
+    $("#user_pwd").css("margin-top","2px");
+}
+</script>

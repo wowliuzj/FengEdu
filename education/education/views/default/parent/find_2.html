@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="css/colorpicker.css" />
+<link rel="stylesheet" href="css/datepicker.css" />
+<div class="row-fluid">
+  <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box"style="margin-left:10px;margin-right:10px;">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li><a id="tab_id1" data-toggle="tab" href="#tab1" onclick="find(0)">出勤情况</a></li>
+            <li><a id="tab_id2" data-toggle="tab" href="#tab2" onclick="find(1)">学习进度</a></li>
+			     <li class="active"><a id="tab_id3" data-toggle="tab" href="#tab3" onclick="find(2)">考试成绩</a></li>
+			     <li><a id="tab_id4" data-toggle="tab" href="#tab4" onclick="find(3)">作业情况</a></li>
+			     <li><a id="tab_id5" data-toggle="tab" href="#tab5" onclick="find(4)">活动情况</a></li>
+			    <!--  <li><a id="tab_id6" data-toggle="tab" href="#tab6" onclick="find(5)">课程信息</a></li> -->
+          </ul>
+        </div>
+
+<!-- 考试成绩 -->
+          <div class="widget-content nopadding">
+            <form id="alterform" method="post" class="form-vertical" action="index.php?r=/education/attent/mod-status">
+            <input type="hidden" name="page" id="page" value="1"/>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>姓名</th>
+                    <th>科目</th>
+                    <th>成绩</th>
+                    <th>时间</th>
+                    <th>备注</th>
+                  </tr>
+                </thead>
+                <tbody id="student_list_tbody_id">
+
+                </tbody>
+              </table>
+              <!-- <span class="span6" style="margin-top:50px; margin-left:5px;"><input type="submit" value="提交修改"/></span> -->
+            </form>
+          </div>
+
+    </div>
+  <div class="rows">
+      <div class="span6">
+
+      </div>
+      <div class="pagination pagination-right" style="margin-right:10px;">
+        <ul>
+          <li id="liPageFirst">
+            <a id="pageFirst" href="#">首页</a>
+          </li>
+          <li id="liPagePrevious">
+            <a id="pagePrevious" href="#">上一页</a>
+          </li>
+          <li>
+             <a id="pageNo" href="#">0</a>
+          </li>
+          <li id="liPageNext">
+            <a id="pageNext" href="#">下一页</a>
+          </li>
+          <li id="liPageLast">
+            <a id="pageLast" href="#">末页</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+  <!-- </div> -->
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+  getChildExamScore();
+
+});
+
+//孩子的考试成绩
+ function getChildExamScore()
+    {
+        var url1 = "index.php?r=/education/exam/score";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+// "id": "89",
+//         "is_name": "蓝瓦瓦",
+//         "title": "阿达",
+//         "score": "0",
+//         "time": "2015-09-17 20:50:43",
+//         "desc": "恶趣味全文&nbsp;"
+                
+                list = data.data.list;
+                var student_list_tbody_id = $("#student_list_tbody_id");
+                student_list_tbody_id.empty();
+                for (key in list)
+                {
+
+                 var temp = "<tr>\
+                    <td style='text-align:center'>"+list[key].is_name+"</td>\
+                     <td style='text-align:center'>"+list[key].title+"</td>\
+                      <td style='text-align:center'>"+list[key].score+"</td>\
+                       <td style='text-align:center'>"+list[key].time+"</td>\
+                        <td style='text-align:center'>"+list[key].desc+"</td>\
+                  </tr>"
+                  student_list_tbody_id.append(temp);
+                }
+               
+                pageSearch(getChildExamScore,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+
+</script>

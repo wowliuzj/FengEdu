@@ -1,0 +1,78 @@
+﻿
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:5px;margin_right:5px">
+        <div class="widget-title">  
+          <h5>活动详情</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table table-bordered ">
+                  <tbody id = "action_body">
+                        
+                       <tr>
+                        <td>
+                          <div>
+                          <label id="name" name="name"></label>
+                           <label id="time" name="time"></label>
+                           <label>活动内容</label>
+                           </div>
+                         <div class='widget-box'  style='padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #cdcdcd'>
+                           
+                         <span id='cnt'></span>
+                         </div>
+                         
+                        </td>
+                        </tr> 
+                         
+                  </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  showHomeworkDetail();
+
+});
+
+
+
+ function showHomeworkDetail()
+    {
+      var img = store.get("y_img");
+      var desc = store.get("y_desc");
+      var time = store.get("y_time");
+      var title = store.get("y_title");
+      var it_name = store.get("y_it_name");
+      var scroe = store.get("y_scroe");
+      var hid = store.get("y_hid");
+      var shid = store.get("y_shid");
+      var sid = store.get("y_sid");
+      var stime = store.get("y_stime");
+      var simg = store.get("y_simg");
+      var sdesc = store.get("y_sdesc");
+      var ttime = store.get("y_ttime");
+      var tdesc = store.get("y_tdesc");
+      var ecount = store.get("y_ecount");
+      var status = store.get("y_status");
+
+        
+        var action_name = document.getElementById("name");
+        action_name.innerHTML="标题:"+name;
+
+        var action_time = document.getElementById("time");
+        action_time.innerHTML="时间:"+time;
+
+        var action_content = document.getElementById("cnt");
+        action_content.innerHTML=desc;
+
+    }
+
+
+
+</script>

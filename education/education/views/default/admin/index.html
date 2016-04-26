@@ -1,0 +1,87 @@
+<div class="row-fluid">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th">
+                    </i>
+                </span>
+                <h5>
+                    管理用户
+                </h5>
+            </div>
+             <form id="formId" class="form-horizontal" action="index.php?r=/education/admin/index" method="get">
+                <input type="hidden" name="page" id="page" value="1"/>
+                <div style="margin-left:10px;">
+                <div style="margin-top:10px;">
+                    <h6>
+                        姓名
+                    </h6>
+                    <input type="text" name="name" id="name" class="grd-white"  style="width:160px;"/>
+                    </div>
+                    <div style="margin-top:10px;">
+                     <h6>
+                        手机号
+                    </h6>
+                    <input type="text" name="phone" id="phone" class="grd-white"  style="width:160px;">
+                    </div>
+                    <div style="margin-top:10px;">
+                    <h6>
+                        身份
+                    </h6>
+                    <select name="type" id="type" style="width:170px;">
+                        <option value="1">教师</option>
+                        <option value="2">学生</option>
+                        <option value="3">家长</option>
+                    </select>
+                    </div>
+                    <div style="margin-top:10px;margin-bottom:10px;">
+                    <button name="shaixuan" id="shaixuan" type="button" onclick="buttonClickSearch()">
+                        筛选
+                    </button>
+                    </div>
+                </div>
+            </form>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered with-check">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">姓名</th>
+                            <th style="width:30%">手机号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data_body">
+                                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="span6">
+               
+            </div>
+            <div class="pagination pagination-right" style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="education/js/admin.js"/>

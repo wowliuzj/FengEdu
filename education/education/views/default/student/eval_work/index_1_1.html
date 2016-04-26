@@ -1,0 +1,154 @@
+<div class="row-fluid">
+	<div class="widget-box widget-content" style="margin-left:10px;margin-right:10px">
+		<div id="homework-his">
+
+		</div>
+
+		<div id="homework-his-1">
+
+		</div>
+
+
+
+<!-- 		<div class="demo">
+			<div id="function-demo1" class="target-demo"></div>
+			<div id="function-hint1" class="hint"></div>
+		</div> -->
+
+		<div id="homework-his-2">
+
+		</div>
+		<input type="hidden" name="page" id="page" value="1"/>
+	    <form id="study-lszy-form" method="post" class="form-vertical" action="index.php?r=/education/eval-work/create">
+			<div class="demo">
+				<input type='hidden' name='star' id='star' value='' />
+				<div id="function-demo1" class="target-demo"></div>
+				<div id="function-hint1" class="hint"></div>
+				</br>
+			</div>
+
+	    	<div id="study-lszy-form-div">
+<!-- 		  			<input type="text" placeholder="评论" name="desc" style="margin-top:-34px; margin-left:10px; width:1085px;"/>
+	  			<input type="submit" value="发表" class="btn btn-success" style="margin-top:-44px;"> -->
+  			</div>
+  		</form>
+
+<!-- 		<div class="widget-box">
+        	<div class="widget-title" style="border-bottom:none;"> 
+        		<span class="icon"> <i class="icon-th"></i> </span>
+            	<h5>作业名称</h5>
+            	<h5 style="float:right; margin-right:20px;">老师名称日期</h5>
+          	</div>	
+		</div> -->
+
+<!-- 		<div class="widget-title" style="margin-top:0px;">
+			<label style="cursor:default; margin-left:10px; line-height:37px;">作业名称</label>
+			<label style="cursor:default; float:right; margin-right:20px; margin-top:-33px;">老师名称日期</label>
+		</div> -->
+		<!-- <div class="widget-box widget-content" style="margin-top:-16px;"> -->
+<!-- 			<div>
+				<label style="cursor:default; margin-left:10px; margin-top:20px; font-size:13px;">作业内容</label>
+	        	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-8px;">
+	            	<label id="hdzjContent" class="control-label">标题:test</label>
+	            </div>
+			</div>
+
+			<div>
+				<label style="cursor:default; margin-left:10px; margin-top:20px; font-size:13px;">李四的作业</label>
+	        	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-8px;">
+	            	<label id="hdzjContent" class="control-label">标题:test</label>
+	            </div>
+	            <label style="cursor:default; margin-left:10px; margin-top:0px; font-size:13px;">已评分：10分</label>
+			</div> -->
+<!-- 			<div>
+				<label style="cursor:default; margin-left:10px; margin-top:20px; font-size:13px;">提交内容</label>
+	        	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-8px;">
+					<div class="controls">
+		            	<textarea name="desc" class="textarea_editor span12" rows="6" placeholder="Enter text ..."></textarea>
+		        	</div>
+		        	<label style="cursor:default; margin-left:0px; margin-top:0px; font-size:13px;">已评分：10分</label>
+	            </div>
+			</div> -->
+
+<!-- 			<div>
+				<label style="cursor:default; margin-left:10px; margin-top:20px; font-size:13px;">评论区</label>
+				<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-6px;">
+					<form id="tjqtform" method="get" class="form-vertical" style="margin-top:20px;" action="index.php?r=/education/attent/tongji">
+						<input type="hidden" name="page" id="page" value="1"/>
+			        	<div class="widget-box widget-title" style="border-bottom:none; margin-left:10px; margin-right:10px;"> 
+			        		<span class="icon"> <i class="icon-th"></i> </span>
+			            	<h5>李四的评论</h5>
+			            	<h5 style="float:right; margin-right:20px;">日期</h5>
+			          	</div>	
+			        	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-18px;">
+			            	<label id="hdzjContent" class="control-label">标题:test</label>
+			            </div>
+			        </form>
+
+					<input type="text" placeholder="标题" name="is_name" id="is_name" style="margin-top:3px; margin-left:10px;"/>
+					<br/>
+					<input type="text" placeholder="内容" name="is_name" id="is_name" style="margin-top:3px; margin-left:10px; width:1080px;"/>
+					<br/>
+					<input type="submit" value="发表评论" class="btn btn-success" style="margin-top:-6px; margin-left:10px;">
+				</div>
+			</div> -->
+		<!-- </div> -->
+
+<!-- 				    <div class="rows">
+				    	<div class="pagination pagination-right">
+				        	<ul>
+				          		<li id="liPageFirst">
+				            		<a id="pageFirst" href="#">首页</a>
+				          		</li>
+				        		<li id="liPagePrevious">
+				            		<a id="pagePrevious" href="#">上一页</a>
+				          		</li>
+				          		<li>
+				             		<a id="pageNo" href="#">0</a>
+				          		</li>
+				          		<li id="liPageNext">
+				            		<a id="pageNext" href="#">下一页</a>
+				          		</li>
+				          		<li id="liPageLast">
+				            		<a id="pageLast" href="#">末页</a>
+				          		</li>
+				        	</ul>
+				      	</div>
+				    </div> -->
+	</div>
+</div>
+
+<script src="education/js/homework.js"></script> 
+<script type="text/javascript">
+	loadEvalWork();
+	// starClickEvent();
+
+    $(function() {
+      $.fn.raty.defaults.path = 'img';
+	  
+	  $('#function-demo1').raty({
+	  	number: 10,//多少个星星设置
+		score: 0,//初始值是设置
+		targetType: 'number',//类型选择，number是数字值，hint，是设置的数组值
+        path      : 'img',
+        cancelOff : 'cancel-off-big.png',
+        cancelOn  : 'cancel-on-big.png',
+        size      : 24,
+        starHalf  : 'star-half-big.png',
+        starOff   : 'star-off-big.png',
+        starOn    : 'star-on-big.png',
+        target    : '#function-hint1',
+        cancel    : false,
+        targetKeep: false,
+        precision : true,//是否包含小数
+
+        click: function(score, evt) {
+          // alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt.type);
+
+          // alert(Math.round(score));
+
+          $("#star").val(score);
+        }
+      });    
+    });
+</script>

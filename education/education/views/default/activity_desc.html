@@ -1,0 +1,45 @@
+<!-- <div class="container-fluid"> -->
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+                <div id="companyId" class="widget-title bg_ly" style="font-weight:bold">
+                    <!-- <span class="icon"><i class="icon-chevron-down"></i></span> -->
+               
+                </div>
+                <div class="widget-content nopadding" id="comInfos">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <hr> -->
+
+
+
+<script type="text/javascript">
+    // getArticle();
+    $(document).ready(function(){
+
+        var id = $.getUrlVar('id');
+        var url1 = "index.php?r=/education/activity/view&id="+id;
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            success: function(data) {
+                var companyId = document.getElementById("companyId");
+                var comInfos = document.getElementById("comInfos");
+                var title = data.data.name;
+                var time = data.data.time;
+                var content = data.data.desc;
+                companyId.innerHTML="<span style='width:100%;text-align:center;margin-left:30%;margin-right:30%;'> " + title + "</span><span style='width:100%;text-align:center;margin-left:30%;margin-right:30%;display:block'>" + time + " </span>";
+                 var temp = "<span > " + '&nbsp;' +content+ " </span>";
+                  comInfos.innerHTML=temp;
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        });
+    });
+</script>

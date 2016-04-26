@@ -1,0 +1,87 @@
+<div class="row-fluid">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-box" style="margin-left:10px;margin-right:10px">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th">
+                    </i>
+                </span>
+                <h5>
+                    我的教学大纲
+                </h5>
+            </div>
+             <form id="formId" class="form-horizontal" action="index.php?r=/education/outline/index" method="get">
+                <input type="hidden" name="page" id="page" value="1"/>
+                <div class="controls" style="margin-left:10px;">
+                    <div>
+                        <span>
+                        课程名称
+                    </span>
+                    <input type="text" name="title" id="title" class="grd-white"  style="width:185px"/>
+                    </div>
+                    <div style="margin-top:10px;">
+                         <span>
+                        班级列表
+                    </span>
+                    <select name="cid" id="cid" style="width:200px;">
+
+                    </select>
+                    </div>
+                    
+                    <div style="margin-top:10px;">
+                        <button name="shaixuan" id="shaixuan" type="button" onclick="buttonClickSearch()">
+                        筛选
+                    </button>
+                    </div>
+                    
+                </div>
+            </form>
+            <div class="widget-content nopadding">
+                <table class="table table-bordered with-check">
+                    <thead>
+                        <tr>
+                            <th style="width:50%">课程名称</th>
+                            <th style="width:10%">班级</th>
+                            <th style="width:20%">发布时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data_body">
+                                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="span6">
+                <!-- <button style="margin-left:5px" type="button" id="del_btn">
+                    删除
+                </button> -->
+                <button style="margin-left:15px" type="button" onclick="add()" id="modify_btn">
+                    上传新大纲
+                </button>
+            </div>
+            <div class="pagination pagination-right"style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="education/js/outline.js"/>

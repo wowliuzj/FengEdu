@@ -1,0 +1,164 @@
+﻿
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-title" style="border:none"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>家长留言</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table ">
+                  <tbody id = "msg_body">
+                        
+                      <!--  <tr>
+                        <td>
+                          <label id="time" name="time">时间</label>
+                          <textarea name="cnt" id="cnt" class=" span12"></textarea>
+                          <textarea name="reply_msg" id="reply_msg" class="span12"></textarea>
+                        </td>
+                        </tr> -->
+                         
+                  </tbody>
+          </table>
+        </div>
+         <form class="form-horizontal">
+        <input type="hidden" name="page" id="page" value="1"/>
+        <div class="pagination pagination-right" style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+             </form>
+        </div>
+      </div>
+    </div>
+
+
+<script type="text/javascript">
+
+var index = 0;
+
+$(document).ready(function(){
+
+  getHistoryMsg()
+
+});
+
+
+
+ function getHistoryMsg()
+    {
+        index = 0;
+        var url1 = "index.php?r=/education/message/index";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var msg_body = $("#msg_body");
+                msg_body.empty();
+                for (key in list)
+                {
+                  var time = list[key].time;
+                  var cnt = list[key].cnt;
+                  var reply_msg = list[key].reply_msg;
+                  var is_name = list[key].is_name;
+                  var is_sex = list[key].is_sex;
+                  var sex = 1;
+                  if(is_sex == '男'){
+                    sex = 2;
+                  }
+
+                 var temp = " <tr>\
+                              <td>\
+                              <form id='form"+index+"' name='form"+index+"' method='post' action='index.php?r=/education/message/update'>\
+                               <input type='hidden' name='id' value='"+list[key].id+"'/>\
+                          <span><img src='img/"+sex+".jpg' width='20' height='20'/><strong>"+is_name+"家长的留言</strong></span>\
+                          <span id='time' name='time' style='text-align:right;display:inline;float:right'>"+ time + "</span>\
+                          <div class='widget-box' style='padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:1px;border-bottom:1px solid #cdcdcd'>"+ cnt +"</div>";
+                          
+                          if (reply_msg == null ) {
+                            temp = temp + "<textarea name='reply_msg' id='reply_msg" +index+ "' class='span12' style='display:none'></textarea>\
+                             <input  style='width:80px' value='回复留言' class='btn btn-success' onclick='clickBtn1(" + index+ ");return false;'>\
+                            </form>\
+                            </td>\
+                            </tr>"
+                          }else{
+                            reply_msg="回复内容："+reply_msg
+                            temp = temp + "<span ><strong>回复区</strong></span>\
+                            <div class='widget-box' style='padding-left:2px;padding-right:2px;padding-top:1px;padding-bottom:1px;border-bottom:1px solid #cdcdcd'>"+ reply_msg +"</div>\
+                             </form>\
+                            </td>\
+                            </tr>"
+                          };
+                          
+                          
+                  msg_body.append(temp);
+                  index ++;
+                }
+               
+                pageSearch(getHistoryMsg,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+
+    function clickBtn1(index){
+      var id = "#reply_msg"+index;
+      var dis = $(id)[0];
+      if (dis.style.display == "none") 
+        {
+            dis.style.display = "";
+        } else{
+
+          var replay_form = $("#form"+index);
+          var options = {  
+                  success:       showResponse,  //处理完成 
+                  resetForm: true,  
+                  dataType:  'json' 
+              };
+              function showResponse(responseText, statusText)  {
+                if(responseText.s == 1){
+                      alert("回复成功");
+                      document.location.href='index.php?r=/education&page=bzr/msg_mrg';
+                }else{
+                  alert(responseText.data);
+                      $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
+                      
+                }
+              }
+               var isValue = hasTextById("reply_msg"+index);
+                if (isValue == false) {
+               alert("留言内容不能为空！");
+               return false;
+                };
+        
+            replay_form.ajaxSubmit(options);
+         
+        };
+
+
+    }
+
+
+
+</script>

@@ -1,0 +1,33 @@
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>修改班级信息</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal" method="post" action="index.php?r=/education/info-class/update" id="formId" novalidate="novalidate"><input class="required" type="hidden" name="icl_id" id="icl_id">
+             <div style="margin-left:50px;margin-top:10px;">
+              <h5 >班级</h5>
+              <div >
+                <input class="required" type="text" name="icl_number" id="icl_number">
+              </div>
+           
+            <div >
+              <h5 >状态</h5>
+              <div style="margin-bottom:10px;">
+                <label style="display:inline"><input type="radio" name="status" id="status1" value="1" checked></label>在校
+                <label style="display:inline"><input type="radio" name="status" id="status2" value="2" ></label>毕业
+              </div>
+            </div>
+             </div>
+            <div class="form-actions">
+              <input type="submit" value="修改" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="education/js/class_edit.js"/>

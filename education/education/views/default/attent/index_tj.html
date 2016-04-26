@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="css/colorpicker.css" />
+<link rel="stylesheet" href="css/datepicker.css" />
+<div class="row-fluid">
+  <div class="widget-box" style="margin-left:10px;margin-right:10px ;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box" style="margin-left:10px;margin-right:10px">
+        <div class="widget-title" >
+          <ul class="nav nav-tabs">
+            <li ><a id="tab_id1" data-toggle="tab" href="#tab1">记录出勤</a></li>
+            <li class="active"><a id="tab_id2" data-toggle="tab" href="#tab2">出勤统计</a></li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          <div id="tab1" class="tab-pane active">
+            <script>
+              $("#tab_id1").click(function(){
+                  document.location.href='index.php?r=/education&page=attent/index';
+              });
+              
+            </script>
+          </div>
+          <div id="tab2" class="tab-pane">  
+            <script>
+              $("#tab_id2").click(function(){
+                  document.location.href='index.php?r=/education&page=attent/index_tj';
+              });
+            </script>
+          </div>
+        </div>
+
+        <form id="tjqtform" method="get" class="form-vertical" style="margin-top:20px;" action="index.php?r=/education/attent/tongji">
+          <input type="hidden" name="page" id="page" value="1"/>
+          <div class="controls" >
+            <label style="margin-top:5px; margin-left:10px;">统计群体</label>
+              <div style="margin-top:-25px; margin-left:80px;">
+                个人<input id="gr" style="margin-left:1px;" type="radio" name="tjqtstate" checked>
+                班级<input id="bj" style="margin-left:1px;" type="radio" name="tjqtstate">
+              </div>
+          </div>
+          <div id="geren" class="controls">
+            <input type="text" placeholder="姓名" name="is_name" id="is_name" style="margin-top:-34px; margin-left:200px; height:14px; width:85px;"/>
+          </div>
+          <div id="banji" class="controls" style="margin-left:200px; margin-top:-8px; display:none">
+            <select name="cid" id="select" style="width:100px;">
+              
+            </select>
+          </div>
+
+          <!-- <div class="controls" style="margin-top:10px;"> -->
+            <label style="margin-top:-15px; margin-left:10px;">统计时间</label>
+            <div style="margin-top:-25px; margin-left:80px;">
+              本周<input id="benzhou" style="margin-left:1px;" type="radio" name="tjsjstate">
+              本月<input id="benyue" style="margin-left:1px;" type="radio" name="tjsjstate">
+            </div>
+          <!-- </div> -->
+
+           <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:0px; margin-left:1px;">
+              <!-- <label class="control-label" style="margin-top:5px;">起始时间</label> -->
+              <input id="input_start_time" type="text" value="起始时间" name="start_time" data-date-format="yyyy-mm-dd" class="span11"
+              style="margin-top:0px; margin-left:5px; width:100px;">
+              <span class="add-on" style="margin-top:-0px;"><i class="icon-th" ></i></span> 
+            </div>
+
+            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:0px; margin-left:-30px;">
+              <input id="input_end_time" type="text" value="结束时间" name="end_time" data-date-format="yyyy-mm-dd" class="span11"
+              style="margin-top:0px; margin-left:30px; width:100px;">
+              <span class="add-on" style="margin-top:0px;"><i class="icon-th" ></i></span> 
+            </div>
+
+            <div><span ><input style="margin-top:-15px; margin-left:10px;" type="submit" value="确定"/></span></div>
+        </form>
+        
+<!--           <div class="widget-title" style="margin-top:1px;"> <span class="icon"><i class="icon-th"></i></span>
+            <h5></h5>
+            <form id="queryform" method="get" class="form-vertical" action="index.php?r=/education/attent/index">
+
+              
+            </form>
+          </div> -->
+          <div class="widget-content nopadding">
+            <!-- <form id="alterform" method="post" class="form-vertical" action="index.php?r=/education/attent/mod-status"> -->
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>姓名</th>
+                    <th>正常</th>
+                    <th>迟到</th>
+                    <th>早退</th>
+                    <th>旷课</th>
+                    <th>事假</th>
+                    <th>病假</th>
+                  </tr>
+                </thead>
+                <tbody id="student_list_tbody_id">
+
+                </tbody>
+              </table>
+            <!-- </form> -->
+          </div>
+    </div>
+    <div class="rows">
+      <div class="span6">
+
+      </div>
+      <div class="pagination pagination-right"style="margin-right:10px;">
+        <ul>
+          <li id="liPageFirst">
+            <a id="pageFirst" href="#">首页</a>
+          </li>
+          <li id="liPagePrevious">
+            <a id="pagePrevious" href="#">上一页</a>
+          </li>
+          <li>
+             <a id="pageNo" href="#">0</a>
+          </li>
+          <li id="liPageNext">
+            <a id="pageNext" href="#">下一页</a>
+          </li>
+          <li id="liPageLast">
+            <a id="pageLast" href="#">末页</a>
+          </li>
+        </ul>
+      </div>
+    <!-- </div> -->
+  </div>
+</div>
+<script src="education/js/attent.js"></script> 

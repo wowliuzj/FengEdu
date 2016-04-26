@@ -1,0 +1,193 @@
+<link rel="stylesheet" href="css/colorpicker.css" />
+<link rel="stylesheet" href="css/datepicker.css" />
+<div class="row-fluid">
+  <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li class="active"><a id="tab_id1" data-toggle="tab" href="#tab1" onclick="find(0)">出勤情况</a></li>
+            <li><a id="tab_id2" data-toggle="tab" href="#tab2" onclick="find(1)">学习进度</a></li>
+			     <li><a id="tab_id3" data-toggle="tab" href="#tab3" onclick="find(2)">考试成绩</a></li>
+			     <li><a id="tab_id4" data-toggle="tab" href="#tab4" onclick="find(3)">作业情况</a></li>
+			     <li><a id="tab_id5" data-toggle="tab" href="#tab5" onclick="find(4)">活动情况</a></li>
+			    <!--  <li><a id="tab_id6" data-toggle="tab" href="#tab6" onclick="find(5)">课程信息</a></li> -->
+          </ul>
+        </div>
+
+<!-- 出勤 -->
+          <div class="widget-content nopadding">
+           <form id="tjqtform" method="get" class="form-vertical"  action="index.php?r=/education/attent/my-attent">
+
+
+          <div class="controls" style="margin-top:1px;">
+                <div style="margin-left:10px;">统计时间</div>
+                <div style="margin-left:10px;">
+                  本周<input id="benzhou" type="radio" style="margin-left:1px;" name="tjsjstate" checked>
+                  本月<input id="benyue" type="radio" style="margin-left:1px;" name="tjsjstate">
+                </div>
+
+                <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:1px; margin-left:-57px;">
+                  <!-- <label class="control-label" style="margin-top:5px;">起始时间</label> -->
+                  <input id="input_start_time" type="text" value="起始时间" name="start_time" data-date-format="yyyy-mm-dd" class="span11"
+                  style="margin-top:-32px; margin-left:60px; width:100px;">
+                  <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span> 
+                </div>
+
+                <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:68px; margin-left:-171px;">
+                  <input id="input_end_time" type="text" value="结束时间" name="end_time" data-date-format="yyyy-mm-dd" class="span11"
+                  style="margin-top:-32px; margin-left:30px; width:100px;">
+                  <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span> 
+                </div>
+
+                <div ><input style="margin-top:-50px; margin-left:10px;" type="submit" value="确定"/></div>
+              </div>
+
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>姓名</th>
+                    <th>正常</th>
+                    <th>迟到</th>
+                    <th>早退</th>
+                    <th>旷课</th>
+                    <th>事假</th>
+                    <th>病假</th>
+                  </tr>
+                </thead>
+                <tbody id="student_list_tbody_id">
+
+                </tbody>
+              </table>
+             
+            </form>
+          </div>
+
+    </div>
+  
+  <!-- </div> -->
+
+</div>
+</div>
+
+
+
+
+ <script type="text/javascript">
+
+$("#input_start_time").val(getWeekStartDate());
+  $("#input_end_time").val(getWeekEndDate());
+
+$(document).ready(function(){
+
+  // getChildSignData();
+
+
+
+
+
+  //请求出勤记录页面
+ // function getChildSignData()
+ //    {
+ //        var url1 = "index.php?r=/education/attent/my-attent";
+ //        $.ajax({
+ //            type: "get",
+ //            url: url1,
+ //            dataType: "json", 
+            
+ //            success: function(data) {
+                
+ //                list = data.data;
+ //                var child_sign_id = $("#child_sign_id");
+ //                child_sign_id.empty();
+ //                for (key in list)
+ //                {
+
+ //                 var temp = "<tr>\
+ //                    <td style='text-align:center'>"+list[key].is_name+"</td>\
+ //                     <td style='text-align:center'>"+list[key].s0+"</td>\
+ //                      <td style='text-align:center'>"+list[key].s1+"</td>\
+ //                       <td style='text-align:center'>"+list[key].s2+"</td>\
+ //                        <td style='text-align:center'>"+list[key].s3+"</td>\
+ //                         <td style='text-align:center'>"+list[key].s4+"</td>\
+ //                          <td style='text-align:center'>"+list[key].s5+"</td>\
+ //                  </tr>"
+ //                  child_sign_id.append(temp);
+ //                }
+               
+ //                // pageSearch(clickSearch,data.data.pageNo);
+ //            },
+ //            error: function(data) {
+ //                alert("错误信息"+data);
+ //            },
+ //        })
+ //    }
+
+
+
+
+
+    /////////////////////////////
+//出勤统计查询表单
+/////////////////////////////
+  var tjqt = $('#tjqtform');
+  var tjqtOptions = {
+    success: tjqtShowResponse,
+    resetForm: false,
+    dataType: 'json'
+  };
+
+  function tjqtShowResponse(responseText, statusTest){
+    if(responseText.s == 1){
+      var tbody = $("#student_list_tbody_id");
+      var data = responseText.data;
+      tbody.empty();
+      for(var key in data){
+        var trCnt = $("<tr class='gradeA'>\
+                  <td style='text-align:center'>"+data[key].is_name+"</td>\
+                  <td style='text-align:center'>"+data[key].s0+"</td>\
+                  <td style='text-align:center'>"+data[key].s1+"</td>\
+                  <td style='text-align:center'>"+data[key].s2+"</td>\
+                  <td style='text-align:center'>"+data[key].s3+"</td>\
+                  <td style='text-align:center'>"+data[key].s4+"</td>\
+                  <td style='text-align:center'>"+data[key].s5+"</td>\
+                  </tr>");
+        tbody.append(trCnt)
+      }
+      pageSearch(function(){
+        var tjqt = $('#tjqtform');
+        tjqt.ajaxSubmit(tjqtOptions);
+      },responseText.data.pageNo);
+    }else{
+
+    }
+  }
+  tjqt.submit(function(){
+    $("#page").val(1);
+    $(this).ajaxSubmit(tjqtOptions);
+    return false;
+  });
+
+
+  // $("#gr").click(function(){ 
+  //   $("#banji").hide();
+  //   $("#geren").show();
+  // });
+  // $("#bj").click(function(){
+  //   $("#geren").hide();
+  //   $("#banji").show();
+  // })
+
+  $("#benzhou").click(function(){ 
+    $("#input_start_time").val(getWeekStartDate());
+    $("#input_end_time").val(getWeekEndDate());
+  });
+  $("#benyue").click(function(){
+    $("#input_start_time").val(getMonthStartDate());
+    $("#input_end_time").val(getMonthEndDate());
+  })
+
+  });
+
+
+ </script>

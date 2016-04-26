@@ -1,0 +1,241 @@
+
+<div class="row-fluid">
+
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th">
+                    </i>
+                </span> 
+                <h5>
+                    管理学员
+                </h5>
+            </div>
+            <form class="form-horizontal">
+                <input type="hidden" name="page" id="page" value="1"/>
+                
+                <div style="margin-left:10px;margin-top:10px">
+                    <span>
+                        姓名
+                    </span>
+                    <input type="text" name="is_name" id="is_name" class="grd-white" />
+                    </div>
+                    <div style="margin-left:10px;margin-top:10px">
+                    <span>
+                        班级
+                    </span>
+                    <select name="icl_id" id="icl_id" style="width:220px">                        
+                    </select>  
+                    </div>
+                    <div style="margin-left:10px;margin-top:10px;margin-bottom:5px;">
+                    <button name="shaixuan" id="shaixuan" type="button" onclick="buttonClickSearch()">
+                        筛选
+                    </button></div>
+               
+            </form>
+
+            <form id="stuForm">
+            <div class="widget-content nopadding">
+                <table class="table table-bordered with-check">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"
+                                />
+                            </th>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                班级
+                            </th>
+                            <th>
+                                学员状态
+                            </th>
+                            <th>
+                                修改其他
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id = "student_body">
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="rows">
+            <div class="span6">
+                <button style="margin-left:10px" type="button" id="del_btn">
+                    删除
+                </button>
+                <button style="margin-left:15px" type="button"  id="modify_btn">
+                    提交修改
+                </button>
+            </div>
+            <div class="pagination pagination-right" style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //拉取默认的列表
+    $(document).ready(function(){
+        getClassList("icl_id");
+        clickSearch();
+         //删除选中
+        delChecked();
+        submitModify();
+    });
+
+     //删除选中
+    function delChecked(){
+        
+        var options = {
+            success:   showResponse,  //处理完成
+            url: "index.php?r=/education/student/deletes",
+            resetForm: false,  
+            dataType:  'json' 
+        };
+        function showResponse(responseText, statusText)  {
+          if(responseText.s == 1){
+            alert("删除成功");
+            clickSearch();
+          }else{
+              $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
+          }
+        }
+        var del_btn = $('#del_btn');
+        del_btn.click(function() {
+            var stuForm = $('#stuForm');
+            stuForm.ajaxSubmit(options);
+            return false; 
+        });
+    }
+
+    //提交修改
+    function submitModify(){
+        var options = {  
+            success:   showResponse,  //处理完成
+            type: "post",
+            url: "index.php?r=/education/student/mod-status",
+            resetForm: false,  
+            dataType:  'json' 
+        };
+        function showResponse(responseText, statusText)  {
+          if(responseText.s == 1){
+            
+            alert("修改成功");
+
+          }else{
+              $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
+          }
+        }
+        var modify_btn = $('#modify_btn');
+        modify_btn.click(function() {
+            var stuForm = $('#stuForm');
+            stuForm.ajaxSubmit(options);
+            return false; 
+        });
+    }
+
+    function buttonClickSearch(){
+        $("#page").val(1);
+        clickSearch();
+    }
+
+ //点击筛选
+    function clickSearch()
+    {
+        var value1 = document.getElementById("is_name").value;
+        var value2 = document.getElementById("icl_id").value;
+        var page = document.getElementById("page").value;
+
+        var parm = "";
+        if (value1 != "") {
+            parm = "&is_name="+value1;
+        };
+        if (value2 != "") {
+            parm = parm + "&icl_id="+value2;
+        };
+        if (page != "") {
+            parm = parm + "&page="+page;
+        };
+        
+        var url1 = "index.php?r=/education/student/index" + parm;
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var student_body = $("#student_body");
+                student_body.empty();
+                for (key in list)
+                {
+                    temp ="\
+                    <tr >\
+                            <td>\
+                                <input type='checkbox' name='dis_id"+key+"' value='"+list[key].is_id+"'/>\
+                            </td>\
+                            <td style='text-align:center'>" + list[key].is_name + "</td>\
+                            <td style='text-align:center '>" + list[key].icl_number + "</td>\
+                            <td style='text-align:center'>\
+                                <div class='controls'>\
+                                    <input type='hidden' name='mis_id"+key+"' value='"+list[key].is_id+"'/>\
+                                    <select id='stuStuSelect"+key+"' name='status"+key+"' data-form='select2' style='width:80px;'>\
+                                        <option value='1'>在读</option>\
+                                        <option value='2'>休学</option>\
+                                        <option value='3'>退学</option>\
+                                        <option value='4'> 插班</option>\
+                                        <option value='5'>毕业</option>\
+                                    </select>\
+                                </div>\
+                            </td>\
+                            <td style='text-align:center'>\
+                                <button type='button' onclick=' document.location.href=\"index.php?r=/education&page=student/modify&id="+list[key].is_id+"\" '>\
+                                    修改详情\
+                                </button>\
+                            </td>\
+                        </tr> ";
+                    student_body.append(temp);
+                    var selected = list[key].is_status;
+                    $('#stuStuSelect'+key).val(selected);
+                    $("#stuStuSelect"+key).select2();;
+                }
+               
+                pageSearch(clickSearch,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+                alert("url===" + url1);
+            },
+        })
+    }
+
+
+</script>
+

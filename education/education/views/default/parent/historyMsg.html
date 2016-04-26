@@ -1,0 +1,122 @@
+﻿
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-title" style="border:none"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5 id="msg_title">历史留言</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <table class="table ">
+                  <tbody id = "msg_body">
+                        
+                      <!--  <tr>
+                        <td>
+                          <label id="time" name="time">时间</label>
+                          <textarea name="cnt" id="cnt" class=" span12"></textarea>
+                          <textarea name="reply_msg" id="reply_msg" class="span12"></textarea>
+                        </td>
+                        </tr> -->
+                         
+                  </tbody>
+          </table>
+        </div>
+         <form class="form-horizontal">
+        <input type="hidden" name="page" id="page" value="1"/>
+        <div class="pagination pagination-right" style="margin-right:10px;">
+                <ul>
+                    <li id="liPageFirst">
+                        <a id="pageFirst" href="#">首页</a>
+                    </li>
+                    <li id="liPagePrevious">
+                        <a id="pagePrevious" href="#">上一页</a>
+                    </li>
+                    <li>
+                       <a id="pageNo" href="#"></a>
+                    </li>
+                    <li id="liPageNext">
+                        <a id="pageNext" href="#">下一页</a>
+                    </li>
+                    <li id="liPageLast">
+                        <a id="pageLast" href="#">末页</a>
+                    </li>
+                </ul>
+            </div>
+             </form>
+        </div>
+      </div>
+    </div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  getClassTeacherName();
+  getHistoryMsg()
+
+});
+
+
+
+ function getHistoryMsg()
+    {
+        var url1 = "index.php?r=/education/message/index";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var msg_body = $("#msg_body");
+                msg_body.empty();
+                for (key in list)
+                {
+                  var time = list[key].time;
+                  var cnt = list[key].cnt;
+                  var reply_msg = list[key].reply_msg;
+                  if (reply_msg == null ) {reply_msg="暂无回复"}//else{reply_msg="回复内容："+reply_msg};
+
+                 var temp = " <tr><td>\
+                          <span><strong>我的留言</strong></span>\
+                          <span style='text-align:right;display:inline;float:right' id='time' name='time'>"+ time + "</span>\
+                          <div class='widget-box' id='cnt' name='cnt' style='padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #cdcdcd'>"+ cnt +"</div>\
+                          <span ><strong>回复内容：</strong></span>\
+                          <div class='widget-box' id='reply_msg' name='reply_msg' style='padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #cdcdcd'>"+ reply_msg +"</div>\
+                        </td></tr>"
+                  msg_body.append(temp);
+                }
+               
+                pageSearch(getHistoryMsg,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+      //得到班主任的名字
+function getClassTeacherName(){
+  // /education/student/tname   {"s":1,"data":"颜内"}
+    var url1 = "index.php?r=/education/student/tname";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            
+            success: function(data) {
+                var name = data.data;
+                var title = document.getElementById('msg_title');
+                title.innerHTML = "给"+name+"老师的留言";
+             },
+            error: function(data) {
+                alert("得到班主任的名字错误"+data);
+            },
+        });
+}
+
+
+
+</script>

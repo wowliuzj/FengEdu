@@ -1,0 +1,108 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+       <div class="span12">
+            <div class="widget-box" style="border-bottom:1px solid #cdcdcd">
+                <div class="widget-title" style="border:none" > <span class="icon"> <i class="icon-info-sign"></i> </span>
+                    <h5>企业信息</h5>
+                </div>
+                <div class="widget-content nopadding " >
+               
+                  <table class="table">
+                    <tbody id="comInfos">
+                    </tbody>
+                  </table>
+
+                </div>
+                <input type="hidden" name="page" id="page" value="1"/>
+                <div class="pagination pagination-right">
+                    <ul>
+                        <li id="liPageFirst">
+                            <a id="pageFirst" href="#">首页</a>
+                        </li>
+                        <li id="liPagePrevious">
+                            <a id="pagePrevious" href="#">上一页</a>
+                        </li>
+                        <li>
+                           <a id="pageNo" href="#"></a>
+                        </li>
+                        <li id="liPageNext">
+                            <a id="pageNext" href="#">下一页</a>
+                        </li>
+                        <li id="liPageLast">
+                            <a id="pageLast" href="#">末页</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<script type="text/javascript">
+    $(document).ready(function(){
+        getCompanyInfos();
+        // getActivityInfos();
+    });
+
+    function getCompanyInfos()
+    {
+        var url1 = "index.php?r=/education/article/index";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+
+      //       {
+      //   "id": 1,
+      //   "title": "aaaa",
+      //   "content": "werwerrrrrrrrrrrr11111111111",
+      //   "time": "2015-09-17 15:41:57",
+      //   "type": 1
+      // },
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var comInfos = $("#comInfos");
+                comInfos.empty();
+                for (key in list)
+                {
+                    var id = list[key].id;
+                    var type = list[key].type;
+                    var typeInfo = getCompanyType(type);
+                    var title = list[key].title;
+                    var content = getSubStr(list[key].content , 15);
+                    var time = list[key].time;
+
+                  
+
+                  var temp = "<tr><td> \
+                  <span class='user-info' style='font-weight:bold'> " + typeInfo + " </span>\
+                  <p><span class='user-info' style='font-weight:bold'> " + title + "</span><span class='user-info' style='float:right'>" + time + " </span></p>\
+                    <p style='margin-top:-10px;margin-bottom:-5px;'><a href='index.php?r=/education&page=article_desc&id="+id+ "&type="+ type+ "'>" + content + "</a> </p></td></tr>";
+                      
+                  comInfos.append(temp);
+                }
+               
+                pageSearch(getCompanyInfos,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    function getCompanyType(type){
+        switch(type){
+            case 1:
+            return "企业介绍";
+            case 2:
+            return "项目信息";
+            case 3:
+            return "实习岗位";
+            case 4:
+            return "就业岗位";
+        }
+    }
+
+</script>

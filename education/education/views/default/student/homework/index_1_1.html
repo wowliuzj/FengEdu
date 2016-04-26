@@ -1,0 +1,65 @@
+<div class="row-fluid">
+	<div class="widget-box" style="margin-left:10px;margin-right:10px">
+    	<div class="widget-title" > 
+    		<!-- <span class="icon"> <i class="icon-th"></i> </span> -->
+        	<h5 id="title">作业名称</h5>
+        	<h5 id="name-time" style="float:right; margin-right:20px;">老师名称日期</h5>
+      	</div>
+
+      	<div class="widget-content" style="margin-top:0px;">
+      		<form id="formId" action="index.php?r=/education/stu-work/update" enctype="multipart/form-data" method="post" >
+      			<input type="hidden" name="id" id="id" value="1"/>
+			<div id="homework">
+<!-- 				<img src="img/demo/demo-image3.jpg" alt="demo-image"/>
+				<img src="uploads/1.jpg" alt="demo-image"/>
+				<label style="cursor:default; margin-left:10px; margin-top:20px; font-size:13px;">作业内容</label>
+	        	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-8px;">
+	            	<label id="hdzjContent" class="control-label">标题:test</label>
+	            </div> -->
+			</div>
+			<hr/>
+			<!-- <input type="file" name="uploadFile" style=''/>   -->
+
+<!-- 			<div style="margin-left:10px; margin-right:10px;">
+		    	<div class="widget-box widget-content" style="margin-left:10px; margin-right:10px; margin-top:-8px;">
+					<div class="controls">
+		            	<textarea id="sdesc" name="sdesc" rows="6" placeholder="Enter text ..."></textarea>
+		        	</div>
+		        	<label style="cursor:default; margin-left:0px; margin-top:0px; font-size:13px;">已评分：10分</label>
+		        	
+		        </div>
+			</div> -->
+ 			<div>
+	 		    <div id="divPreview" style="display:none;">
+			        <img id="imgHeadPhoto" src="" style="width:160px; height:170px; border:solid 1px #d2e2e2;"/>
+			    </div>
+				<div class="controls" style="margin-top:10px;">
+		            <textarea id="sdesc" name="sdesc" rows="6" placeholder="Enter text ...">
+
+		            </textarea>
+
+		            <span id="fileImg" class="icon-picture" title="上传图片" style="font-size:33px; position: absolute; margin-top:-180px; margin-left:450px;" ></span>
+		 
+		        </div>
+ 				<!-- <input type="text" placeholder="内容" name="sdesc" id="sdesc" style="margin-top:10px; margin-left:11px; width:1085px;"/> -->
+              	<input type="submit" value="提交作业" class="btn btn-success">
+            </div>
+
+<!-- 		    <div id="divPreview">
+		        <img id="imgHeadPhoto" src="" style="width:160px; height:170px; border:solid 1px #d2e2e2;"/>
+		    </div> -->
+		    <div id="file1" style="visibility: none;display:none">
+		    	<input onchange="PreviewImage(this,'imgHeadPhoto','divPreview');"  type="file" id="simg" name="simg"/>
+		    </div>
+		  	
+
+        </form>
+		</div>
+	</div>
+</div>
+
+<script src="education/js/homework.js"></script>
+
+<script type="text/javascript">
+	loadHomeWork();
+</script>

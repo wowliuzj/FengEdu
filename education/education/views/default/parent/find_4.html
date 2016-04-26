@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="css/colorpicker.css" />
+<link rel="stylesheet" href="css/datepicker.css" />
+<div class="row-fluid">
+  <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <!-- <div class="widget-content"> -->
+      <div class="widget-box"style="margin-left:10px;margin-right:10px;">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li><a id="tab_id1" data-toggle="tab" href="#tab1" onclick="find(0)">出勤情况</a></li>
+            <li><a id="tab_id2" data-toggle="tab" href="#tab2" onclick="find(1)">学习进度</a></li>
+			     <li><a id="tab_id3" data-toggle="tab" href="#tab3" onclick="find(2)">考试成绩</a></li>
+			     <li><a id="tab_id4" data-toggle="tab" href="#tab4" onclick="find(3)">作业情况</a></li>
+			     <li class="active"><a id="tab_id5" data-toggle="tab" href="#tab5" onclick="find(4)">活动情况</a></li>
+			     <!-- <li><a id="tab_id6" data-toggle="tab" href="#tab6" onclick="find(5)">课程信息</a></li> -->
+          </ul>
+        </div>
+
+<!-- 作业情况 -->
+          <div class="widget-content nopadding">
+            <form id="alterform" method="post" class="form-vertical" action="index.php?r=/education/attent/mod-status">
+            <input type="hidden" name="page" id="page" value="1"/>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>活动名称</th>
+                    <th>内容简介</th>
+                    <th>活动时间</th>
+                    <th>查看</th>
+                  </tr>
+                </thead>
+                <tbody id="stu_actions_body">
+
+                </tbody>
+              </table>
+             <!--  <span class="span6" style="margin-top:50px; margin-left:5px;"><input type="submit" value="提交修改"/></span> -->
+            </form>
+          </div>
+
+    </div>
+  <div class="rows">
+      <div class="span6">
+
+      </div>
+      <div class="pagination pagination-right" style="margin-right:10px;">
+        <ul>
+          <li id="liPageFirst">
+            <a id="pageFirst" href="#">首页</a>
+          </li>
+          <li id="liPagePrevious">
+            <a id="pagePrevious" href="#">上一页</a>
+          </li>
+          <li>
+             <a id="pageNo" href="#">0</a>
+          </li>
+          <li id="liPageNext">
+            <a id="pageNext" href="#">下一页</a>
+          </li>
+          <li id="liPageLast">
+            <a id="pageLast" href="#">末页</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+  </div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+  getActionData();
+
+});
+
+
+
+  //请求活动页面
+ function getActionData()
+    {
+        var url1 = "index.php?r=/education/activity/index";
+        
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+            
+            success: function(data) {
+        // "id": 1,
+        // "type": 1,
+        // "name": "test",
+        // "time": "2015-09-09 21:08:30",
+        // "desc": "test",
+        // "cid": 1,
+        // "img": "uploads/1441804441_546.png",
+        // "shared_cnt": null,
+        // "is_shared": 0
+                tempList = data.data.list;
+                var stu_actions_body = $("#stu_actions_body");
+                stu_actions_body.empty();
+                
+                for (key in tempList)
+                {
+                  var content = getSubStr(tempList[key].desc , 10);
+                  var temp = "<tr>\
+                    <td style='text-align:center'>"+tempList[key].name+"</td>\
+                     <td style='text-align:center'>"+content+"</td>\
+                      <td style='text-align:center'>"+tempList[key].time+"</td>\
+                        <td style='text-align:center'><input   style='width:55px' value='查看' class='btn btn-success' onclick='clickBtn6(" + key+ ")'></td>\
+                  </tr>"
+                  stu_actions_body.append(temp);
+                 
+                }
+               
+                pageSearch(getActionData,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    function clickBtn6(key){
+      var data = tempList[key];
+      store.set("y_name",data.name);
+      store.set("y_time",data.time);
+      store.set("y_desc",data.desc);
+      store.set("y_img",data.img);
+      document.location.href = 'index.php?r=/education&page=parent/actionDetail';
+    }
+
+
+</script>

@@ -1,0 +1,222 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="widget-box" style="padding-bottom:5px;border-bottom:1px solid #cdcdcd">
+                <div class="widget-title" style="border-bottom:none;">
+                    <h5>企业信息</h5>
+                </div>
+                <div class="widget-content nopadding" >
+               
+                  <table class="table "  >
+                    <tbody id="comInfos">
+                    </tbody>
+                  </table>
+
+                </div>
+                        <div style="text-align: right;margin-right:10px;margin-top:5px;" id="btn_0">
+                            <button class="btn btn-warning btn-mini">查看全部</button>
+                        </div>
+                <!-- <div style="text-align: right;margin-right:10px;margin-top:5px;"><a href="index.php?r=/education&page=article_list"><font size="2px" color=" #9F0050"><strong>更多>></strong></font></a></div> -->
+            </div>
+        </div>
+         <div class="span6">
+            <div class="widget-box" style="padding-bottom:5px;border-bottom:1px solid #cdcdcd">
+                <div class="widget-title">
+                    <h5>校园公告</h5>
+                </div>
+
+                <!--  <div class="widget-content nopadding " style="border:none">
+                 
+                  <form id="form_actions" method="get" class="form-vertical" action="index.php?r=/education&page=activity_list">
+                                                               
+                      
+                        <div style="margin-left:10px; margin-top:7px;"><select name="sid" id="sid" style="margin-left:10px;width:120px;"></select>
+                      
+                       
+                        <select name="cid" id="cid" style="margin-left:20px;width:120px;"></select></div>
+                      
+
+                      <div><span ><input style="margin-left:10px; margin-top:6px; margin-bottom:6px;" type="submit" value="确定"/></span></div>
+                    </form>
+                </div> -->
+
+
+                <div class="widget-content nopadding">
+
+                  <table class="table ">
+                    <tbody id="activitys">
+                    </tbody>
+                  </table>
+                </div>
+                <div style="text-align: right;margin-right:10px;margin-top:5px;" id="btn_1">
+                            <button class="btn btn-warning btn-mini">查看全部</button>
+                        </div>
+                <!-- <div style="text-align: right;margin-right:10px;margin-top:5px;"><a href="index.php?r=/education&page=activity_list"><font size="2px" color=" #9F0050"><strong>更多>></strong></font></a></div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        getCompanyInfos();
+        getActivityInfos();
+
+        //学生
+        getSchoolList("sid");
+        $("#sid").click(function(){
+            var campusId = document.getElementById("sid").value;
+            // alert(campusId);
+            getAllClassList("cid",campusId);
+        });
+
+
+       $("#btn_0").click(function(){ 
+          document.location.href="index.php?r=/education&page=article_list"
+        });
+        $("#btn_1").click(function(){ 
+          document.location.href="index.php?r=/education&page=activity_list"
+        });
+
+    });
+
+    //筛选活动消息
+    function getActionsInfos(){
+        var options = {  
+            success:   showResponse,  //处理完成
+            resetForm: false,  
+            dataType:  'json' 
+        };
+        function showResponse(responseText, statusText)  {
+          if(responseText.s == 1){
+            
+            //alert("修改成功");
+
+          }else{
+              $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
+          }
+        }
+        var form_actions = $("#form_actions");
+        form_actions.submit(function() {
+          $(this).ajaxSubmit(options);
+          return false; 
+        });
+    }
+
+//请求企业信息
+// <option value="1">企业介绍</option>
+// <option value="2">项目信息</option>
+// <option value="3">实习岗位</option>
+// <option value="4">就业岗位</option>
+    function  getActivityInfos()
+    {
+        var url1 = "index.php?r=/education/activity/all-index&pageSize=5";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+
+      //       {
+      //   "id": 1,
+      //   "title": "aaaa",
+      //   "content": "werwerrrrrrrrrrrr11111111111",
+      //   "time": "2015-09-17 15:41:57",
+      //   "type": 1
+      // },
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var comInfos = $("#activitys");
+                comInfos.empty();
+                for (key in list)
+                {
+                    var id = list[key].id;
+                    var icl_number = list[key].icl_number;
+                    var title = list[key].name;
+                    var content = getSubStr(list[key].desc , 15);
+                    var time = list[key].time;
+
+                  
+
+                 var temp = "<tr ><td> \
+                  <span class='user-info' style='font-weight:bold'>班级：" + icl_number + " </span>\
+                  <p><span class='user-info' style='font-weight:bold'> " + title + "</span><span class='user-info' style='float:right'>" + time + " </span></p>\
+                    <p style='margin-top:-10px;margin-bottom:-5px;'><a href='index.php?r=/education&page=activity_desc&id="+id+"'>" + content + "</a> </p></td></tr>";
+                      
+                  comInfos.append(temp);
+                }
+               
+                pageSearch(getCompanyInfos,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    function getCompanyInfos()
+    {
+        var url1 = "index.php?r=/education/article/index&pageSize=5";
+        $.ajax({
+            type: "get",
+            url: url1,
+            dataType: "json", 
+
+      //       {
+      //   "id": 1,
+      //   "title": "aaaa",
+      //   "content": "werwerrrrrrrrrrrr11111111111",
+      //   "time": "2015-09-17 15:41:57",
+      //   "type": 1
+      // },
+            
+            success: function(data) {
+                
+                list = data.data.list;
+                var comInfos = $("#comInfos");
+                comInfos.empty();
+                for (key in list)
+                {
+                    var id = list[key].id;
+                    var type = list[key].type;
+                    var typeInfo = getCompanyType(type);
+                    var title = list[key].title;
+                    var content = getSubStr(list[key].content , 15);
+                    var time = list[key].time;
+
+                  
+
+                 var temp = "<tr ><td > \
+                  <span class='user-info' style='font-weight:bold'> " + typeInfo + " </span>\
+                  <p><span class='user-info' style='font-weight:bold'> " + title + "</span><span class='user-info' style='float:right'>" + time + " </span></p>\
+                    <p style='margin-top:-10px;margin-bottom:-5px;'><a href='index.php?r=/education&page=article_desc&id="+id+ "&type="+ type+ "'>" + content + "</a> </p></td></tr>";
+                      
+                  comInfos.append(temp);
+                }
+               
+                pageSearch(getCompanyInfos,data.data.pageNo);
+            },
+            error: function(data) {
+                alert("错误信息"+data);
+            },
+        })
+    }
+
+    function getCompanyType(type){
+        switch(type){
+            case 1:
+            return "企业介绍";
+            case 2:
+            return "项目信息";
+            case 3:
+            return "实习岗位";
+            case 4:
+            return "就业岗位";
+        }
+    }
+
+</script>
+
