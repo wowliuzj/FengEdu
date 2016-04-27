@@ -6,12 +6,15 @@
           <h5>添加学员</h5>
         </div>
         <div class="widget-content nopadding">
-          <form class="form-horizontal" method="post" action="index.php?r=/education/admin/admin-mod-pwd" id="formId" novalidate="novalidate">
+          <form class="form-horizontal" method="post" action="index.php?r=/education/admin/reset-pwd" id="formId" novalidate="novalidate">
+            <input type="hidden"
+                   name="<?= \Yii::$app->request->csrfParam; ?>"
+                   value="<?= \Yii::$app->request->getCsrfToken();?>">
              <input class="required" type="hidden" name="a_id" id="a_id">
             <div class="control-group">
               <label class="control-label">新密码</label>
               <div class="controls">
-                <input class="required" type="text" name="pwd" id="pwd">
+                <input class="required" type="password" name="pwd" id="pwd">
               </div>
             </div>
             <div class="form-actions">

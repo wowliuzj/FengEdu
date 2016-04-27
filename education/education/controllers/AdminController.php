@@ -110,7 +110,8 @@ class AdminController extends Controller
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = \Tool::toResJson(1,$welcomeInfo);
     }
-    public function actionAdminModPwd()
+
+    public function actionResetPwd()
     {
         $id = Yii::$app->request->post('a_id');
         $pwd = Yii::$app->request->post('pwd');
@@ -120,7 +121,7 @@ class AdminController extends Controller
         $model->a_pwd = $pwd;
         $model->a_salt = $salt;
         $model->update();
-        
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = \Tool::toResJson(1,"ok");
