@@ -291,7 +291,7 @@ $(document).ready(function(){
     };
     function adminHqCampusQueryShowResponse(responseText, statusText)  {
         if(responseText.s == 1){
-           alert("添加成功");
+           alert("操作成功");
         }else{
             $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
         }
@@ -517,6 +517,7 @@ function getInfoCampusData(){
 
             	ic_name.val(data[0].ic_name);
             	ic_tel.val(data[0].ic_tel);
+				$("#ic_id").val(id);
             }else
             {
                 alert("数据错误"+data);

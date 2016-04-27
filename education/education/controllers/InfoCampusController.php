@@ -5,6 +5,7 @@ namespace app\education\controllers;
 use Yii;
 use app\education\models\InfoCampus;
 use app\education\models\InfoCampusSearch;
+use app\education\models\AdminSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
