@@ -27,6 +27,18 @@ class CourseController extends Controller
         ];
     }
 
+    public function actionList()
+    {
+        $cid = Yii::$app->request->get("cid",'0');
+        $sql = "SELECT c.* 
+                FROM course c, outline o, info_class ic
+                where c.outline_id = o.id and o.cid = ic.icl_id and ic.icl_id = $cid";
+        $model = Yii::$app->db->createCommand($sql)->queryAll();
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = \Tool::toResJson(1,$model);
+    }
+
     /**
      * Lists all Course models.
      * @return mixed

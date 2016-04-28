@@ -12,8 +12,39 @@ $(document).ready(function(){
 
 	var fbinfoform_select = $("#fbinfoform-select");
 	fbinfoform_select.change(function(){
-		getClassSubject($(this).val(), "subject");
+		getCourse($(this).val(), "subject");
 	});
+
+	function getCourse(classid){
+		var url1 = "index.php?r=/education/course/list&cid="+classid;
+		$.ajax({
+			type:"get",
+			url:url1,
+			dataType:"json",
+
+			success:function(data){
+				var selId = 'subject';
+				var subject = $("#"+selId);
+				if(data.s == 1){
+					var list = data.data;
+					subject.append("<option value='0' selected>选择科目</option>");
+					for(key in list){
+						var id = list[key].id;
+						var value = list[key].cnt;
+						subject.append("<option value='" + id + "'>" + value + "</option>");
+					}
+					subject.select2();
+				}else
+				{
+					alert("获取科目列表数据错误"+data);
+				}
+
+			},
+			error:function(data){
+				alert("错误信息"+data);
+			},
+		});
+	}
 
 	function getClassInfoList(classId)
 	{
