@@ -75,7 +75,7 @@ function showResponse(responseText, statusText)  {
             var cnt2 = $("#tlist"+key);
             cnt2.empty();
             for(i in list[key].tlist){
-                var cnt3 = $("<li role='presentation'>"+list[key].tlist[i].title + list[key].tlist[i].tname+"</li>");
+                var cnt3 = $("<li role='presentation'>教学大纲："+list[key].tlist[i].title + '， 课程：' + list[key].tlist[i].cname + '， 授课教师：' + list[key].tlist[i].tname+"</li>");
                 cnt2.append(cnt3);
             }
 
