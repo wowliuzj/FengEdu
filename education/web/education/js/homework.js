@@ -234,28 +234,33 @@ $(document).ready(function(){
 					// 					</td>\
 					// 			    </tr>");
 
-					var divCnt = $("<img style='width:240px; height:240px;' src='"+data.img+"' alt=''/>\
-									<h3>"+data.title+"</h3>\
-									<h5>"+data.desc+"</h5>\
+					var divCnt = $("<img style='width:240px; height:240px;' src='"+data.model.img+"' alt=''/>\
+									<h3>"+data.model.title+"</h3>\
+									<h5>"+data.model.desc+"</h5>\
 									<hr style='border:1px dashed; height:0px;'/>\
-									<h7>"+data.it_name+" "+data.time+"</h7>\
+									<h7>"+data.model.it_name+" "+data.time+"</h7>\
 									<hr/>\
 						    	");        			
 
 					div.append(divCnt);
 
-					var score = data.score;
+					var score = data.model.score;
 					if(score < 0 ){
 						score = "未评分";
 					}
 					var div_1 = $("#homework-his-1");
-					var div_1_cnt = $("<img style='width:240px; height:240px;' src='"+data.simg+"' alt=''/>\
-										<h5>"+data.sdesc+"</h5>\
-										<hr style='border:1px dashed; height:0px;'/>\
-										<h7>"+data.stime+"</h7>\
-										<label style='cursor:default; margin-left:0px; margin-top:0px; font-size:13px; color:red'>已评分："+score+"</label>\
-										<hr/>\
-								");
+					var div_1_cnt = "";
+					if(data.uploadList.length>0) {
+						for(var i=0;i<data.uploadList.length;i++) {
+							div_1_cnt += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+						}
+					}
+					div_1_cnt += "<h5>"+data.model.sdesc+"</h5>\
+									   <hr style='border:1px dashed; height:0px;'/>\
+									   <h7>"+data.model.stime+"</h7>\
+									   <label style='cursor:default; margin-left:0px; margin-top:0px; font-size:13px; color:red'>已评分："+score+"</label>\
+									   <hr/>\
+								";
 
 					div_1.append(div_1_cnt);
 					
@@ -405,16 +410,16 @@ $(document).ready(function(){
 					// 			    </tr>");
 
         			var title = $("#title");
-        			title.text(data.title);
+        			title.text(data.model.title);
 
         			var name_time = $("#name-time");
-        			var name_time_str = data.it_name+":"+data.time;
+        			var name_time_str = data.model.it_name+":"+data.time;
         			name_time.text(name_time_str);
 
         			var temp = "";
-        			var temp_1 = "<h3>"+data.desc+"</h3>";
-        			var temp_2 = "<img width='10%' height='10%' src='"+data.img+"' alt=''/>";
-        			if(data.img == null){
+        			var temp_1 = "<h3>"+data.model.desc+"</h3>";
+        			var temp_2 = "<img width='10%' height='10%' src='"+data.model.img+"' alt=''/>";
+        			if(data.model.img == null){
         				temp = temp_1;
         			}else{
         				temp = temp_2 + temp_1;
@@ -422,13 +427,21 @@ $(document).ready(function(){
         			
 					div.append(temp);
 					var sdesc = $("#sdesc");
-					if(data.sdesc != null){
-						sdesc.val(data.sdesc);
+					if(data.model.sdesc != null){
+						sdesc.val(data.model.sdesc);
 					}
 					sdesc.attr("class","textarea_editor span12");
-					$("#imgHeadPhoto").attr("src",data.simg);
+					$("#imgHeadPhoto").attr("src",data.model.simg);
 					$("#divPreview").attr("style","");
 					// pageSearch(getHomeWorkList, data.data.pageNo);
+					
+					if(data.uploadList.length>0) {
+						$("#uploadListPanel").empty();
+						for(var i=0;i<data.uploadList.length;i++) {
+							var img = "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+							$("#uploadListPanel").html($("#uploadListPanel").html() + img);
+						}
+					}
                 }else
                 {
                     alert("数据错误"+data);
@@ -597,28 +610,33 @@ $(document).ready(function(){
 					// 					</td>\
 					// 			    </tr>");
 
-					var divCnt = $("<img style='width:240px; height:240px;' src='"+data.img+"' alt=''/>\
-									<h3>"+data.title+"</h3>\
-									<h5>"+data.desc+"</h5>\
+					var divCnt = $("<img style='width:240px; height:240px;' src='"+data.model.img+"' alt=''/>\
+									<h3>"+data.model.title+"</h3>\
+									<h5>"+data.model.desc+"</h5>\
 									<hr style='border:1px dashed; height:0px;'/>\
-									<h7>"+data.it_name+" "+data.time+"</h7>\
+									<h7>"+data.model.it_name+" "+data.model.time+"</h7>\
 									<hr/>\
 						    	");        			
 
 					div.append(divCnt);
 
-					var score = data.score;
+					var score = data.model.score;
 					if(score < 0 ){
 						score = "未评分";
 					}
 					var div_1 = $("#homework-his-1");
-					var div_1_cnt = $("<img style='width:240px; height:240px;' src='"+data.simg+"' alt=''/>\
-									   <h5>"+data.sdesc+"</h5>\
+					var div_1_cnt = "";
+					if(data.uploadList.length>0) {
+						for(var i=0;i<data.uploadList.length;i++) {
+							div_1_cnt += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+						}
+					}
+					div_1_cnt += "<h5>"+data.model.sdesc+"</h5>\
 									   <hr style='border:1px dashed; height:0px;'/>\
-									   <h7>"+data.stime+"</h7>\
+									   <h7>"+data.model.stime+"</h7>\
 									   <label style='cursor:default; margin-left:0px; margin-top:0px; font-size:13px; color:red'>已评分："+score+"</label>\
 									   <hr/>\
-								");
+								";
 
 					div_1.append(div_1_cnt);
 					
