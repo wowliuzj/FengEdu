@@ -471,6 +471,11 @@ $(document).ready(function(){
 	        }
 	    }
 	    formObj.submit(function() {
+			if(!$("#uploadList").val())
+			{
+				alert("请至少上传一个文件！");
+				return false;
+			}
 	        $(this).ajaxSubmit(options);
 	        return false; 
 	    });

@@ -1,3 +1,25 @@
+<script src="js/jquery.ui.custom.js">
+</script>
+<script src="js/store+json2.min.js">
+</script>
+<script src="js/jquery.uniform.js">
+</script>
+<script src="js/select2.min.js">
+</script>
+<script src="js/jquery.dataTables.min.js">
+</script>
+<script src="js/matrix.js">
+</script>
+<script src="js/matrix.tables.js">
+</script>
+<script src="js/jquery.validate.min.js">
+</script>
+<script src="js/messages_zh.min.js">
+</script>
+<script src="js/bootstrap-colorpicker.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/masked.js"></script>
+<script src="js/matrix.form_common.js"></script>
 <div id="header">
 	<h1><a>凤凰教育</a></h1>
 </div>
@@ -62,25 +84,3 @@
     	
     ?>
 </div>
-<script src="js/jquery.ui.custom.js">
-</script>
-<script src="js/store+json2.min.js">
-</script>
-<script src="js/jquery.uniform.js">
-</script>
-<script src="js/select2.min.js">
-</script>
-<script src="js/jquery.dataTables.min.js">
-</script>
-<script src="js/matrix.js">
-</script>
-<script src="js/matrix.tables.js">
-</script>
-<script src="js/jquery.validate.min.js">
-</script>
-<script src="js/messages_zh.min.js">
-</script>
-<script src="js/bootstrap-colorpicker.js"></script>
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/masked.js"></script> 
-<script src="js/matrix.form_common.js"></script> 

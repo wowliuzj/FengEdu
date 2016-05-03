@@ -18,6 +18,9 @@
 	            </div> -->
 			</div>
 			<hr/>
+				<div id="uploader">
+					<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+				</div>
 			<!-- <input type="file" name="uploadFile" style=''/>   -->
 
 <!-- 			<div style="margin-left:10px; margin-right:10px;">
@@ -30,17 +33,11 @@
 		        </div>
 			</div> -->
  			<div>
-	 		    <div id="divPreview" style="display:none;">
-			        <img id="imgHeadPhoto" src="" style="width:160px; height:170px; border:solid 1px #d2e2e2;"/>
-			    </div>
 				<div class="controls" style="margin-top:10px;">
 		            <textarea id="sdesc" name="sdesc" rows="6" placeholder="Enter text ...">
-
 		            </textarea>
-
-		            <span id="fileImg" class="icon-picture" title="上传图片" style="font-size:33px; position: absolute; margin-top:-180px; margin-left:450px;" ></span>
-		 
 		        </div>
+				<input type="hidden" id="uploadList" name="uploadList" value="" />
  				<!-- <input type="text" placeholder="内容" name="sdesc" id="sdesc" style="margin-top:10px; margin-left:11px; width:1085px;"/> -->
               	<input type="submit" value="提交作业" class="btn btn-success">
             </div>
@@ -60,6 +57,84 @@
 
 <script src="education/js/homework.js"></script>
 
+<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="/js/plupload-2.1.8/js/jquery.ui.plupload/css/jquery.ui.plupload.css" type="text/css" />
+<!-- production -->
+<script type="text/javascript" src="/js/plupload-2.1.8/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="/js/plupload-2.1.8/js/jquery.ui.plupload/jquery.ui.plupload.js"></script>
+<script type="text/javascript" src="/js/plupload-2.1.8/js/i18n/zh_CN.js"></script>
 <script type="text/javascript">
 	loadHomeWork();
+</script>
+<script type="text/javascript">
+	// Initialize the widget when the DOM is ready
+	$(function() {
+		$("#uploader").plupload({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : 'index.php?r=/education/stu-work/upload',
+
+			// User can upload no more then 20 files in one go (sets multiple_queues to false)
+			max_file_count: 20,
+
+			chunk_size: '1mb',
+
+			filters : {
+				// Maximum file size
+				max_file_size : '20mb',
+				// Specify what files to browse for
+				mime_types: [
+					{title : "Image files", extensions : "jpg,gif,png,jpeg"},
+					{title : "Zip files", extensions : "zip,rar"}
+				]
+			},
+
+			// Rename files by clicking on their titles
+			rename: true,
+
+			// Sort files
+			sortable: true,
+
+			// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+			dragdrop: true,
+
+			// Views to activate
+			views: {
+				list: true,
+				thumbs: true, // Show thumbs
+				active: 'thumbs'
+			},
+
+			// Flash settings
+			flash_swf_url : '../../js/Moxie.swf',
+
+			// Silverlight settings
+			silverlight_xap_url : '../../js/Moxie.xap',
+
+			uploaded: function(event, args){
+				var result = $.parseJSON(args.result.response);
+				if($("#uploadList").val())
+					$("#uploadList").val($("#uploadList").val() + '###$$$' + result.file);
+				else
+					$("#uploadList").val(result.file);
+			}
+		});
+
+		// Handle the case when form was submitted before uploading has finished
+		/*$('#formId').submit(function(e) {
+			// Files in queue upload them first
+			if ($('#uploader').plupload('getFiles').length > 0) {
+
+				// When all files are uploaded submit form
+				$('#uploader').on('complete', function() {
+					$('#formId')[0].submit();
+				});
+
+				$('#uploader').plupload('start');
+			} else {
+				alert("You must have at least one file in the queue."); return false;
+			}
+			return false; // Keep the form from submitting
+		});*/
+	});
 </script>
