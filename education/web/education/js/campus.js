@@ -350,13 +350,18 @@ function getAdminCampusStuWorkQuery(){
             if (response.s == 1) {
             	var data = response.data;
             	var a = $("#a-admin-campus-homework-2-1");
-            	a.text(data.title+"     "+data.time);
+            	a.text(data.model.title+"     "+data.model.time);
 
 			  	var div = $("#div-admin-campus-homework-2-1");
 				div.empty();
 
-				var divCnt = $("<img src='"+data.img+"' alt=''/>\
-								<h5>"+data.desc+"</h5>\
+				var imgList = "";
+				if(data.uploadList.length>0) {
+					for(var i=0;i<data.uploadList.length;i++) {
+						imgList += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+					}
+				}
+				var divCnt = $(imgList + "<h5>"+data.model.desc+"</h5>\
 								<hr/>\
 					    		");        			
 
