@@ -10,6 +10,7 @@ $(document).ready(function(){
             var data1 = data.data;
             $("#img").attr("src",data1.model.img);
             $("#desc").append(data1.model.desc);
+            $("#is_name").append(data1.model.is_name);
 
             //$("#simg").attr("src",data1.simg);
             $("#sdesc").append(data1.model.sdesc);
