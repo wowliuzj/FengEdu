@@ -188,7 +188,7 @@ from homework as a left join stu_work b on a.id = b.hid left join info_teacher a
            }
         }
 
-        $sqlWhere = $sqlWhere . " and (simg is not null or sdesc is not null) and score=-1";
+        //$sqlWhere = $sqlWhere . " and (simg is not null or sdesc is not null) and score=-1";
 
         if(isset($params['finish_time'])){
            $finish_time = $params['finish_time'];
