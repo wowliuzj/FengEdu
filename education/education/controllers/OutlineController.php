@@ -175,7 +175,7 @@ class OutlineController extends Controller
         }
     }
 
-    public function actionDeletes($ids)
+    public function actionDeletes()
     {
         /**
         $response = Yii::$app->response;
@@ -192,7 +192,8 @@ class OutlineController extends Controller
         $idArray = $request->get();
         $ids = array();
         foreach($idArray as $k=>$v){
-            if($k=='r'){
+            $index = strrpos($k,'did');
+            if($index === false){
                 continue;
             }
             array_push($ids,$v);

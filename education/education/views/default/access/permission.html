@@ -11,27 +11,29 @@
                 </h5>
             </div>
             <div class="widget-content nopadding">
+                <form id="formId">
                 <table class="table table-bordered with-check">
                     <thead>
                         <tr>
+                            <th width="40px">
+                                <input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" />
+                            </th>
                             <th style="width:30%">角色名</th>
                             <th style="width:30%">权限</th>
                         </tr>
                     </thead>
                     <tbody id="data_body">
-                       <tr>
-                        <td style="text-align:center">#name#</td>
-                        <td style="text-align:center">#alias#</td>
-                       </tr>                     
+
                     </tbody>
                 </table>
+                </form>
             </div>
         </div>
          <div class="rows">
             <div class="span6">
-               <!--  <button style="margin-left:10px" type="button" id="del_btn">
+                <button style="margin-left:10px" type="button" id="del_btn">
                     删除
-                </button> -->
+                </button>
                 <button style="margin-left:15px" type="button"  id="modify_btn" onclick="javascript:add()">
                     添加权限
                 </button>

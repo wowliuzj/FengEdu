@@ -3,6 +3,7 @@ $(document).ready(function(){
     $("#outline_id").val(id);
     search();
     delChecked();
+    addClickCourse();
 });
 
 var formObj = $('#formId');
@@ -117,6 +118,31 @@ function delChecked(){
     del_btn.click(function() {
         var courseForm = $('#courseForm');
         courseForm.ajaxSubmit(options);
+        return false;
+    });
+}
+
+function addClickCourse() {
+    var options = {
+        success:   showResponse,  //处理完成
+        url: "index.php?r=/education/course/create",
+        resetForm: true,
+        dataType:  'json',
+        type:"post",
+    };
+    function showResponse(responseText, statusText)  {
+        if(responseText.s == 1){
+            alert("添加成功");
+            search();
+        }else{
+            $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
+        }
+    }
+    var addC = $('#addC');
+    addC.click(function() {
+        $("#outlineId").val($("#outline_id").val());
+        var addCourse = $('#addCourse');
+        addCourse.ajaxSubmit(options);
         return false;
     });
 }

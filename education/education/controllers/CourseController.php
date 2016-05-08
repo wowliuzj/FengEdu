@@ -120,11 +120,17 @@ class CourseController extends Controller
     {
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $model = new Course();
 
-        if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
+        $name = Yii::$app->request->post("cName");
+        $cnt = Yii::$app->request->post("cContent");
+        $num = (int)Yii::$app->request->post("cNum");
+        $outline_id = (int)Yii::$app->request->post("outlineId");
+
+        $sql = "INSERT INTO `course` (`outline_id`,`name`, `cnt`, `num`) VALUES ('$outline_id','$name', '$cnt', $num)";
+        $res = Yii::$app->db->createCommand($sql)->execute();
+        if ($res) {
             //return $this->redirect(['view', 'id' => $model->id]);
-			$response->data = \Tool::toResJson(1, $model->id);
+			$response->data = \Tool::toResJson(1, 0);
         } else {
             //return $this->render('create', [
             //    'model' => $model,

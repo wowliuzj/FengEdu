@@ -2,6 +2,7 @@
 
 namespace app\education\controllers;
 
+use app\education\models\Access;
 use Yii;
 use app\education\models\Permission;
 use app\education\models\PermissionSearch;
@@ -64,12 +65,12 @@ class PermissionController extends Controller
     public function actionIndexId()
     {
         $rid = Yii::$app->request->get("id");
-        $sql = "SELECT r_name,p_alias from access as a,role as b,permission as c where a.r_id = b.r_id and a.p_id = c.p_id and a.r_id = $rid";
+        $sql = "SELECT r_name,p_alias, a.r_id, a.p_id from access as a,role as b,permission as c where a.r_id = b.r_id and a.p_id = c.p_id and a.r_id = $rid";
         $list = yii::$app->db->createCommand($sql)->queryAll();
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = $list;
+        $response->data = \Tool::toResJson(1,["list"=>$list]);$list;
     }
 
     /**
@@ -147,6 +148,42 @@ class PermissionController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeletes()
+    {
+        $request = Yii::$app->request;
+        $idArray = $request->get();
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $transaction = NULL;
+        try
+        {
+            $transaction = Yii::$app->db->beginTransaction();
+            foreach($idArray as $k=>$v){
+                $index = strrpos($k,'r_p');
+                if($index === false){
+                    continue;
+                }
+                $ids = explode('_', $v);
+                $sql = "delete from ".Access::tableName()." where r_id = ".$ids[0]." and p_id = ".$ids[1];
+                $res = Yii::$app->db->createCommand($sql)->execute();
+                if(!$res)
+                {
+                    if(isset($transaction)) $transaction->rollback();
+                    $response->data = \Tool::toResJson(0, "删除失败");
+                    return;
+                }
+            }
+            $transaction->commit();
+            $response->data = \Tool::toResJson(1, "删除成功");
+        }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
+        }
     }
 
     /**
