@@ -26,7 +26,7 @@ function showResponse(responseText, statusText)  {
         for (key in list)
         {
             var str = '<tr>\
-                            <td width="40px">\
+                            <td align="center">\
                                 <input type="checkbox" name="r_p#r_id#_#p_id#" value="#r_id#_#p_id#"/>\
                             </td>\
                             <td style="text-align:center">#name#</td>\
