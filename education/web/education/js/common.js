@@ -187,6 +187,7 @@ function getTeacherList(selId, campusId){
             
             success: function(data) {
                 var teacherNums = $("#"+selId);
+                teacherNums.empty();
                 var s = data.s;
                 if (s == 1) {
                   var list = data.data;
@@ -257,6 +258,7 @@ function getClassSubject(classid, selId){
 
     success:function(data){
       var subject = $("#"+selId);
+        subject.empty();
       if(data.s == 1){
         var list = data.data;
         subject.append("<option value='0' selected>选择科目</option>");

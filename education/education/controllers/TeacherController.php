@@ -67,16 +67,16 @@ class TeacherController extends Controller
             $sql = $sql . " and campus_id=$campus_id";
         }else{
             $params = Yii::$app->request->queryParams;
+
             if(isset($params['campus_id'])){
                $campus_id = $params['campus_id'];
                if($campus_id!='' and $campus_id!='0'){
-                   $sqlWhere = $sqlWhere . " and campus_id=$campus_id";
+                   $sql = $sql." and campus_id=$campus_id";
                }
             }
         }
-        //echo $sql . $tid;
         $list = Yii::$app->db->createCommand($sql)->queryAll();
-        
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data =  \Tool::toResJson(1,$list);

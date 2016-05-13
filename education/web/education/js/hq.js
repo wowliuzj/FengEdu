@@ -301,8 +301,11 @@ $(document).ready(function(){
         $(this).ajaxSubmit(admin_hq_campus_query_options);
         return false; 
     });
-});
 
+});
+function changeSchool(){
+
+}
 //作业情况
 //作业布置情况
 //跳转到详细

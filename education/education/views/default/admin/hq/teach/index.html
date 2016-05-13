@@ -79,5 +79,17 @@ $(document).ready(function(){
 	getSchoolList("campus_id");
 	getTeacherList("tid", null);
 	getAllClassList("cid", null);
+    //校区修改联动老师
+    var change_btn = $('#campus_id');
+    change_btn.change(function() {
+        getTeacherList("tid", $('#campus_id').val());
+        return false;
+    });
+    var change_teacher_btn = $('#tid');
+    change_teacher_btn.change(function() {
+        getTeacherClassList("cid", $('#tid').val());
+        return false;
+    });
+
 });
 </script>
