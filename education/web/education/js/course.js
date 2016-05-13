@@ -128,7 +128,7 @@ function addClickCourse() {
         url: "index.php?r=/education/course/create",
         resetForm: true,
         dataType:  'json',
-        type:"post",
+        type:"post"
     };
     function showResponse(responseText, statusText)  {
         if(responseText.s == 1){
@@ -141,6 +141,31 @@ function addClickCourse() {
     var addC = $('#addC');
     addC.click(function() {
         $("#outlineId").val($("#outline_id").val());
+        if($("#cName").val().length==0){
+            $("#errormsg").html("模块名称不能为空。").show(300).delay(3000).hide(300);
+           /* $("#cName").css({'border-style':'solid','border-width':'1px','border-color':'red'});*/
+        }
+        /*else{
+            $("#cName").css({'border-style':'solid','border-width':'1px','border-color':'#ccc'});
+        }*/
+        if($("#cContent").val().length==0){
+            $("#errormsg").html("教学内容不能为空。").show(300).delay(3000).hide(300);
+           /* $("#cContent").css({'border-style':'solid','border-width':'1px','border-color':'red'});*/
+        }
+       /* else{
+            $("#cContent").css({'border-style':'solid','border-width':'1px','border-color':'#ccc'});
+        }*/
+        if($("#cNum").val().length==0){
+            $("#errormsg").html("课数不能为空。").show(300).delay(3000).hide(300);
+           /* $("#cNum").css({'border-style':'solid','border-width':'1px','border-color':'red'});*/
+        }
+       /* else{
+            $("#cNum").css({'border-style':'solid','border-width':'1px','border-color':'#ccc'});
+        }*/
+        if($("#cName").val().length==0||$("#cContent").val().length==0||$("#cNum").val().length==0){
+            return false;
+        }
+        return false;
         var addCourse = $('#addCourse');
         addCourse.ajaxSubmit(options);
         return false;

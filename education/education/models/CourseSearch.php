@@ -67,11 +67,12 @@ class CourseSearch extends Course
             'id' => $this->id,
             'year' => $this->year,
             'num' => $this->num,
+            'outline_id' => $params['outline_id'],
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'cnt', $this->cnt]);
-
+        //var_dump($params, $dataProvider);die();
         return $dataProvider;
     }
 

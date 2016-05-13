@@ -614,7 +614,7 @@ $(document).ready(function(){
 									<h3>"+data.model.title+"</h3>\
 									<h5>"+data.model.desc+"</h5>\
 									<hr style='border:1px dashed; height:0px;'/>\
-									<h7>"+data.model.it_name+" "+data.model.time+"</h7>\
+									<h7>"+data.model.is_name+" "+data.model.time+"</h7>\
 									<hr/>\
 						    	");        			
 
@@ -649,7 +649,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         })
 
 	}

@@ -47,6 +47,7 @@ class CourseController extends Controller
     {
         $searchModel = new CourseSearch();
         $params = Yii::$app->request->queryParams;
+
         $dataProvider = $searchModel->search($params);
 
         //return $this->render('index', [
