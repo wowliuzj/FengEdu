@@ -34,7 +34,7 @@ class TeacherController extends Controller
     public function actionIndex()
     {
         $searchModel = new TeacherSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = !Yii::$app->request->queryParams['cid'] ? $searchModel->search(Yii::$app->request->queryParams) : $searchModel->searchBySql(Yii::$app->request->queryParams);
 
         //return $this->render('index', [
         //    'searchModel' => $searchModel,

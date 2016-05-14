@@ -81,7 +81,22 @@ class InfoClassController extends Controller
                 where campus_id = :campus_id and (icl_id in (SELECT cid from class_teacher where tid=:tid) or icl_tid=:tid) ';
         //echo $sql . $tid;die();
         $list = Yii::$app->db->createCommand($sql,[':tid' => $tid, ':campus_id'=>$session['USER_SESSION']['campus_id']])->queryAll();
-        
+
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data =  \Tool::toResJson(1,$list);
+    }
+
+    public function actionClasses1()
+    {
+        $session = Yii::$app->session;
+
+        $sql = 'SELECT icl_id,icl_number 
+                from info_class 
+                where campus_id = :campus_id ; ';
+        //echo $sql . $tid;die();
+        $list = Yii::$app->db->createCommand($sql,[':campus_id'=>$session['USER_SESSION']['campus_id']])->queryAll();
+
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data =  \Tool::toResJson(1,$list);

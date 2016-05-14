@@ -69,6 +69,12 @@ class TeacherSearch extends Teacher
             'it_birthday' => $this->it_birthday,
         ]);
 
+        $session = Yii::$app->session;
+        if($session['USER_SESSION']['campus_id'])
+        $query->andFilterWhere([
+                                   'campus_id' => $session['USER_SESSION']['campus_id'],
+                               ]);
+
         $query->andFilterWhere(['like', 'it_name', $this->it_name])
             ->andFilterWhere(['like', 'it_sex', $this->it_sex])
             ->andFilterWhere(['like', 'it_marry', $this->it_marry])
@@ -85,6 +91,7 @@ class TeacherSearch extends Teacher
     public function searchBySql($params)
     {
         $sqlWhere = "";
+        $join = "";
        if(isset($params['it_id'])){
            $it_id = $params['it_id'];
            if($it_id!=''){
@@ -168,8 +175,22 @@ class TeacherSearch extends Teacher
                $sqlWhere = $sqlWhere . " and it_edu like '%".$it_edu."%'";
            }
         }
+
+        $session = Yii::$app->session;
+        if(isset($session['USER_SESSION']['campus_id']) && $session['USER_SESSION']['campus_id']){
+            $campus_id = $session['USER_SESSION']['campus_id'];
+            if($campus_id!=''){
+                $sqlWhere = $sqlWhere . " and t.campus_id = ".$campus_id." ";
+            }
+        }
+
+        if(isset($params['cid']) && $params['cid'])
+        {
+            $join .= " inner join info_class c on c.icl_tid = t.it_id and c.icl_id = {$params['cid']} ";
+            //$join .= " left join class_teacher ct on ct.tid = t.it_id and ct.cid = {$params['cid']} ";
+        }
         
-        $sql="SELECT * from ". Teacher::tableName() . " where 1=1 ";
+        $sql="SELECT * from ". Teacher::tableName() . " t ". $join . " where 1=1 ".$sqlWhere;
 
         $page = 1;
         if(isset($params['page'])){
@@ -180,7 +201,7 @@ class TeacherSearch extends Teacher
             $pageSize = $params['pageSize'];
         }
 
-        $sqlCount = "select count(1) from ". Teacher::tableName() ." as a where 1=1 ".$sqlWhere;
+        $sqlCount = "select count(1) from ". Teacher::tableName() ." as t ". $join . " where 1=1 ".$sqlWhere;
         $count = Yii::$app->db->createCommand($sqlCount)->queryScalar();
         $dataProvider = new SqlDataProvider([
             'sql' => $sql.$sqlWhere,

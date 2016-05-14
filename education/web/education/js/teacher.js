@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    getCampusClassList("cid");
     search();
 });
 
@@ -48,4 +49,44 @@ function edit(id){
 }
 function add(){
     document.location.href="index.php?r=/education&page=teacher/add";
+}
+
+function getCampusClassList(selId){
+    //请求教师班级列表
+    var url1 = "index.php?r=/education/info-class/classes1";
+    $.ajax({
+        type: "post",
+        url: url1,
+        dataType: "json",
+        async:false,
+
+        success: function(data) {
+            // var classNums = document.getElementById("icl_id");
+            var classNums = $("#"+selId);
+            var s = data.s;
+            if (s == 1) {
+                var list = data.data;
+                classNums.append("<option value='0' selected>选择班级</option>");
+                for(key in list)
+                {
+                    var id = list[key].icl_id;
+                    var value = list[key].icl_number;
+
+                    // alert("获取班主任班级数据成功"+id + value + "<option value='" + id + "' selected>" + value + "</option>");
+                    // classNums.append("<option value='1508'>1508</option>");
+                    classNums.append("<option value='" + id + "'>" + value + "</option>");
+                }
+
+                classNums.select2();
+            }else
+            {
+                alert("获取班主任班级数据错误"+data);
+            };
+            //classes info == " + data + "length == " + data.length);
+        },
+        error: function(data) {
+            alert("错误信息"+data);
+        },
+    });
+
 }
