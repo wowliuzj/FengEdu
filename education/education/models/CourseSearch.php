@@ -148,18 +148,11 @@ class CourseSearch extends Course
     public function searchByTongji($params)
     {
         $sqlWhere = "";
-       
+        $join = "";
         if(isset($params['tid'])){
            $tid = $params['tid'];
            if($tid!='' and $tid!='0'){
                $sqlWhere = $sqlWhere . " and tid=$tid";
-           }
-        }
-
-        if(isset($params['campus_id'])){
-           $campus_id = $params['campus_id'];
-           if($campus_id!='' and $campus_id!='0'){
-               $sqlWhere = $sqlWhere . " and campus_id=$campus_id";
            }
         }
 
@@ -184,7 +177,16 @@ class CourseSearch extends Course
            }
         }
 
-        $sql="SELECT * from course_info where 1=1 ";
+        $session = Yii::$app->session;
+        if(isset($session['USER_SESSION']['campus_id']) && $session['USER_SESSION']['campus_id']){
+            $campus_id = $session['USER_SESSION']['campus_id'];
+            if($campus_id){
+                $join .= " inner join outline o on o.id = t.outline_id";
+                $join .= " inner join info_class ic on o.cid = ic.icl_id and ic.campus_id = $campus_id ";
+            }
+        }
+
+        $sql="SELECT * from course_info t ".$join." where 1=1 ";
 
         $page = 1;
         if(isset($params['page'])){
@@ -195,7 +197,7 @@ class CourseSearch extends Course
             $pageSize = $params['pageSize'];
         }
 
-        $sqlCount = "select count(1) from course_info where 1=1 ".$sqlWhere;
+        $sqlCount = "select count(1) from course_info t ".$join." where 1=1 ".$sqlWhere;
         $count = Yii::$app->db->createCommand($sqlCount)->queryScalar();
         //echo $sql.$sqlWhere;
         $dataProvider = new SqlDataProvider([
