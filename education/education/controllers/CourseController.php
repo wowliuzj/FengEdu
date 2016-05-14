@@ -259,6 +259,7 @@ class CourseController extends Controller
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data =  \Tool::toResJson(1,["list"=>$models,"pageNo"=>$pageNo,"totalCount"=>$totalCount]);
     }
+
     public function actionTongji()
     {
 
