@@ -210,7 +210,7 @@ from homework as a left join stu_work b on a.id = b.hid left join info_teacher a
         }
         
         $sql="select a.img,a.`desc`,a.time,a.title,icl_number,finish_time,is_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc
-from homework as a left join stu_work b on a.id = b.hid left join info_student as c on b.sid = c.is_id left join info_class as d on a.cid = d.icl_id where 1=1 ";
+from homework as a inner join stu_work b on a.id = b.hid left join info_student as c on b.sid = c.is_id left join info_class as d on a.cid = d.icl_id where 1=1 ";
 
         //echo $sql.$sqlWhere;
         $page = 1;

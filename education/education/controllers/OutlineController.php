@@ -103,34 +103,47 @@ class OutlineController extends Controller
             $response->content = '{"s":0,"data":"请选择班级"}';
             return;
         }
-        $model = new Outline();
-        $model->load(Yii::$app->request->post(),"");
-        $model->time = date("Y-m-d H:i:s");
-        $model->tid = $tid;
-        $model->save();
 
-        $fileName = \Tool::saveFile('excel_file');
-        include '../PHPExcel/IOFactory.php';
-        $reader = \PHPExcel_IOFactory::createReader('Excel2007'); // 读取 excel 文件
-        $PHPExcel = \PHPExcel_IOFactory::load("../web/" . $fileName);
-        $sheet = $PHPExcel->getSheet(0); // 读取第一個工作表(编号从 0 开始)  
-        $highestRow = $sheet->getHighestRow(); // 取得总行数  
-        $highestColumn = $sheet->getHighestColumn(); // 取得总列数  
+        $transaction = NULL;
+        try
+        {
+            $transaction = Yii::$app->db->beginTransaction();
+            $model = new Outline();
+            $model->load(Yii::$app->request->post(), "");
+            $model->time = date("Y-m-d H:i:s");
+            $model->tid = $tid;
+            $model->save();
 
-        for ($row = 2; $row <= $highestRow; $row++) {
-            $name = $sheet->getCellByColumnAndRow(0, $row)->getValue();
-            $cnt = $sheet->getCellByColumnAndRow(1, $row)->getValue();
-            $num = $sheet->getCellByColumnAndRow(2, $row)->getValue();
-            //保存到数据库
-            $sql = "INSERT INTO `course` (`outline_id`,`name`, `cnt`, `num`) VALUES ($model->id,'$name', '$cnt', $num)";
-            $res = Yii::$app->db->createCommand($sql)->execute();
+            $fileName = \Tool::saveFile('excel_file');
+            include '../PHPExcel/IOFactory.php';
+            $reader = \PHPExcel_IOFactory::createReader('Excel2007'); // 读取 excel 文件
+            $PHPExcel = \PHPExcel_IOFactory::load("../web/" . $fileName);
+            $sheet = $PHPExcel->getSheet(0); // 读取第一個工作表(编号从 0 开始)
+            $highestRow = $sheet->getHighestRow(); // 取得总行数
+            $highestColumn = $sheet->getHighestColumn(); // 取得总列数
+
+            for($row = 2; $row <= $highestRow; $row++)
+            {
+                $name = $sheet->getCellByColumnAndRow(0, $row)->getValue();
+                $cnt = $sheet->getCellByColumnAndRow(1, $row)->getValue();
+                $num = $sheet->getCellByColumnAndRow(2, $row)->getValue();
+                if(!$name || !$cnt || !$num) continue;
+                //保存到数据库
+                $sql = "INSERT INTO `course` (`outline_id`,`name`, `cnt`, `num`) VALUES ($model->id,'$name', '$cnt', $num)";
+                Yii::$app->db->createCommand($sql)->execute();
+            }
+            $sql = "INSERT INTO `class_teacher` (`cid`, `tid`, `cuid`) VALUES ($cid, $tid, $model->id)";
+            Yii::$app->db->createCommand($sql)->execute();
+
+            unlink("../web/" . $fileName);
+            $transaction->commit();
+            $response->content = json_encode(\Tool::toResJson(1, $model->id));
         }
-        $sql ="INSERT INTO `class_teacher` (`cid`, `tid`, `cuid`) VALUES ($cid, $tid, $model->id)";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-
-        unlink("../web/" . $fileName);
-        
-		$response->content = json_encode(\Tool::toResJson(1, $model->id));
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->content = \Tool::toResJson(0, "添加失败");
+        }
     }
     /**
      * Updates an existing Outline model.

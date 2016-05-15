@@ -5,6 +5,7 @@ namespace app\education\controllers;
 use Yii;
 use app\education\models\Topic;
 use app\education\models\TopicSearch;
+use app\education\models\Reply;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -172,7 +173,7 @@ class TopicController extends Controller
         }
     }
 
-    public function actionDeletes($ids)
+    public function actionDeletes()
     {
         /**
         $response = Yii::$app->response;
@@ -189,7 +190,8 @@ class TopicController extends Controller
         $idArray = $request->get();
         $ids = array();
         foreach($idArray as $k=>$v){
-            if($k=='r'){
+            $index = strrpos($k,'tid');
+            if($index === false){
                 continue;
             }
             array_push($ids,$v);
@@ -197,12 +199,26 @@ class TopicController extends Controller
         $strIds = implode(",", $ids);
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".Topic::tableName()." where id in(".$strIds.")";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-        if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
-        }else{
-            $response->data = \Tool::toResJson(1, "删除成功");
+        $transaction = NULL;
+        try
+        {
+            $sql = "delete from " . Reply::tableName() . " where tid in(" . $strIds . ")";
+            Yii::$app->db->createCommand($sql)->execute();
+            $sql = "delete from " . Topic::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            if($res == 0)
+            {
+                $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            }
+            else
+            {
+                $response->data = \Tool::toResJson(1, "删除成功");
+            }
+        }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
         }
     }
 

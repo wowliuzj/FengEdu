@@ -5,6 +5,8 @@ namespace app\education\controllers;
 use Yii;
 use app\education\models\Homework;
 use app\education\models\HomeworkSearch;
+use app\education\models\StuWork;
+use app\education\models\StuWorkUpload;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -367,12 +369,26 @@ class HomeworkController extends Controller
         $strIds = implode(",", $ids);
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".Homework::tableName()." where id in(".$strIds.")";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-        if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
-        }else{
-            $response->data = \Tool::toResJson(1, "删除成功");
+        $transaction = NULL;
+        try
+        {
+            $sql = "delete from " . StuWorkUpload::tableName() . " where id in(" . $strIds . ")";
+            Yii::$app->db->createCommand($sql)->execute();
+            $sql = "delete from " . StuWork::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            if($res == 0)
+            {
+                $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            }
+            else
+            {
+                $response->data = \Tool::toResJson(1, "删除成功");
+            }
+        }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
         }
     }
 

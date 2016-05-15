@@ -45,9 +45,13 @@ class InfoClassController extends Controller
         $classList = array();
         foreach ($models as $key => $value) {
             $cid =  $value['icl_id'];
-            $sql = "SELECT b.title,c.it_name as tname, d.name as cname
+            /*$sql = "SELECT b.title,c.it_name as tname, d.name as cname
                     from class_teacher as a,outline as b,info_teacher as c, course as d
-                    where a.tid = c.it_id and a.cid = b.cid and c.it_id = b.tid and d.outline_id = b.id and a.cid = $cid";
+                    where a.tid = c.it_id and a.cid = b.cid and c.it_id = b.tid and d.outline_id = b.id and a.cid = $cid";*/
+            $sql = "SELECT c.it_name as tname
+                    from class_teacher as a,outline as b,info_teacher as c, course as d
+                    where a.tid = c.it_id and a.cid = b.cid and c.it_id = b.tid and d.outline_id = b.id and a.cid = $cid
+                    group by tname";
             $tlist = Yii::$app->db->createCommand($sql)->queryAll(); 
             $obj = array();
             $obj['icl_id']=$value['icl_id'];
