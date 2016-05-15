@@ -259,6 +259,7 @@ function getCjfbDetail(){
 					var trCnt = $("<tr class='gradeA'>\
 									<td style='text-align:center'>"+data[key].is_name+"</td>\
 									<td style='text-align:center'>"+data[key].icl_number+"</td>\
+									<td style='text-align:center'>"+data[key].title+"</td>\
 									<td style='text-align:center; width:300px;'>\
 										<input type='hidden' name='sid"+key+"' value='"+data[key].is_id+"'/>\
 										<input type='text' placeholder='0' id='score"+key+"' name='score"+key+"' style='margin-top:0px; margin-left:0px; height:13px; width:85px;'/>\

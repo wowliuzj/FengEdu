@@ -87,7 +87,12 @@ class StudentSearch extends Student
     {
         $icl_id = $params['icl_id'];
          $eid = $params['eid'];
-        $sql="SELECT a.is_id,is_name,icl_number,score from info_student as a LEFT  JOIN info_class as b on a.icl_id=b.icl_id LEFT  JOIN exam_score as c on a.is_id = c.sid  and eid=$eid where a.icl_id=$icl_id";
+        $sql="SELECT a.is_id,is_name,icl_number,score , e.title
+              from info_student as a 
+              LEFT  JOIN info_class as b on a.icl_id=b.icl_id 
+              LEFT  JOIN exam_score as c on a.is_id = c.sid  and eid=$eid 
+              left join exam e on e.cid = b.icl_id and e.id = $eid 
+              where a.icl_id=$icl_id";
 
         $page = 1;
         if(isset($params['page'])){
