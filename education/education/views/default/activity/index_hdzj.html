@@ -117,12 +117,10 @@
 
                       <div>
                     <h6 style="margin-left:10px;">上传图片</h6>
-                    <div id="file1" style="visibility: none;display:none;">
-                      <input onchange="PreviewImage(this,'imgHeadPhoto','divPreview');"  type="file" id="img" name="img"/>
+                    <div id="file1" style="display:block;">
+                      <input onchange="PreviewImage(this,'imgHeadPhoto','divPreview');"  type="file" id="img" name="img" value="选择图片"/>
                     </div>
                     <div style="margin-left:10px;margin-top:10px;margin-bottom:10px;">
-                    <span id="fileImg" class="icon-picture" title="上传图片"></span>
-
                     <h6>参考图片</h6>
                     <div id="divPreview">
                         <img id="imgHeadPhoto" src="" style="width:160px; height:170px; border:solid 1px #d2e2e2;"/>
