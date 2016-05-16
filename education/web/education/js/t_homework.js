@@ -42,6 +42,6 @@ function buttonClickSearch(){
 }
 
 function pwork(cid,course_id,name){
-    store.set("y_name",name);
+    //store.set("y_name",name);
     document.location.href="index.php?r=/education&page=homework/add&cid="+cid+"&course_id="+course_id;
 }
