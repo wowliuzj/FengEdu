@@ -104,7 +104,6 @@ class AdminController extends Controller
             $count = Yii::$app->db->createCommand($sql)->queryScalar();  
             $welcomeInfo['count'] = $count;
         }
-      
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
