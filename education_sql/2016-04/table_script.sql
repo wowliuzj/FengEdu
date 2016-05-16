@@ -5,12 +5,10 @@ CREATE TABLE `stu_work_upload` (
   `upload_time` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `education`.`stu_work_upload` 
+ALTER TABLE `stu_work_upload` 
 ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
 ADD PRIMARY KEY (`id`);
 
-
-USE `education`;
 CREATE 
      OR REPLACE ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
