@@ -10,7 +10,7 @@ $(document).ready(function(){
     formObj.validate();
     var options = {
             success:showResponse,
-            resetForm: false,  
+            resetForm: true,
             dataType:  'json' 
     };
     function showResponse(responseText, statusText)  {
