@@ -116,7 +116,8 @@ class ExamController extends Controller
          $session = Yii::$app->session;
         $info = $session['USER_SESSION'];
         $cid = $info['cid'];
-        $sql = "SELECT DATE_FORMAT(a.time,'%Y-%m-%d') as time ,b.title,a.`desc` from exam as a,outline as b  where a.title = b.id and a.cid = $cid and DATE_FORMAT(a.time,'%Y-%m-%d') >= DATE_FORMAT(now(),'%Y-%m-%d') ";
+        //$sql = "SELECT DATE_FORMAT(a.time,'%Y-%m-%d') as time ,b.title,a.`desc` from exam as a,outline as b  where a.title = b.id and a.cid = $cid and DATE_FORMAT(a.time,'%Y-%m-%d') >= DATE_FORMAT(now(),'%Y-%m-%d') ";
+        $sql = "SELECT DATE_FORMAT(a.time,'%Y-%m-%d') as time ,b.name as title,a.`desc` from exam as a,course as b  where a.title = b.id and a.cid = $cid and DATE_FORMAT(a.time,'%Y-%m-%d') >= DATE_FORMAT(now(),'%Y-%m-%d')  ";
         $list = Yii::$app->db->createCommand($sql)->queryAll();
         $response->data = \Tool::toResJson(1, $list);
     }
