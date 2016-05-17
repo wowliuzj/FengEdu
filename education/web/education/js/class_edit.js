@@ -28,4 +28,5 @@ $(document).ready(function(){
         $(this).ajaxSubmit(options);
         return false; 
     });
+    getTeacherList("tid", 1);
 });
