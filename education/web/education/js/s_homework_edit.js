@@ -59,7 +59,10 @@ function loadHomeWork() {
             var div_1_cnt = "";
             if(data1.uploadList.length>0) {
                 for(var i=0;i<data1.uploadList.length;i++) {
-                    div_1_cnt += "<img width='10%' height='10%' src='/uploads/"+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+                    if(data1.uploadList[i].img_file)
+                        div_1_cnt += "<img width='100px' src='/uploads/"+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+                    else
+                        div_1_cnt += "<a href='/uploads/"+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;' target='_blank'><img src='/img/006.png' title='下载' /></a>";
                 }
                 $("#uploadListPanel").append(div_1_cnt);
             }

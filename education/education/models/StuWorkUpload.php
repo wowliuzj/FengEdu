@@ -28,7 +28,7 @@ class StuWorkUpload extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'stu_work_id'], 'integer'],
+            [['id', 'stu_work_id', 'img_file'], 'integer'],
             [['upload_time'], 'string'],
             [['file'], 'file'],
         ];
@@ -43,6 +43,7 @@ class StuWorkUpload extends \yii\db\ActiveRecord
             'id' => 'ID',
             'stu_work_id' => 'Sid',
             'file' => 'Upload File',
+            'img_file' => 'Image File',
             'upload_time' => 'Uploaded time',
         ];
     }
