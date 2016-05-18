@@ -375,7 +375,7 @@ $(document).ready(function(){
 	                }
 	            },
 	            error: function(data) {
-	            },
+	            }
 	        });
 		}
 		saveStorageValue(shid, "hid");
