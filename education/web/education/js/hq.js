@@ -348,7 +348,7 @@ function getAdminHqHomeworkQuery(){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
     })
 }
 
@@ -399,7 +399,7 @@ function getAdminHqStuWorkQuery(){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
     })
 }
 
@@ -447,7 +447,7 @@ function getAdminHqActivityQuery(){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
     })
 }
 
@@ -494,7 +494,7 @@ function getInfoCampusList(){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
     })
 }
 //跳转添加校区修改
@@ -533,7 +533,7 @@ function getInfoCampusData(){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
     })
 }
 

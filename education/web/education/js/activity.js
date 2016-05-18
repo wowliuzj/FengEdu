@@ -67,7 +67,7 @@ $(document).ready(function(){
 	var fbinfoform_options = {
 		success: fbShowResponse,
 		resetForm: true,
-		dataType: 'json',
+		dataType: 'json'
 	};
 
 	function fbShowResponse(responseText, statusTest){
@@ -104,6 +104,6 @@ function hdtzClick(key , id){
 	$("#hdzjTitle").html(title);
 	$("#hdzjContent").html(content);
 	$("#id").val(id);
-..}
+}
 
 

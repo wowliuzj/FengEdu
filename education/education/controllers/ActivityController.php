@@ -183,6 +183,7 @@ class ActivityController extends Controller
 
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_HTML;
+
         $response->content = json_encode(\Tool::toResJson(1, "活动总结成功"));
         // 文件上传成功
     }

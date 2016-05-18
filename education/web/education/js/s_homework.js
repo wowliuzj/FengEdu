@@ -31,7 +31,7 @@ function showResponse(responseText, statusText)  {
         for (key in list)
         {
             temp = cnt.replace("#title#",list[key].title).replace("#icl_number#",list[key].icl_number).replace("#is_name#",list[key].is_name).replace("#time#",list[key].time).replace("#stime#",list[key].stime).replace(/#shid#/g,list[key].shid);
-            if(list[key].score) temp = temp.replace("批改", "修改");
+            if(list[key].score && list[key].score > 0) temp = temp.replace("批改", "修改");
             data_body.append(temp);
         }
         pageSearch(search,responseText.data.pageNo);

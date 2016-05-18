@@ -1,6 +1,6 @@
 <script src="js/jquery.ui.custom.js">
 </script>
-<script src="js/store+json2.min.js">
+<script src="js/store.js">
 </script>
 <script src="js/jquery.uniform.js">
 </script>
@@ -59,7 +59,8 @@
         <li class="<?php echo $isActive0?>"><a href="index.php?r=/education&page=index"> <div class="helper-font-24"> <i class="icon icon-home"></i></div> <span>主页</span></a> </li>
         <li class="<?php echo $isActive1?>"> <a href="index.php?r=/education&page=homework/wall"><div class="helper-font-24"> <i class="icofont-dashboard"></i></div> <span>作业墙</span></a> </li>
         <li class="<?php echo $isActive2?>"> <a href="index.php?r=/education&page=qa/index" > <div class="helper-font-24"> <i class="icon icon-inbox"></i></div> <span >互动区</span></a> </li>
-        <li id="tz_count_li" style="display:none" class="<?php echo $isActive3?>"> <a href="index.php?r=/education&page=tz/index" > <div class="helper-font-24"> <i class="icon icon-camera"></i></div> <span >通知（<span id="tz_count">0</span>）</span></a> </li>
+       <!-- <li class="<?php /*echo $isActive2*/?>"> <a href="index.php?r=/education&page=qa/index_teach" > <div class="helper-font-24"> <i class="icon icon-inbox"></i></div> <span >互动区</span></a> </li>
+       --> <li id="tz_count_li" style="display:none" class="<?php echo $isActive3?>"> <a href="index.php?r=/education&page=tz/index" > <div class="helper-font-24"> <i class="icon icon-camera"></i></div> <span >通知（<span id="tz_count">0</span>）</span></a> </li>
     </ul>
 </div>
 

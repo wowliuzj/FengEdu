@@ -6,6 +6,7 @@ use Yii;
 use app\education\models\StuWork;
 use app\education\models\StuWorkSearch;
 use app\education\models\StuWorkUpload;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -238,7 +239,7 @@ class StuWorkController extends Controller
         $sql = "SELECT id from stu_work where sid=$sid and hid=$hid";
         $info = Yii::$app->db->createCommand($sql)->queryOne();
         if($info != null){
-            $response->data = \Tool::toResJson(1, $model->id);
+            $response->data = \Tool::toResJson(1, "作业已提交");
             return;
         }
 
@@ -289,6 +290,18 @@ class StuWorkController extends Controller
                 $upload->stu_work_id = $id;
                 $upload->file = $row;
                 $upload->upload_time = date("Y-m-d H:i:s");
+                try
+                {
+                    $fType = exif_imagetype ( dirname(__FILE__) . DIRECTORY_SEPARATOR . "../../web/uploads/".$row );
+                    if(1 <= $fType || $fType >= 17)
+                        $upload->img_file = 1;
+                    else
+                        $upload->img_file = 0;
+                } 
+                catch(Exception $ex)
+                {
+                    $upload->img_file = 0;
+                }
                 $upload->save();
             }
             if ($model->load(Yii::$app->request->post(),"") && $model->save()) {

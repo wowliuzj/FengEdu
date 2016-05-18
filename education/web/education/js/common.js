@@ -77,7 +77,7 @@ function getClassList(selId){
              },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 
 }
@@ -123,7 +123,7 @@ function getTeacherClassList(selId,tid){
              },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 }
 
@@ -168,7 +168,7 @@ function getAllClassList(selId,campusId){
              },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 }
 //请求教师列表
@@ -208,7 +208,7 @@ function getTeacherList(selId, campusId){
              },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 }
   //请求校区列表
@@ -244,7 +244,7 @@ function getSchoolList(selId){
              },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 }
 
@@ -276,7 +276,7 @@ function getClassSubject(classid, selId){
     },
     error:function(data){
       alert("错误信息"+data);
-    },
+    }
   });
 }
 

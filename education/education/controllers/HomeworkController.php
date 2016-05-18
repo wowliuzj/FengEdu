@@ -376,6 +376,9 @@ class HomeworkController extends Controller
             Yii::$app->db->createCommand($sql)->execute();
             $sql = "delete from " . StuWork::tableName() . " where id in(" . $strIds . ")";
             $res = Yii::$app->db->createCommand($sql)->execute();
+            /*$sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            var_dump($sql);die();*/
             if($res == 0)
             {
                 $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
