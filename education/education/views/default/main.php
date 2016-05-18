@@ -1,6 +1,6 @@
 <script src="js/jquery.ui.custom.js">
 </script>
-<script src="js/store+json2.min.js">
+<script src="js/store.js">
 </script>
 <script src="js/jquery.uniform.js">
 </script>
