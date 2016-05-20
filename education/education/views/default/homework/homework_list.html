@@ -12,7 +12,9 @@
             </div>
              <form id="homeworkId" class="form-horizontal" action="index.php?r=/education/homework/list" method="get">
                 <input type="hidden" name="page" id="page" value="1"/>
-                <div class="controls" style="margin-left:10px;">
+                 <input type="hidden" name="clid" id="clid" value=""/>
+                 <input type="hidden" name="course_id" id="course_id" value=""/>
+               <!-- <div class="controls" style="margin-left:10px;">
                 <div >
                     <span>
                         作业名称
@@ -32,7 +34,7 @@
                         筛选
                     </button>
                     </div>
-                </div>
+                </div>-->
             </form>
             <div class="widget-content nopadding">
                 <form id="classForm">
@@ -44,7 +46,7 @@
                                 </th>
                                 <th style="width:30%">作业名称</th>
                                 <th style="width:10%">完成时间</th>
-                                <th>操作</th>
+                                <th>描述</th>
                             </tr>
                         </thead>
                         <tbody id="data_body">

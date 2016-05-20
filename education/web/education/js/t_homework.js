@@ -1,6 +1,5 @@
 $(document).ready(function(){
     search();
-    getHomeWorkByCourseList();
 });
 
 var formObj = $('#formId');
@@ -19,7 +18,8 @@ function showResponse(responseText, statusText)  {
                 <td style="text-align:center">#num#</td>\
                 <td style="text-align:center">\
                     <button type="button" onclick="javascript:pwork(\'#cid#\',\'#course_id#\',\'#name#\')">布置作业</button>\
-                </td>\
+                <button type="button" onclick="javascript:workList(\'#cid#\',\'#course_id#\',\'#name#\')">查看作业</button>\
+            </td>\
                </tr>';
 
        /* <button type="button" onclick="javascript:workList(\'#cid#\',\'#course_id#\',\'#name#\')">查看作业</button>\*/
@@ -52,6 +52,6 @@ function pwork(cid,course_id,name){
 }
 function workList(cid,course_id,name){
     //store.set("y_name",name);
-    document.location.href="index.php?r=/education&page=homework/homework_list&cid="+cid+"&course_id="+course_id;
+    document.location.href="index.php?r=/education&page=homework/homework_list&clid="+cid+"&course_id="+course_id;
 }
 

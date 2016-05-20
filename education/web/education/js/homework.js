@@ -2,6 +2,7 @@ var eval_total = 0;
 $(document).ready(function(){
 /////////////////////////////////
 //学生端
+    delChecked();
 /////////////////////////////////
 //历史作业详细评论发布
 	var study_lszy_form = $("#study-lszy-form");
@@ -97,7 +98,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         })
 
 	}
@@ -123,6 +124,9 @@ $(document).ready(function(){
 					}
 					var status = getHomeWorKStatusDes(data[key].status, data[key].score);
 					var trCnt = $("<tr class='gradeA'>\
+										 <td>\
+                                            <input type=\'checkbox\' name='dicl_id"+data[key].shid+"' value='"+data[key].shid+"'/>\
+                                        </td>\
 										<td style='text-align:center'>"+data[key].desc+"</td>\
 										<td style='text-align:center'>"+data[key].it_name+"</td>\
 										<td style='text-align:center'>"+data[key].time+"</td>\
@@ -145,7 +149,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         })
 
 	}
@@ -195,7 +199,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 
 	}
@@ -273,7 +277,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         })
 
 	}
@@ -449,7 +453,7 @@ $(document).ready(function(){
             },
             error: function(data) {
                 alert("错误信息"+data);
-            },
+            }
         });
 
 	}
@@ -787,3 +791,26 @@ $(document).ready(function(){
 		var shid = loadStorageValue("shid");
 		getEvalWorkEvalPage(shid);
 	}
+function delChecked(){
+
+    var options = {
+        success:   showResponse,  //处理完成
+        url: "index.php?r=/education/homework/deletes",
+        resetForm: false,
+        dataType:  'json'
+    };
+    function showResponse(responseText, statusText)  {
+        if(responseText.s == 1){
+            alert("删除成功");
+            getHomeWorkList();
+        }else{
+            $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
+        }
+    }
+    var del_btn = $('#del_btn');
+    del_btn.click(function() {
+        var classForm = $('#classForm');
+        classForm.ajaxSubmit(options);
+        return false;
+    })
+}

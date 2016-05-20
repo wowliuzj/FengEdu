@@ -301,11 +301,11 @@ class HomeworkController extends Controller
     }
     public function actionList()
     {
-        $cid = Yii::$app->request->get("cid",'0');
+        $cid = Yii::$app->request->get("clid",'0');
         $courseId = Yii::$app->request->get("course_id",'0');
         $sql = "SELECT c.*
-                FROM course c, outline o, info_class ic
-                where c.outline_id = o.id and o.cid = ic.icl_id and ic.icl_id = $cid";
+                FROM homework c
+                where course_id = $courseId";
         $model = Yii::$app->db->createCommand($sql)->queryAll();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
@@ -406,7 +406,59 @@ class HomeworkController extends Controller
             $response->data = \Tool::toResJson(0, "删除失败");
         }
     }
-
+    public function actionDel()
+    {
+        /**
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $sql = "delete from ".Homework::tableName()." where id in(".$ids.")";
+        $res = Yii::$app->db->createCommand($sql)->execute();
+        if($res == 0){
+        $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+        }else{
+        $response->data = \Tool::toResJson(1, "删除成功");
+        }
+         */
+        $request = Yii::$app->request;
+        $idArray = $request->get();
+        $ids = array();
+        foreach($idArray as $k=>$v){
+            $index = strrpos($k,'dicl_id');
+            if($index === false){
+                continue;
+            }
+            array_push($ids,$v);
+        }
+        $strIds = implode(",", $ids);
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $transaction = NULL;
+        try
+        {
+            $sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            $sql = "delete from " . StuWork::tableName() . " where hid in(" . $strIds . ")";
+            Yii::$app->db->createCommand($sql)->execute();
+            $sql = "delete from " . StuWorkUpload::tableName() . " where stu_work_id in(select id from " . StuWork::tableName() . " where hid in(" . $strIds . "))";
+             Yii::$app->db->createCommand($sql)->execute();
+            /*$sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            var_dump($sql);die();*/
+            if($res == 0)
+            {
+                $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            }
+            else
+            {
+                $response->data = \Tool::toResJson(1, "删除成功");
+            }
+        }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
+        }
+    }
     /**
      * Finds the Homework model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
