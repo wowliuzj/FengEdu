@@ -56,7 +56,7 @@ function delChecked(){
         url: "index.php?r=/education/admin/deletes",
         resetForm: false,
         dataType:  'json',
-        type: "post",
+        type: "post"
     };
     function showResponse(responseText, statusText)  {
         if(responseText.s == 1){

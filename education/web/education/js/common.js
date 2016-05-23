@@ -33,6 +33,10 @@ $(document).ready(function(){
         $("#tz_count").text(""+data.data['count']);
         $("#tz_count_li").attr("style","");
       }
+        if(type ==3){
+            //alert(data.data['count']);
+            $("#tz_teacher_li").attr("style","");
+        }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
         //alert(errorThrown); 

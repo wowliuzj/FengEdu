@@ -121,7 +121,19 @@ class ExamController extends Controller
         $list = Yii::$app->db->createCommand($sql)->queryAll();
         $response->data = \Tool::toResJson(1, $list);
     }
+    public function actionList()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
 
+        $session = Yii::$app->session;
+        $info = $session['USER_SESSION'];
+        $cid = $info['cid'];
+        //$sql = "SELECT DATE_FORMAT(a.time,'%Y-%m-%d') as time ,b.title,a.`desc` from exam as a,outline as b  where a.title = b.id and a.cid = $cid and DATE_FORMAT(a.time,'%Y-%m-%d') >= DATE_FORMAT(now(),'%Y-%m-%d') ";
+        $sql = "SELECT a.id, DATE_FORMAT(a.time,'%Y-%m-%d') as time ,b.name as title ,a.desc ,ic.icl_number as classNumber from exam a left join course b on a.title=b.id left join info_class ic on a.cid=ic.icl_id where DATE_FORMAT(a.time,'%Y-%m-%d') >= DATE_FORMAT(now(),'%Y-%m-%d') ";
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+        $response->data = \Tool::toResJson(1, $list);
+    }
      public function actionCreate()
     {
         $response = Yii::$app->response;
@@ -261,17 +273,48 @@ class ExamController extends Controller
         }
     }
 
-    public function actionDeletes($ids)
+    public function actionDeletes()
     {
+
+        $request = Yii::$app->request;
+        $idArray = $request->get();
+        $ids = array();
+        foreach($idArray as $k=>$v){
+            $index = strrpos($k,'dicl_id');
+            if($index === false){
+                continue;
+            }
+            array_push($ids,$v);
+        }
+        $strIds = implode(",", $ids);
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".Exam::tableName()." where id in(".$ids.")";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-        if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
-        }else{
-            $response->data = \Tool::toResJson(1, "删除成功");
+        $transaction = NULL;
+        try
+        {
+           /* $sql = "delete from " . Exam::tableName() . " where id in(" . $strIds . ")";
+            Yii::$app->db->createCommand($sql)->execute();*/
+            $sql = "delete from " . Exam::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            /*$sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
+            $res = Yii::$app->db->createCommand($sql)->execute();
+            var_dump($sql);die();*/
+            if($res == 0)
+            {
+                $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
+            }
+            else
+            {
+                $response->data = \Tool::toResJson(1, "删除成功");
+            }
         }
+        catch(Exception $ex)
+        {
+            if(isset($transaction)) $transaction->rollback();
+            $response->data = \Tool::toResJson(0, "删除失败");
+        }
+
+
     }
 
     /**

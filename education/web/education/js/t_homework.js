@@ -18,12 +18,15 @@ function showResponse(responseText, statusText)  {
                 <td style="text-align:center">#num#</td>\
                 <td style="text-align:center">\
                     <button type="button" onclick="javascript:pwork(\'#cid#\',\'#course_id#\',\'#name#\')">布置作业</button>\
-                </td>\
+                <button type="button" onclick="javascript:workList(\'#cid#\',\'#course_id#\',\'#name#\')">查看作业</button>\
+            </td>\
                </tr>';
+
+       /* <button type="button" onclick="javascript:workList(\'#cid#\',\'#course_id#\',\'#name#\')">查看作业</button>\*/
         data_body.empty();
         for (key in list)
         {
-            temp = cnt.replace("#name#",list[key].name).replace("#cnt#",list[key].cnt).replace("#num#",list[key].num).replace("#cid#",list[key].cid).replace("#course_id#",list[key].id).replace("#name#",list[key].name);
+            temp = cnt.replace("#name#",list[key].name).replace("#cnt#",list[key].cnt).replace("#num#",list[key].num).replace(/#cid#/g,list[key].cid).replace(/#course_id#/g,list[key].id).replace(/#name#/g,list[key].name);
             data_body.append(temp);
         }
         pageSearch(search,responseText.data.pageNo);
@@ -31,6 +34,8 @@ function showResponse(responseText, statusText)  {
         $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300); 
     }
 }
+
+
 function search(){
     var formObj = $('#formId');
     formObj.ajaxSubmit(options);
@@ -45,3 +50,8 @@ function pwork(cid,course_id,name){
     //store.set("y_name",name);
     document.location.href="index.php?r=/education&page=homework/add&cid="+cid+"&course_id="+course_id;
 }
+function workList(cid,course_id,name){
+    //store.set("y_name",name);
+    document.location.href="index.php?r=/education&page=homework/homework_list&clid="+cid+"&course_id="+course_id;
+}
+

@@ -81,6 +81,10 @@ $(document).ready(function(){
 	}
 
 	fbinfoform.submit(function(){
+        if($("#id").val()==""){
+            alert("请选择一项活动写活动总结。")
+            return false;
+        }
 		$(this).ajaxSubmit(fbinfoform_options);
 		return false;
 	});
