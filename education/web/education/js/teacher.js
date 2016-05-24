@@ -1,6 +1,7 @@
 $(document).ready(function(){
     getCampusClassList("cid");
     search();
+    delChecked();
 });
 
 var formObj = $('#formId');
@@ -14,6 +15,9 @@ function showResponse(responseText, statusText)  {
         var list = responseText.data.list;
         var data_body = $("#data_body");
         var cnt = '<tr>\
+                <td>\
+                    <input type=\'checkbox\' name=\'dicl_id#it_id#\' value=\'#it_id#\'/>\
+                </td>\
                 <td style="text-align:center;width:20%">#it_name#</td>\
                 <td style="text-align:center;width:10%">#it_sex#</td>\
                 <td style="text-align:center;width:20%">#it_start_date#</td>\
@@ -26,7 +30,7 @@ function showResponse(responseText, statusText)  {
         for (key in list)
         {
            
-            temp = cnt.replace("#it_name#",list[key].it_name).replace("#it_sex#",list[key].it_sex).replace("#it_id#",list[key].it_id).replace("#it_start_date#",list[key].it_start_date).replace("#it_tel#",list[key].it_tel);
+            temp = cnt.replace("#it_name#",list[key].it_name).replace("#it_sex#",list[key].it_sex).replace(/#it_id#/g,list[key].it_id).replace("#it_start_date#",list[key].it_start_date).replace("#it_tel#",list[key].it_tel);
             data_body.append(temp);
         }
         pageSearch(search,responseText.data.pageNo);
@@ -86,7 +90,29 @@ function getCampusClassList(selId){
         },
         error: function(data) {
             alert("错误信息"+data);
-        },
+        }
+    });
+}
+function delChecked(){
+    var options = {
+        success:   showResponse,  //处理完成
+        url: "index.php?r=/education/teacher/deletes",
+        resetForm: false,
+        dataType:  'json'
+    };
+    function showResponse(responseText, statusText)  {
+        if(responseText.s == 1){
+            alert("删除成功");
+            search();
+        }else{
+            $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
+        }
+    }
+    var del_btn = $('#del_btn');
+    del_btn.click(function() {
+        var classForm = $('#classForm');
+        classForm.ajaxSubmit(options);
+        return false;
     });
 
 }
