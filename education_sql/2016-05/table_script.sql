@@ -5,7 +5,7 @@ CREATE or replace
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
-VIEW `education`.`work_wall_view` AS
+VIEW `work_wall_view` AS
     SELECT 
         `t`.`id` AS `id`,
         CONCAT('/uploads/', `u`.`file`) AS `simg`,
