@@ -104,8 +104,12 @@ $(document).ready(function(){
 	}
 	//作业查询 index
 	function getHomeWorkList(){
+		var page = document.getElementById("page").value;
+		if (page != "") {
+			param = "&page="+page;
+		};
 		//学生端 作业查询
-	    var url1 = "index.php?r=/education/homework/index";
+	    var url1 = "index.php?r=/education/homework/index"+param;
         $.ajax({
             type: "get",
             url: url1,
