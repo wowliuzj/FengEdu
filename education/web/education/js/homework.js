@@ -114,6 +114,7 @@ $(document).ready(function(){
             
             success: function(data) {
                 if (data.s == 1) {
+					var pageNo = data.data.pageNo;
                 	var data = data.data.list;
 				  	var tbody = $("#student_list_tbody_id");
 					tbody.empty();
@@ -141,7 +142,7 @@ $(document).ready(function(){
 					tbody.append(trCnt);
 					}
 
-					// pageSearch(getHomeWorkList, data.data.pageNo);
+					pageSearch(getHomeWorkList, pageNo);
                 }else
                 {
                     alert("数据错误"+data);
