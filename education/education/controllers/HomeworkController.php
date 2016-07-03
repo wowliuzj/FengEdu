@@ -70,8 +70,8 @@ class HomeworkController extends Controller
 
         // 获取所有页面的数据项的总数
         $totalCount = $dataProvider->getTotalCount();
-        $pageNo =$totalCount % $pageSize ==0? (int)($totalCount / $pageSize) : (int)($totalCount / $pageSize + 1);
-
+        $pageNo = $totalCount % $pageSize == 0 ? (int)($totalCount / $pageSize) : (int)($totalCount / $pageSize + 1);
+        
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data =  \Tool::toResJson(1,["list"=>$models,"pageNo"=>$pageNo,"totalCount"=>$totalCount]);
