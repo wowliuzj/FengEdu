@@ -43,7 +43,6 @@ class InfoCampusController extends Controller
         //]);
         // 获取分页和排序数据
         $models = $dataProvider->getModels();
-
         // 在当前页获取数据项的数目
         $pageSize = $dataProvider->getPagination()->getPageSize();
 
@@ -58,7 +57,9 @@ class InfoCampusController extends Controller
 
     public function actionCampus()
     {
-        $sql = 'SELECT ic_id,ic_name from info_campus';
+        $session = Yii::$app->session;
+        $school_id=$session['USER_SESSION']['school_id'];
+        $sql = 'SELECT ic_id,ic_name from info_campus where ic_school_id='.$school_id;
         $list = Yii::$app->db->createCommand($sql)->queryAll();
         
         $response = Yii::$app->response;
