@@ -70,11 +70,10 @@
 
 
 
-
 <div id="content">
     <div class="quick-actions_homepage">
         <ul id="permission_list_ul_id" class="quick-actions" style="background:#ff0000">
-        	
+
         </ul>
     </div>
     <div id="errormsg"></div>

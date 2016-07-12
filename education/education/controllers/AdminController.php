@@ -76,10 +76,12 @@ class AdminController extends Controller
                                             'viewName' =>$pinfo['name'],
                                             'cid'=>$pinfo['cid'],
                                             'campus_id'=>$pinfo['campus_id'],
+                                            'school_id'=>$info['school_id'],
                                         ];
             $session['USER_ROLE_ID'] = $rids;
             $sql = 'SELECT * from permission where p_id in (SELECT p_id from access where r_id in (:rids))';
             $list = Yii::$app->db->createCommand($sql,[':rids' => $rids])->queryAll();
+            
             Yii::$app->cache->set('USER_PERMISSION_'.$rids,$list);
         }
         $response = Yii::$app->response;
