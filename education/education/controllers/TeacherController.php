@@ -63,18 +63,24 @@ class TeacherController extends Controller
 
         $sql = 'SELECT it_id,it_name from info_teacher where 1=1 ';
 
-        if($ftype == 8 or $ftype == 3 or $ftype == 4){
+        /*if($ftype == 8 or $ftype == 3 or $ftype == 4){
             $sql = $sql . " and campus_id=$campus_id";
-        }else{
+        }else{*/
             $params = Yii::$app->request->queryParams;
 
             if(isset($params['campus_id'])){
-               $campus_id = $params['campus_id'];
-               if($campus_id!='' and $campus_id!='0'){
-                   $sql = $sql." and campus_id=$campus_id";
-               }
+                $campus_id = $params['campus_id'];
+                if($campus_id==0){
+                    $sql = $sql." and campus_id=-1";
+                }
+                else{
+                    $sql = $sql." and campus_id=$campus_id";
+                }
             }
-        }
+            else{
+                $sql = $sql." and campus_id=-1";
+            }
+       /* }*/
         $list = Yii::$app->db->createCommand($sql)->queryAll();
 
         $response = Yii::$app->response;
