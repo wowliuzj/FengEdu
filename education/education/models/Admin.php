@@ -33,7 +33,7 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['a_status','campus_id'], 'integer'],
+            [['a_status','campus_id','school_id'], 'integer'],
             [['a_name'], 'string', 'max' => 20],
             [['a_pwd'], 'string', 'max' => 64],
             [['a_salt'], 'string', 'max' => 32],
@@ -56,6 +56,7 @@ class Admin extends \yii\db\ActiveRecord
             'r_id' => 'R ID',
             'a_ip' => 'A Ip',
             'a_status' => 'A Status',
+            'school_id'=>'School ID'
         ];
     }
 
@@ -72,6 +73,7 @@ class Admin extends \yii\db\ActiveRecord
         $phone = substr($this->a_name,-6);
         $salt = \Tool::salt(32);
         $pwd = \Tool::salt_hash(\Tool::md5_xx($phone), $salt);
+
         $this->a_pwd = $pwd;
         $this->a_salt = $salt;
         $this->a_status = 0;

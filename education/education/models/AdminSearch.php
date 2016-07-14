@@ -19,7 +19,7 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['a_id', 'r_id', 'a_status','campus_id'], 'integer'],
+            [['a_id', 'r_id', 'a_status','campus_id','school_id'], 'integer'],
             [['a_name', 'a_pwd', 'a_salt', 'a_ip'], 'safe'],
         ];
     }

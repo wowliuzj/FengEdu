@@ -11,7 +11,7 @@ use app\education\models\InfoCampus;
 /**
  * InfoCampusSearch represents the model behind the search form about `app\education\models\InfoCampus`.
  */
-class InfoCampusSearch extends InfoCampus
+class InfoSchoolSearch extends InfoSchool
 {
     /**
      * @inheritdoc
@@ -19,8 +19,8 @@ class InfoCampusSearch extends InfoCampus
     public function rules()
     {
         return [
-            [['ic_id'], 'integer'],
-            [['ic_name', 'ic_address', 'ic_postcode', 'ic_tel'], 'safe'],
+            [['is_id'], 'integer'],
+            [['is_name', 'is_address', 'is_postcode', 'is_tel'], 'safe'],
         ];
     }
 
@@ -42,12 +42,8 @@ class InfoCampusSearch extends InfoCampus
      */
     public function search($params)
     {
-        $session = Yii::$app->session;
-        $school_id=$session['USER_SESSION']['school_id'];
-        $query = InfoCampus::find();
-        $query->andFilterWhere([
-            'ic_school_id' => $school_id,
-        ]);
+        $query = InfoSchool::find();
+
         $page = 1;
         if(isset($params['page'])){
             $page = $params['page'];
@@ -68,13 +64,13 @@ class InfoCampusSearch extends InfoCampus
         $this->load($params,"");
 
         $query->andFilterWhere([
-            'ic_id' => $this->ic_id,
+            'is_id' => $this->is_id,
         ]);
 
-        $query->andFilterWhere(['like', 'ic_name', $this->ic_name])
-            ->andFilterWhere(['like', 'ic_address', $this->ic_address])
-            ->andFilterWhere(['like', 'ic_postcode', $this->ic_postcode])
-            ->andFilterWhere(['like', 'ic_tel', $this->ic_tel]);
+        $query->andFilterWhere(['like', 'is_name', $this->is_name])
+            ->andFilterWhere(['like', 'is_address', $this->is_address])
+            ->andFilterWhere(['like', 'is_postcode', $this->is_postcode])
+            ->andFilterWhere(['like', 'is_tel', $this->is_tel]);
 
         return $dataProvider;
     }
@@ -87,7 +83,7 @@ class InfoCampusSearch extends InfoCampus
             $sqlWhere = $sqlWhere . ' and id='.$id;
         }
         
-        $sql="SELECT * from ". InfoCampus::tableName() . " where 1=1 ";
+        $sql="SELECT * from ". InfoSchool::tableName() . " where 1=1 ";
 
         $page = 1;
         if(isset($params['page'])){
@@ -98,7 +94,7 @@ class InfoCampusSearch extends InfoCampus
             $pageSize = $params['pageSize'];
         }
 
-        $sqlCount = "select count(1) from ". InfoCampus::tableName() ." as a where 1=1 ".$sqlWhere;
+        $sqlCount = "select count(1) from ". InfoSchool::tableName() ." as a where 1=1 ".$sqlWhere;
         $count = Yii::$app->db->createCommand($sqlCount)->queryScalar();
         $dataProvider = new SqlDataProvider([
             'sql' => $sql.$sqlWhere,

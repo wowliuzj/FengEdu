@@ -1,6 +1,8 @@
 ALTER TABLE `stu_work_upload` 
 ADD COLUMN `img_file` TINYINT(4) NULL DEFAULT 0 AFTER `file`;
 
+ALTER TABLE `education`.`info_campus` ADD COLUMN `ic_school_id` INT NULL  AFTER `ic_tel` ;
+
 CREATE or replace
     ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 

@@ -1,0 +1,45 @@
+<div class="row-fluid">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+        <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+            <div class="widget-title">
+                <h5>
+                    添加校区
+                </h5>
+            </div>
+
+            <div class="widget-content nopadding">
+                <form id="admin-school-query-form" method="post" class="form-horizontal" action="index.php?r=/education/info-school/create" novalidate="novalidate">
+                    <div class="control-group">
+                        <label class="control-label">学校名称</label>
+                        <div class="controls">
+                            <input class="required" type="text" name="is_name" id="is_name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">手机号</label>
+                        <div class="controls">
+                            <input class="required" type="text" name="is_tel" id="is_tel">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">地址</label>
+                        <div class="controls">
+                            <input class="required" type="text" name="is_address" id="is_address">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" value="添加" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="education/js/school.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // getInfoCampusData();
+});
+</script>
