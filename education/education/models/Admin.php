@@ -14,6 +14,7 @@ use Yii;
  * @property string $r_id
  * @property string $a_ip
  * @property integer $a_status
+ * @property integer $school_id
  *
  * @property Role $r
  */
