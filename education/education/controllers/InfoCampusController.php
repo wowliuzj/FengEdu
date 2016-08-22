@@ -109,6 +109,8 @@ class InfoCampusController extends Controller
             $admin->r_id = '8';
             $admin->fid = $model->ic_id;
             $admin->ftype = 8;
+            $admin->school_id = $session['USER_SESSION']["school_id"];
+            $admin->campus_id = $model->ic_id;
             $admin->create();
             //return $this->redirect(['view', 'id' => $model->ic_id]);
 			$response->data = \Tool::toResJson(1, $model->ic_id);

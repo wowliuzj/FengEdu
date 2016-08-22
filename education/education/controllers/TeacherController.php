@@ -131,6 +131,8 @@ class TeacherController extends Controller
             $admin->r_id = "$model->it_type";
             $admin->fid = $model->it_id;
             $admin->ftype = $model->it_type;
+            $admin->school_id = $session['USER_SESSION']["school_id"];
+            $admin->campus_id = $session['USER_SESSION']['campus_id'];
             $admin->create();
             //return $this->redirect(['view', 'id' => $model->it_id]);
 			$response->data = \Tool::toResJson(1, $model->it_id);
