@@ -95,7 +95,7 @@ class InfoCampusController extends Controller
 
         $model->load(Yii::$app->request->post(),"");
         $admin = new AdminSearch();
-        $model->ic_school_id = Yii::$app->user->identity->school_id;
+        $model->ic_school_id = $admin->school_id;
         $tf = $admin->hasPhone($model->ic_tel);
         if($tf){
             $response->data = \Tool::toResJson(0, "该手机号已经注册过了，请换一个其他的手机号");
