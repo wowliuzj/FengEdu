@@ -133,6 +133,7 @@ class InfoClassController extends Controller
                }
             }
         }*/
+        var_dump($sql);die();
         $list = Yii::$app->db->createCommand($sql)->queryAll();
         
         $response = Yii::$app->response;
