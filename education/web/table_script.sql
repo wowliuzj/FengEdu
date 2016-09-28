@@ -17,4 +17,9 @@ INSERT INTO `education`.`access` (`r_id`, `p_id`, `ac_r`, `ac_w`) VALUES ('1', '
 ALTER TABLE `education`.`info_school` CHANGE COLUMN `is_id` `is_id` INT(11) NOT NULL AUTO_INCREMENT  ;
 ALTER TABLE `education`.`admin` ADD COLUMN `school_id` INT(11) NULL DEFAULT 0  AFTER `campus_id` ;
 
+INSERT INTO `education_release`.`admin` (`a_id`, `a_name`, `a_pwd`, `a_salt`, `r_id`, `a_ip`, `a_status`, `fid`, `ftype`, `campus_id`, `school_id`) VALUES ('326', 'info_hezhou', '5653e682ce835717ed0d9b13d94941b35004eeeaa5033c7cf28fd0f022f245f8', 'r)XEsXO;WF(PPR)=!4Yu\\yI.rq)]\"%6\"', '2', '127.0.0.1', '0', '0', '2', '0', '0');
+INSERT INTO `education_release`.`admin` (`a_id`, `a_name`, `a_pwd`, `a_salt`, `r_id`, `a_ip`, `a_status`, `fid`, `ftype`, `campus_id`, `school_id`) VALUES ('327', 'hq_hezhou', '5653e682ce835717ed0d9b13d94941b35004eeeaa5033c7cf28fd0f022f245f8', 'r)XEsXO;WF(PPR)=!4Yu\\yI.rq)]\"%6\"', '7', '127.0.0.1', '0', '0', '7', '0', '2');
+INSERT INTO `education_release`.`admin` (`a_id`, `a_name`, `a_pwd`, `a_salt`, `r_id`, `a_ip`, `a_status`, `fid`, `ftype`, `campus_id`, `school_id`) VALUES ('328', 'campus_hezhou', '5653e682ce835717ed0d9b13d94941b35004eeeaa5033c7cf28fd0f022f245f8', 'r)XEsXO;WF(PPR)=!4Yu\\yI.rq)]\"%6\"', '8', '127.0.0.1', '0', '0', '8', '1', '0');
+
+
 
