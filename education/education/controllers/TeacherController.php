@@ -126,13 +126,15 @@ class TeacherController extends Controller
             return;
         }
         if ($model->save()) {
+            $school_id=$session['USER_SESSION']['school_id'];
+            $campus_id=$session['USER_SESSION']['campus_id'];
              $admin->a_name = $model->it_tel;
             $admin->a_ip = $_SERVER["REMOTE_ADDR"];
-            $admin->r_id = "$model->it_type";
+            $admin->r_id = $model->it_type;
             $admin->fid = $model->it_id;
             $admin->ftype = $model->it_type;
-            $admin->school_id = $session['USER_SESSION']["school_id"];
-            $admin->campus_id = $session['USER_SESSION']['campus_id'];
+            $admin->campus_id = $campus_id;
+            $admin->school_id = $school_id;
             $admin->create();
             //return $this->redirect(['view', 'id' => $model->it_id]);
 			$response->data = \Tool::toResJson(1, $model->it_id);

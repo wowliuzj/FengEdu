@@ -49,7 +49,7 @@ class HomeworkController extends Controller
         //    'dataProvider' => $dataProvider,
         //]);
         // 获取分页和排序数据
-        $models = $dataProvider->getModels();
+        $models = $dataProvider->getModels();var_dump(11);
         //echo count($models);
         for($i = 0 ;$i < count($models);$i++){
             //status（1新作业，2尚未完成，3待评分，4已完成）
@@ -64,9 +64,9 @@ class HomeworkController extends Controller
                 $models[$i]['status'] = 4;
             }
         }
-
+        var_dump(11);
         // 在当前页获取数据项的数目
-        $pageSize = $dataProvider->getPagination()->getPageSize();
+        $pageSize = $dataProvider->getPagination()->getPageSize();var_dump(11);
 
         // 获取所有页面的数据项的总数
         $totalCount = $dataProvider->getTotalCount();

@@ -89,10 +89,12 @@ class InfoCampusController extends Controller
      */
     public function actionCreate()
     {
+        $session = Yii::$app->session;
+        $school_id=$session['USER_SESSION']['school_id'];
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $model = new InfoCampus();
-
+        $model->ic_school_id = $school_id;
         $model->load(Yii::$app->request->post(),"");
         $admin = new AdminSearch();
         $session = Yii::$app->session;
@@ -104,13 +106,15 @@ class InfoCampusController extends Controller
         }
 
         if ($model->save()) {
+
             $admin->a_name = $model->ic_tel;
             $admin->a_ip = $_SERVER["REMOTE_ADDR"];
             $admin->r_id = '8';
             $admin->fid = $model->ic_id;
             $admin->ftype = 8;
-            $admin->school_id = $session['USER_SESSION']["school_id"];
             $admin->campus_id = $model->ic_id;
+            $admin->school_id = $school_id;
+
             $admin->create();
             //return $this->redirect(['view', 'id' => $model->ic_id]);
 			$response->data = \Tool::toResJson(1, $model->ic_id);
