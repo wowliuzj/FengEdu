@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 function getClassList(selId){
 	//请求教师班级列表
-    var url1 = "index.php?r=/education/info-class/classes";
+    var url1 = "index.php?r=/education/info-class/classes1";
         $.ajax({
             type: "get",
             url: url1,

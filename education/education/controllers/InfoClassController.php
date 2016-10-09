@@ -113,12 +113,16 @@ class InfoClassController extends Controller
         $ftype = $session['USER_SESSION']['ftype'];
         $campus_id = $session['USER_SESSION']['campus_id'];
 
-        $sql = 'SELECT icl_id,icl_number from info_class where status=1';
+        $sql = 'SELECT icl_id,icl_number from info_class where status=1 ';
         $tid = Yii::$app->request->get("tid","");
-        if($tid!=""){
-            $sql = $sql . " and campus_id = $campus_id and (icl_id in (SELECT cid from class_teacher where tid=$tid) or icl_tid=$tid )";
+
+        if($tid=='' or $tid==0){
+            $sql = $sql . " and campus_id= ".$campus_id;
         }
-        if($ftype == 8 or $ftype == 3 or $ftype == 4){
+        if($tid!=""){
+            $sql = $sql . " and (icl_id in (SELECT cid from class_teacher where tid=$tid) or icl_tid=$tid )";
+        }
+       /* if($ftype == 8 or $ftype == 3 or $ftype == 4){
             $sql = $sql . " and campus_id = $campus_id";
         }else{
             $params = Yii::$app->request->queryParams;
@@ -128,7 +132,8 @@ class InfoClassController extends Controller
                    $sql = $sql . " and campus_id=$campus_id";
                }
             }
-        }
+        }*/
+        var_dump($sql);die();
         $list = Yii::$app->db->createCommand($sql)->queryAll();
         
         $response = Yii::$app->response;

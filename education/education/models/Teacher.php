@@ -20,6 +20,7 @@ use Yii;
  * @property string $it_id_card
  * @property string $it_password
  * @property string $it_edu
+ * @property integer $campus_id
  */
 class Teacher extends \yii\db\ActiveRecord
 {
@@ -65,6 +66,7 @@ class Teacher extends \yii\db\ActiveRecord
             'it_id_card' => 'It Id Card',
             'it_password' => 'It Password',
             'it_edu' => 'It Edu',
+            'campus_id' => 'Campus ID',
         ];
     }
 }

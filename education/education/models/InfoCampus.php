@@ -12,6 +12,7 @@ use Yii;
  * @property string $ic_address
  * @property string $ic_postcode
  * @property string $ic_tel
+ * @property string $ic_school_id
  *
  * @property InfoCollege[] $infoColleges
  */
@@ -35,7 +36,8 @@ class InfoCampus extends \yii\db\ActiveRecord
             [['ic_address'], 'string', 'max' => 255],
             [['ic_postcode'], 'string', 'max' => 10],
             [['ic_tel'], 'string', 'max' => 20],
-            [['ic_name'], 'unique']
+            [['ic_name'], 'unique'],
+            [['ic_school_id'], 'integer'],
         ];
     }
 
@@ -50,6 +52,7 @@ class InfoCampus extends \yii\db\ActiveRecord
             'ic_address' => 'Ic Address',
             'ic_postcode' => 'Ic Postcode',
             'ic_tel' => 'Ic Tel',
+            'ic_school_id' => 'Ic School Id'
         ];
     }
 

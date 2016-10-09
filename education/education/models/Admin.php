@@ -14,6 +14,8 @@ use Yii;
  * @property string $r_id
  * @property string $a_ip
  * @property integer $a_status
+ * @property integer $school_id
+ * @property integer $campus_id
  *
  * @property Role $r
  */
@@ -56,7 +58,8 @@ class Admin extends \yii\db\ActiveRecord
             'r_id' => 'R ID',
             'a_ip' => 'A Ip',
             'a_status' => 'A Status',
-            'school_id'=>'School ID'
+            'school_id'=>'School ID',
+            'campus_id' => 'Campus ID'
         ];
     }
 
