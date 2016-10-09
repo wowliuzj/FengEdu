@@ -104,9 +104,10 @@ class InfoSchoolController extends Controller
         if ($model->save()) {
             $admin->a_name = $model->is_tel;
             $admin->a_ip = $_SERVER["REMOTE_ADDR"];
-            $admin->r_id = '7';
+            $admin->r_id = 7;
             $admin->fid = $model->is_id;
-            $admin->ftype = 0;
+            $admin->ftype = 7;
+            $admin->school_id = $model->is_id;
             $admin->create();
             //return $this->redirect(['view', 'id' => $model->ic_id]);
 			$response->data = \Tool::toResJson(1, $model->is_id);

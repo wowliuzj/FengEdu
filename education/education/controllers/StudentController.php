@@ -127,7 +127,7 @@ class StudentController extends Controller
 
         $session = Yii::$app->session;
         $model->campus_id = $session['USER_SESSION']['campus_id'];
-
+        $school_id= $session['USER_SESSION']['school_id'];
         $admin = new AdminSearch();
         $tf = $admin->hasPhone($model->is_tel);
         if($tf){
@@ -146,6 +146,8 @@ class StudentController extends Controller
             $admin->r_id = '6';
             $admin->fid = $model->is_id;
             $admin->ftype = 6;
+            $admin->campus_id = $model->campus_id;
+            $admin->school_id = $school_id;
             $admin->create();
             $response->data = \Tool::toResJson(1, ['is_id'=>$model->is_id]);
 
@@ -158,6 +160,8 @@ class StudentController extends Controller
                 $padmin->r_id = '5';
                 $padmin->ftype = 5;
                 $padmin->fid = $model->is_id;
+                $padmin->campus_id = $model->campus_id;
+                $padmin->school_id = $school_id;
                 $padmin->create();
             }
         } else {
