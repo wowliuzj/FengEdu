@@ -391,6 +391,7 @@ class HomeworkController extends Controller
             /*$sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
             $res = Yii::$app->db->createCommand($sql)->execute();
             var_dump($sql);die();*/
+
             if($res == 0)
             {
                 $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
@@ -441,9 +442,6 @@ class HomeworkController extends Controller
             Yii::$app->db->createCommand($sql)->execute();
             $sql = "delete from " . StuWorkUpload::tableName() . " where stu_work_id in(select id from " . StuWork::tableName() . " where hid in(" . $strIds . "))";
              Yii::$app->db->createCommand($sql)->execute();
-            /*$sql = "delete from " . Homework::tableName() . " where id in(" . $strIds . ")";
-            $res = Yii::$app->db->createCommand($sql)->execute();
-            var_dump($sql);die();*/
             if($res == 0)
             {
                 $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
