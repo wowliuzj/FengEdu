@@ -59,9 +59,9 @@ class InfoCampusController extends Controller
     {
         $session = Yii::$app->session;
         $school_id=$session['USER_SESSION']['school_id'];
+
         $sql = 'SELECT ic_id,ic_name from info_campus where ic_school_id='.$school_id;
         $list = Yii::$app->db->createCommand($sql)->queryAll();
-        
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data =  \Tool::toResJson(1,$list);
