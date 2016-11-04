@@ -39,7 +39,6 @@ class AdminController extends Controller
     }
     public function actionLogin()
     {
-
         $request = Yii::$app->request;
         $name = $request->post('user_name', '');
         $password = $request->post('user_pwd','');
