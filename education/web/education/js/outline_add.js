@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    getAllClassList("cid");
+
+    getAllClassList("cid",null);
     var formObj = $('#formId');
     formObj.validate();
     var options = {
