@@ -142,6 +142,7 @@ class StuWorkSearch extends StuWork
 
         $sqlCount = "select count(1) from ". StuWork::tableName() ." as a where 1=1 ".$sqlWhere;
         $count = Yii::$app->db->createCommand($sqlCount)->queryScalar();
+		
         $dataProvider = new SqlDataProvider([
             'sql' => $sql.$sqlWhere,
             'totalCount' =>$count,
