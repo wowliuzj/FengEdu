@@ -136,7 +136,6 @@ class StuWorkController extends Controller
     {
         $searchModel = new StuWorkSearch();
         $dataProvider = $searchModel->searchBySql(Yii::$app->request->queryParams);
-
         //return $this->render('index', [
         //    'searchModel' => $searchModel,
         //    'dataProvider' => $dataProvider,
@@ -211,7 +210,7 @@ class StuWorkController extends Controller
      */
     public function actionView($id)
     {
-        $sql = "SELECT c.it_name,b.title,b.time,b.img,b.`desc`,a.stime,sdesc,simg,a.ttime,score,tdesc, s.is_name from stu_work as a,homework as b,info_teacher as c, info_student as s where a.hid = b.id and b.tid = c.it_id and s.is_id = a.sid and a.id = $id";
+         $sql = "SELECT c.it_name,b.title,b.time,b.img,b.`desc`,a.stime,sdesc,simg,a.ttime,score,tdesc, s.is_name from stu_work as a,homework as b,info_teacher as c, info_student as s where a.hid = b.id and b.tid = c.it_id and s.is_id = a.sid and a.id = $id";
 	    $model = Yii::$app->db->createCommand($sql)->queryOne();
         $uploadList = StuWorkUpload::find()->where(['stu_work_id' => $id])
                                              ->orderBy('id')

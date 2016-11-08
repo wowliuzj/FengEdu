@@ -78,6 +78,7 @@ class HomeworkSearch extends Homework
 
     public function searchBySql($params)
     {
+		$sqlLeft="left join stu_work b on a.id = b.hid";
         $sqlWhere = "";
        if(isset($params['id'])){
            $id = $params['id'];
@@ -134,6 +135,7 @@ class HomeworkSearch extends Homework
            $ftype = $params['ftype'];
            $sid = $params['fid'];
             if($ftype == 6){
+				$sqlLeft="left join stu_work b on a.id = b.hid and  b.sid=$sid";
                 $sqlWhere = $sqlWhere . " and a.cid in (SELECT icl_id from info_student where is_id=$sid)";
             }else if($ftype == 5){
                 $sqlWhere = $sqlWhere . " and  a.cid in (SELECT icl_id from info_student where is_id=$sid) and b.sid = $sid";
@@ -146,7 +148,7 @@ class HomeworkSearch extends Homework
         
         $sql="select a.img,a.`desc`,a.time,a.title,it_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc,
 (select count(1) from eval_work where (eval_work.shid = b.id)) as ecount 
-from homework as a left join stu_work b on a.id = b.hid left join info_teacher as c on a.tid = c.it_id where 1=1 ";
+from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id where 1=1";
 
         //echo $sql.$sqlWhere;
         $page = 1;
