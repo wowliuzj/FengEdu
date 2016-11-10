@@ -210,7 +210,7 @@ class StuWorkSearch extends StuWork
     }
 
     public function searchByWall(){
-        $sql="SELECT * from work_wall_view";
+        $sql="SELECT * from work_wall_view order by simg";
         $sqlCount = "select count(1) from work_wall_view";
         
         $page = 1;
@@ -226,8 +226,7 @@ class StuWorkSearch extends StuWork
             'sql' => $sql,
             'totalCount' =>$count,
             'pagination' => [
-                'pageSize' => $pageSize,
-                'page' => $page - 1,
+                'pageSize' => $pageSize,              
             ]
         ]);
         return $dataProvider;
