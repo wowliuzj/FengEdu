@@ -73,13 +73,16 @@ class Admin extends \yii\db\ActiveRecord
 
     public function create()
     {
-        $phone = substr($this->a_name,-6);
-        $salt = \Tool::salt(32);
-        $pwd = \Tool::salt_hash(\Tool::md5_xx($phone), $salt);
-
-        $this->a_pwd = $pwd;
-        $this->a_salt = $salt;
-        $this->a_status = 0;
+        if(!isset($this->a_pwd)){
+            $phone = substr($this->a_name, -6);
+            $salt = \Tool::salt(32);
+            $pwd = \Tool::salt_hash(\Tool::md5_xx($phone), $salt);
+            $this->a_pwd = $pwd;
+            $this->a_salt = $salt;
+            $this->a_status = 0;
+        }
+        else {
+        }
         $this->save();
     }
 }

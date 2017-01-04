@@ -2,6 +2,7 @@
 
 namespace app\education\controllers;
 
+use app\education\models\Admin;
 use Yii;
 use app\education\models\Student;
 use app\education\models\StudentSearch;
@@ -106,7 +107,25 @@ class StudentController extends Controller
         $response->format = \yii\web\Response::FORMAT_JSON;
         $response->data = \Tool::toResJson(1,$model['it_name']);
     }
+    public function actionPassword()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
 
+        $request = Yii::$app->request;
+        $studentId=$request->post("studentId", '');
+        $password=$request->post("password", '');
+        $model = $this->findModel($studentId);
+        $salt = \Tool::salt(32);
+        $pwd = \Tool::salt_hash(\Tool::md5_xx($password), $salt);
+        $admin=Admin::find()->where(['a_name' => $model->is_tel])->one();
+        $admin->a_pwd = $pwd;
+        $admin->a_salt = $salt;
+        $admin->create();
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $response->data = \Tool::toResJson(1, "修改成功");
+    }
     /**
      * Creates a new Student model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -288,4 +307,5 @@ class StudentController extends Controller
       //      throw new NotFoundHttpException('The requested page does not exist.');
        // }
     }
+   
 }
