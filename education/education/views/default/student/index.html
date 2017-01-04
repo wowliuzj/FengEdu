@@ -64,7 +64,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
         <div class="rows">
             <div class="span6">
                 <button style="margin-left:10px" type="button" id="del_btn">
@@ -96,9 +95,33 @@
         </div>
         </form>
     </div>
+    </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">重置密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <input type="hidden" id="studentId" name="studentId">
+                        <div class="form-group">
+                            <label for="password">新密码</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="请输入新密码">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="savePassword" onclick="savePassword()">提交更改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
 </div>
 
-
+</div>
 <script type="text/javascript">
     //拉取默认的列表
     $(document).ready(function(){
@@ -107,7 +130,15 @@
          //删除选中
         delChecked();
         submitModify();
+
     });
+    //显示修改密码页面
+    function updatePassword(studentId){
+        $('#studentId').val(studentId);
+        $('#myModal').modal('show');
+    }
+
+
 
      //删除选中
     function delChecked(){
@@ -132,6 +163,28 @@
             stuForm.ajaxSubmit(options);
             return false; 
         });
+    }
+    //修改密码
+    function savePassword(){
+        var studentId=$("#studentId").val();
+        var password=$("#password").val();
+        $.ajax({
+            url: "index.php?r=/education/student/password",
+            type: "POST",
+            dataType: "json",
+            data: "studentId=" + studentId + "&password=" + password,
+            success: function(Data) {
+                if(Data.s == 1){
+                    alert("修改成功");
+                }else{
+                    $("#errormsg").html(Data.data).show(300).delay(3000).hide(300);
+                }
+            },
+            error: function() {
+                alert('网络错误！');
+            }
+        });
+        $('#myModal').modal('hide');
     }
 
     //提交修改
@@ -219,6 +272,9 @@
                                 <button type='button' onclick=' document.location.href=\"index.php?r=/education&page=student/modify&id="+list[key].is_id+"\" '>\
                                     修改详情\
                                 </button>\
+                                <button type='button' onclick='updatePassword("+list[key].is_id+")'>\
+                                    重置密码\
+                                </button>\
                             </td>\
                         </tr> ";
                     student_body.append(temp);
@@ -235,7 +291,6 @@
             },
         })
     }
-
 
 </script>
 
