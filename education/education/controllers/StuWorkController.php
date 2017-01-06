@@ -182,8 +182,8 @@ class StuWorkController extends Controller
     public function actionWall()
     {
         $searchModel = new StuWorkSearch();
-        $dataProvider = $searchModel->searchByWall();
-
+        $data=Yii::$app->request->queryParams;
+        $dataProvider = $searchModel->searchByWall($data);
         //return $this->render('index', [
         //    'searchModel' => $searchModel,
         //    'dataProvider' => $dataProvider,
