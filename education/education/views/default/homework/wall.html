@@ -1,10 +1,53 @@
 <style type="text/css">
+    .btn-style-01{
+        border-style:none;
+        padding:8px 30px;
+        line-height:24px;
+        color:#fff;
+        font:16px "Microsoft YaHei", Verdana, Geneva, sans-serif;
+        cursor:pointer;
+        border:1px #ae7d0a solid;
+        -webkit-box-shadow:inset 0px 0px 1px #fff;
+        -moz-box-shadow:inset 0px 0px 1px #fff;
+        box-shadow:inset 0px 0px 1px #fff;/*内发光效果*/
+        -webkit-border-radius:4px;
+        -moz-border-radius:4px;
+        border-radius:4px;/*边框圆角*/
+        text-shadow:1px 1px 0px #b67f01;/*字体阴影效果*/
+        background-color:#feb100;
+        background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#feb100), to(#e8a201));
+        background-image: -webkit-linear-gradient(top, #feb100 0%, #e8a201 100%);
+        background-image: -moz-linear-gradient(top, #feb100 0%, #e8a201 100%);
+        background-image: -ms-linear-gradient(top, #feb100 0%, #e8a201 100%);
+        background-image: -o-linear-gradient(top, #feb100 0%, #e8a201 100%);
+        background-image: linear-gradient(top, #feb100 0%, #e8a201 100%);/*颜色渐变效果*/
+    }
     .im_wrapper img{}
     @media (min-width: 970px) {.im_wrapper img{margin:10px; }}
     @media (max-width: 480px) {.im_wrapper img{margin-left:110px; }}
     @media (min-width: 481px) and (max-width: 970px) {.im_wrapper img{margin-left:-110px; }}
 </style>
 <div class="widget-box"style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <form id="study-cq-form" method="get" class="form-vertical" style="margin-top:20px;" action="index.php?r=/education/attent/my-attent">
+        <div class="controls" style="margin-top:10px;">
+            <label style="margin-top:5px; margin-left:10px;">作业时间：</label>
+
+            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:10px; margin-left:17px;display: inline;">
+                <!-- <label class="control-label" style="margin-top:5px;">起始时间</label> -->
+                <input id="input_start_time" type="text" value="起始时间" name="start_time" data-date-format="yyyy-mm-dd" class="span11"
+                       style="margin-top:-32px; margin-left:60px; width:100px;">
+                <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span>
+            </div>
+
+            <div data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-top:80px; display: inline;">
+                <input id="input_end_time" type="text" value="结束时间" name="end_time" data-date-format="yyyy-mm-dd" class="span11"
+                       style="margin-top:-32px; margin-left:30px; width:100px;">
+                <span class="add-on" style="margin-top:-32px;"><i class="icon-th" ></i></span>
+            </div>
+
+            <span ><input class="btn-style-01" style="margin-top:-60px; margin-left:5px;" type="button" value="确定" onclick="seachPage()"/></span>
+        </div>
+    </form>
 <!-- <div class="widget-box"style="margin-left:10px;margin-right:10px;"> -->
 <div id="im_wrapper" class="im_wrapper">
     <div style="background-image:url('uploads/1.jpg') no-repeat 4px 5px;"></div>
@@ -32,10 +75,22 @@
 <!-- </div> -->
 </div>
 <script src="education/js/wall.js"></script>
+
 <script type="text/javascript">
+    $("#input_start_time").val();
+    $("#input_end_time").val();
     function seachPage(){
         var page = $("#page").val();
-        var url1 = "index.php?r=/education/stu-work/wall&page="+page;
+        var startTime=$("#input_start_time").val();
+        var endTime=$("#input_end_time").val();
+        var url1 ="";
+        if(startTime.length==0 && endTime.length==0 || startTime=='起始时间' || endTime=='结束时间' ){
+            url1 = "index.php?r=/education/stu-work/wall&page="+page;
+        }
+        else {
+            url1 = "index.php?r=/education/stu-work/wall&page="+page+"&start="+startTime+"&end="+endTime;
+        }
+
         $.ajax({
             type: "get",
             url: url1,

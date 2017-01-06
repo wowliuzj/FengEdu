@@ -209,8 +209,16 @@ class StuWorkSearch extends StuWork
         return $dataProvider;
     }
 
-    public function searchByWall(){
-        $sql="SELECT * from work_wall_view order by simg";
+    public function searchByWall($data){
+        $sql='';
+        if(isset($data['start'])){
+            $start=$data['start'];
+            $end=$data['end'];
+            $sql="SELECT * FROM work_wall_view wv left join stu_work sw on sw.id=wv.id where stime> '$start' and stime< '$end'";
+        }
+        else{
+            $sql="SELECT * from work_wall_view order by simg";
+        }
         $sqlCount = "select count(1) from work_wall_view";
         
         $page = 1;
