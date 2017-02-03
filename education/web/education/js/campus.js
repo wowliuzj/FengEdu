@@ -358,7 +358,7 @@ function getAdminCampusStuWorkQuery(){
 				var imgList = "";
 				if(data.uploadList.length>0) {
 					for(var i=0;i<data.uploadList.length;i++) {
-						imgList += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+						imgList += "<img width='10%' height='10%' src='"+data.uploadList[i].path + data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
 					}
 				}
 				var divCnt = $(imgList + "<h5>"+data.model.desc+"</h5>\
