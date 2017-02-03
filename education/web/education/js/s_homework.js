@@ -18,11 +18,13 @@ function showResponse(responseText, statusText)  {
                 <td>\
                     <input type=\'checkbox\' name=\'dicl_id#shid#\' value=\'#shid#\'/>\
                 </td>\
-                <td style="text-align:center;width:30%">#title#</td>\
-                <td style="text-align:center;width:10%">#icl_number#</td>\
-                <td style="text-align:center;width:10%">#is_name#</td>\
-                <td style="text-align:center;width:15%">#time#</td>\
-                <td style="text-align:center;width:15%">#stime#</td>\
+                <td style="text-align:center;">#title#</td>\
+                <td style="text-align:center;">#himg#</td>\
+                <td style="text-align:center;">#icl_number#</td>\
+                <td style="text-align:center;">#is_name#</td>\
+                <td style="text-align:center;">#time#</td>\
+                <td style="text-align:center;">#stime#</td>\
+                <td style="text-align:center;"><span title="#sdesc#">#score#</span></td>\
                 <td style="text-align:center">\
                     <button type="button" onclick="javascript:edit(\'#shid#\')">批改</button>\
                 </td>\
@@ -30,8 +32,16 @@ function showResponse(responseText, statusText)  {
         data_body.empty();
         for (key in list)
         {
-            temp = cnt.replace("#title#",list[key].title).replace("#icl_number#",list[key].icl_number).replace("#is_name#",list[key].is_name).replace("#time#",list[key].time).replace("#stime#",list[key].stime).replace(/#shid#/g,list[key].shid);
-            if(list[key].score && list[key].score > 0) temp = temp.replace("批改", "修改");
+            temp = cnt.replace("#title#",list[key].title)
+                .replace("#icl_number#",list[key].icl_number)
+                .replace("#is_name#",list[key].is_name)
+                .replace("#time#",list[key].time)
+                .replace("#stime#",list[key].stime)
+                .replace(/#shid#/g,list[key].shid)
+                .replace(/#score#/g, ((list[key].score && list[key].score >= 0) ? list[key].score : '未批改'))
+                .replace(/#sdesc#/g, ((list[key].score && list[key].score >= 0) ? list[key].tdesc : ''))
+                .replace(/#himg#/g, ((list[key].img_file && list[key].upload_img) ? '<img src="/uploads/' + list[key].upload_img + '" />' : '无'));
+            if(list[key].score && list[key].score >= 0) temp = temp.replace("批改", "修改");
             data_body.append(temp);
         }
         pageSearch(search,responseText.data.pageNo);

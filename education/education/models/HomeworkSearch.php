@@ -211,8 +211,13 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
             }
         }
         
-        $sql="select a.img,a.`desc`,a.time,a.title,icl_number,finish_time,is_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc
-from homework as a inner join stu_work b on a.id = b.hid and b.stime is not null left join info_student as c on b.sid = c.is_id left join info_class as d on a.cid = d.icl_id where 1=1 ";
+        $sql="select a.img,a.`desc`,a.time,a.title,icl_number,finish_time,is_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc, wu.file as upload_img, wu.img_file
+              from homework as a 
+              inner join stu_work b on a.id = b.hid and b.stime is not null 
+              left join info_student as c on b.sid = c.is_id 
+              left join info_class as d on a.cid = d.icl_id 
+              left join stu_work_upload wu on b.id = wu.stu_work_id
+              where 1=1 ";
 
         //echo $sql.$sqlWhere;
         $page = 1;
