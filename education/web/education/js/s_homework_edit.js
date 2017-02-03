@@ -60,9 +60,9 @@ function loadHomeWork() {
             if(data1.uploadList.length>0) {
                 for(var i=0;i<data1.uploadList.length;i++) {
                     if(data1.uploadList[i].img_file)
-                        div_1_cnt += "<img width='100px' src='/uploads/"+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+                        div_1_cnt += "<img width='100px' src='"+data.uploadList[i].path+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
                     else
-                        div_1_cnt += "<a href='/uploads/"+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;' target='_blank'><img src='/img/006.png' title='下载' /></a>";
+                        div_1_cnt += "<a href='"+data.uploadList[i].path+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;' target='_blank'><img src='/img/006.png' title='下载' /></a>";
                 }
                 $("#uploadListPanel").append(div_1_cnt);
             }
