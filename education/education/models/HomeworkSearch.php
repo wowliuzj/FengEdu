@@ -155,7 +155,7 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
         if(isset($params['page'])){
             $page = $params['page'];
         }
-        $pageSize = 2;
+        $pageSize = 10;
         if(isset($params['pageSize'])){
             $pageSize = $params['pageSize'];
         }
