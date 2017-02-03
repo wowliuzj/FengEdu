@@ -284,14 +284,33 @@ class StuWorkController extends Controller
             foreach($uploadList as $row)
             {
                 if(!$row) continue;
+
+                $targetDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR. ".." . DIRECTORY_SEPARATOR. "web" . DIRECTORY_SEPARATOR. "uploads";
+
+                try
+                {
+
+                    if (!file_exists($targetDir . DIRECTORY_SEPARATOR . date('Y'))) {
+                        @mkdir($targetDir . DIRECTORY_SEPARATOR . date('Y'));
+                    }
+                    if (!file_exists($targetDir . DIRECTORY_SEPARATOR . date('Y'). DIRECTORY_SEPARATOR . date('m'))) {
+                        @mkdir($targetDir . DIRECTORY_SEPARATOR . date('Y'). DIRECTORY_SEPARATOR . date('m'));
+                    }
+                    rename($targetDir . DIRECTORY_SEPARATOR . $row, $targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . $row);
+                }
+                catch(Exception $ex)
+                {
+                    continue;
+                }
                 if(StuWorkUpload::find()->where(['file' => $row])->count()) continue;
                 $upload = new StuWorkUpload();
                 $upload->stu_work_id = $id;
                 $upload->file = $row;
                 $upload->upload_time = date("Y-m-d H:i:s");
+                $upload->path = DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m'). DIRECTORY_SEPARATOR;
                 try
                 {
-                    $fType = exif_imagetype ( dirname(__FILE__) . DIRECTORY_SEPARATOR . "../../web/uploads/".$row );
+                    $fType = exif_imagetype ( $targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . $row );
                     if(1 <= $fType || $fType >= 17)
                         $upload->img_file = 1;
                     else
@@ -301,6 +320,7 @@ class StuWorkController extends Controller
                 {
                     $upload->img_file = 0;
                 }
+                $upload->file_ext = pathinfo($row, PATHINFO_EXTENSION);
                 $upload->save();
             }
             if ($model->load(Yii::$app->request->post(),"") && $model->save()) {

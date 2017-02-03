@@ -11,6 +11,9 @@ use Yii;
  * @property integer $stu_work_id
  * @property integer $upload_time
  * @property integer $file
+ * @property string $file_ext
+ * @property string $path
+ * @property string $thumb_img
  */
 class StuWorkUpload extends \yii\db\ActiveRecord
 {
@@ -29,7 +32,7 @@ class StuWorkUpload extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'stu_work_id', 'img_file'], 'integer'],
-            [['upload_time'], 'string'],
+            [['thumb_img', 'path', 'file_ext', 'upload_time'], 'string'],
             [['file'], 'file'],
         ];
     }
