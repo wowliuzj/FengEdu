@@ -284,14 +284,33 @@ class StuWorkController extends Controller
             foreach($uploadList as $row)
             {
                 if(!$row) continue;
+
+                $targetDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR. ".." . DIRECTORY_SEPARATOR. "web" . DIRECTORY_SEPARATOR. "uploads";
+
+                try
+                {
+
+                    if (!file_exists($targetDir . DIRECTORY_SEPARATOR . date('Y'))) {
+                        @mkdir($targetDir . DIRECTORY_SEPARATOR . date('Y'));
+                    }
+                    if (!file_exists($targetDir . DIRECTORY_SEPARATOR . date('Y'). DIRECTORY_SEPARATOR . date('m'))) {
+                        @mkdir($targetDir . DIRECTORY_SEPARATOR . date('Y'). DIRECTORY_SEPARATOR . date('m'));
+                    }
+                    rename($targetDir . DIRECTORY_SEPARATOR . $row, $targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . $row);
+                }
+                catch(Exception $ex)
+                {
+                    continue;
+                }
                 if(StuWorkUpload::find()->where(['file' => $row])->count()) continue;
                 $upload = new StuWorkUpload();
                 $upload->stu_work_id = $id;
                 $upload->file = $row;
                 $upload->upload_time = date("Y-m-d H:i:s");
+                $upload->path = DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m'). DIRECTORY_SEPARATOR;
                 try
                 {
-                    $fType = exif_imagetype ( dirname(__FILE__) . DIRECTORY_SEPARATOR . "../../web/uploads/".$row );
+                    $fType = exif_imagetype ( $targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . $row );
                     if(1 <= $fType || $fType >= 17)
                         $upload->img_file = 1;
                     else
@@ -301,6 +320,7 @@ class StuWorkController extends Controller
                 {
                     $upload->img_file = 0;
                 }
+                $upload->file_ext = pathinfo($row, PATHINFO_EXTENSION);
                 $upload->save();
             }
             if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
@@ -400,5 +420,66 @@ class StuWorkController extends Controller
     protected function findModel($id)
     {
         return StuWork::findOne($id);
+    }
+
+    protected function resizeImage($path, $im,$maxwidth,$maxheight,$filetype)
+    {
+        $name = $path."thumb_".$im;
+        $im = imagecreatefromjpeg($path.$im);
+        $pic_width = imagesx($im);
+        $pic_height = imagesy($im);
+
+        if(($maxwidth && $pic_width > $maxwidth) || ($maxheight && $pic_height > $maxheight))
+        {
+            $resizewidth_tag = $resizeheight_tag = false;
+            $widthratio = $heightratio = $ratio = 1;
+            if($maxwidth && $pic_width>$maxwidth)
+            {
+                $widthratio = $maxwidth/$pic_width;
+                $resizewidth_tag = true;
+            }
+
+            if($maxheight && $pic_height>$maxheight)
+            {
+                $heightratio = $maxheight/$pic_height;
+                $resizeheight_tag = true;
+            }
+
+            if($resizewidth_tag && $resizeheight_tag)
+            {
+                if($widthratio<$heightratio)
+                    $ratio = $widthratio;
+                else
+                    $ratio = $heightratio;
+            }
+
+            if($resizewidth_tag && !$resizeheight_tag)
+                $ratio = $widthratio;
+            if($resizeheight_tag && !$resizewidth_tag)
+                $ratio = $heightratio;
+
+            $newwidth = $pic_width * $ratio;
+            $newheight = $pic_height * $ratio;
+
+            if(function_exists("imagecopyresampled"))
+            {
+                $newim = imagecreatetruecolor($newwidth,$newheight);
+                imagecopyresampled($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);
+            }
+            else
+            {
+                $newim = imagecreate($newwidth,$newheight);
+                imagecopyresized($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);
+            }
+
+            $name = $name.$filetype;
+            imagejpeg($newim,$name);
+            imagedestroy($newim);
+        }
+        else
+        {
+            $name = $name.$filetype;
+            imagejpeg($im,$name);
+        }
     }
 }

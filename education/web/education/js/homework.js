@@ -261,7 +261,7 @@ $(document).ready(function(){
 					var div_1_cnt = "";
 					if(data.uploadList.length>0) {
 						for(var i=0;i<data.uploadList.length;i++) {
-							div_1_cnt += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+							div_1_cnt += "<img width='10%' height='10%' src='"+data.uploadList[i].path+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
 						}
 					}
 					div_1_cnt += "<h5>"+data.model.sdesc+"</h5>\
@@ -447,7 +447,7 @@ $(document).ready(function(){
 					if(data.uploadList.length>0) {
 						$("#uploadListPanel").empty();
 						for(var i=0;i<data.uploadList.length;i++) {
-							var img = "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+							var img = "<img width='10%' height='10%' src='"+data.uploadList[i].path+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
 							$("#uploadListPanel").html($("#uploadListPanel").html() + img);
 						}
 					}
@@ -637,7 +637,7 @@ $(document).ready(function(){
 					var div_1_cnt = "";
 					if(data.uploadList.length>0) {
 						for(var i=0;i<data.uploadList.length;i++) {
-							div_1_cnt += "<img width='10%' height='10%' src='/uploads/"+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
+							div_1_cnt += "<img width='10%' height='10%' src='"+data.uploadList[i].path+data.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;'/>";
 						}
 					}
 					div_1_cnt += "<h5>"+data.model.sdesc+"</h5>\
