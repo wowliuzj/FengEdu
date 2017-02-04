@@ -210,7 +210,9 @@ class StuWorkController extends Controller
      */
     public function actionView($id)
     {
-         $sql = "SELECT c.it_name,b.title,b.time,b.img,b.`desc`,a.stime,sdesc,simg,a.ttime,score,tdesc, s.is_name from stu_work as a,homework as b,info_teacher as c, info_student as s where a.hid = b.id and b.tid = c.it_id and s.is_id = a.sid and a.id = $id";
+         $sql = "SELECT c.it_name,b.title,b.time,b.img,b.`desc`,a.stime,sdesc,simg,a.ttime,score,tdesc, s.is_name 
+                  from stu_work as a,homework as b,info_teacher as c, info_student as s 
+                  where a.hid = b.id and b.tid = c.it_id and s.is_id = a.sid and a.id = $id";
 	    $model = Yii::$app->db->createCommand($sql)->queryOne();
         $uploadList = StuWorkUpload::find()->where(['stu_work_id' => $id])
                                              ->orderBy('id')
@@ -287,9 +289,9 @@ class StuWorkController extends Controller
 
                 $targetDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR. ".." . DIRECTORY_SEPARATOR. "web" . DIRECTORY_SEPARATOR. "uploads";
 
+                //按照时间，移动上传文件到目标文件夹
                 try
                 {
-
                     if (!file_exists($targetDir . DIRECTORY_SEPARATOR . date('Y'))) {
                         @mkdir($targetDir . DIRECTORY_SEPARATOR . date('Y'));
                     }
@@ -302,6 +304,10 @@ class StuWorkController extends Controller
                 {
                     continue;
                 }
+
+                //如果是图片文件，尝试生成缩略图
+                $thumb = $this->resizeImage($targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR, $row);
+
                 if(StuWorkUpload::find()->where(['file' => $row])->count()) continue;
                 $upload = new StuWorkUpload();
                 $upload->stu_work_id = $id;
@@ -321,6 +327,7 @@ class StuWorkController extends Controller
                     $upload->img_file = 0;
                 }
                 $upload->file_ext = pathinfo($row, PATHINFO_EXTENSION);
+                $upload->thumb_img = $thumb ? $thumb : null;
                 $upload->save();
             }
             if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
@@ -420,5 +427,85 @@ class StuWorkController extends Controller
     protected function findModel($id)
     {
         return StuWork::findOne($id);
+    }
+
+    protected function resizeImage($path, $im)
+    {
+        if(!function_exists("imagecopyresampled")) return false;
+
+        $maxWidth=100;
+        $maxHeight=100;
+        $source_image = null;
+
+        $thumb_name = "thumb_".$im;
+
+        switch(exif_imagetype($path.$im))
+        {
+            case 2:
+                $source_image = imagecreatefromjpeg($path.$im);
+                break;
+            case 1:
+                $source_image = imagecreatefromgif($path.$im);
+                break;
+            case 3:
+                $source_image = imagecreatefrompng($path.$im);
+                break;
+            default:
+                return false;
+        }
+
+        list($width, $height) = getimagesize($path.$im);
+        if($width <= $maxWidth && $height <= $maxHeight) return false;
+
+        $new_width = 0;
+        $new_height = 0;
+
+        if($width > $maxWidth)
+        {
+            $temp_height = ceil($maxWidth / $width * $height);
+            if($temp_height > $maxHeight)
+            {
+                $new_width = ceil($maxHeight / $height * $width);
+                $new_height = $maxHeight;
+            }
+            else
+            {
+                $new_width = $maxWidth;
+                $new_height = ceil($maxWidth / $width * $height);
+            }
+        }
+        if($height > $maxHeight)
+        {
+            $temp_width = ceil($maxHeight / $height * $width);
+            if($temp_width > $maxWidth)
+            {
+                $new_width = $maxWidth;
+                $new_height = ceil($maxWidth / $width * $height);
+            }
+            else
+            {
+                $new_width = ceil($maxHeight / $height * $width);
+                $new_height = $maxHeight;
+            }
+        }
+
+        $new_image = imagecreatetruecolor($new_width,$new_height);
+        imagecopyresampled($new_image,$source_image,0,0,0,0,$new_width,$new_height,$width,$height);
+        switch(exif_imagetype($path.$im))
+        {
+            case 2:
+                imagejpeg($new_image,$path.$thumb_name);
+                break;
+            case 1:
+                imagegif($new_image,$path.$thumb_name);
+                break;
+            case 3:
+                imagepng($new_image,$path.$thumb_name);
+                break;
+            default:
+                return false;
+        }
+        imagedestroy($new_image);
+        return $thumb_name;
     }
 }
