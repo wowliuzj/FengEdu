@@ -20,9 +20,15 @@
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/masked.js"></script>
 <script src="js/matrix.form_common.js"></script>
-<div id="header">
-	<h1><a>凤凰教育</a></h1>
+
+<div id="header" style="padding-left: 20px; height: 75px;">
+    <div style="float: left;">
+    <img src="img/logof.png" style="height: 60px; padding-top: 5px;" /></div>
+    <div style="float: left; width: 160px;">
+    <span style="color: antiquewhite; font-size: 2em;">数媒在线互动学习管理平台</span></div>
+	<!--<h1><a>凤凰教育</a></h1>-->
 </div>
+
 <?php 
     $isActive0 = "";
     $isActive1 = "";
@@ -47,7 +53,7 @@
     
 ?>
 <!--  nav bar begin-->
-<div id="user-nav" class="navbar navbar-inverse">
+<div id="user-nav" class="navbar navbar-inverse" style="left: 240px;">
   <ul class="nav">
 
     <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text" id="welcomeId">欢迎</span></a></li>
@@ -62,6 +68,7 @@
         <li class="<?php echo $isActive0?>"><a href="index.php?r=/education&page=index"> <div class="helper-font-24"> <i class="icon icon-home"></i></div> <span>主页</span></a> </li>
         <li class="<?php echo $isActive1?>"> <a href="index.php?r=/education&page=homework/wall"><div class="helper-font-24"> <i class="icofont-dashboard"></i></div> <span>作业墙</span></a> </li>
         <li class="<?php echo $isActive2?>"> <a href="index.php?r=/education&page=qa/index" > <div class="helper-font-24"> <i class="icon icon-inbox"></i></div> <span >互动区</span></a> </li>
+        <li class="<?php echo $isActive2?>"> <a href="#" onclick="alert('请联系管理员开通该功能权限！');" > <div class="helper-font-24"> <i class="icon icon-briefcase"></i></div> <span >作品交易</span></a> </li>
        <li id="tz_teacher_li" style="display:none" class="<?php echo $isActive4?>"> <a href="index.php?r=/education&page=tz/index_teach" > <div class="helper-font-24"> <i class="icon icon-inbox"></i></div> <span >通知</span></a> </li>
         <!-- <li class="<?php /*echo $isActive2*/?>"> <a href="index.php?r=/education&page=qa/index_teach" > <div class="helper-font-24"> <i class="icon icon-inbox"></i></div> <span >互动区</span></a> </li>
        --> <li id="tz_count_li" style="display:none" class="<?php echo $isActive3?>"> <a href="index.php?r=/education&page=tz/index" > <div class="helper-font-24"> <i class="icon icon-camera"></i></div> <span >通知（<span id="tz_count">0</span>）</span></a> </li>
