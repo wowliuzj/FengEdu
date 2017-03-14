@@ -116,6 +116,7 @@ hr{ border-top-color:#dadada;}
 	padding:9px 10px;
 	display: block;
 	font-size: 11px;
+	color: #ffeeee;
 }
 #user-nav > ul > li > a:hover, #user-nav > ul > li.open > a {
 	color: #ffffff;  background:#000;
