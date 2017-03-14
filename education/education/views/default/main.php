@@ -59,7 +59,7 @@
     <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text" id="welcomeId">欢迎</span></a></li>
     <li class=""><a title="" href="index.php?r=/education/admin/logout"><i class="icon icon-share-alt"></i> <span class="text">退出</span></a></li>
     <li class=""><a title="" href="index.php?r=/education&page=admin/mod_pwd"><i class="icon icon-edit"></i> <span class="text">修改密码</span></a></li>
-      <li class=""><a><span class="text">V1.0.1</span></a></li>
+      <li class=""><a><span class="text"><?php $session = Yii::$app->session; if(isset($session['USER_SESSION']["school_id"])) {echo \app\education\models\InfoSchool::findOne($session['USER_SESSION']["school_id"])->is_name.'&nbsp;&nbsp;';} ?>V1.0.1</span></a></li>
   </ul>
 </div>
 
