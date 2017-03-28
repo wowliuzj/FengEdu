@@ -19,7 +19,7 @@ function showResponse(responseText, statusText)  {
                     <input type=\'checkbox\' name=\'did#id#\' value=\'#id#\' />\
                 </td>\
                 <td style="text-align:center;width:50%">\
-                <input type=\'text\' id=\'title#id#\' value=\'#title#\' readonly="readonly"/>\
+                <input type=\'text\' id=\'title#id#\' value=\'#title#\' style=\'background-color: transparent; border: none; cursor: pointer;\' onclick=\'update(#id#);\' readonly="readonly"/>\
                 </td>\
                 <td style="text-align:center;width:10%">#icl_number#</td>\
                 <td style="text-align:center;width:20%">#time#</td>\
@@ -57,7 +57,8 @@ function update(id){
     $('#update'+id).hide();
     $('#save'+id).show();
     $('#title'+id).removeAttr("readonly");
-
+    $('#title'+id).css("background-color", "");
+    $('#title'+id).css("border", "");
 }
 function save(id){
     $('#save'+id).hide();
@@ -68,9 +69,9 @@ function save(id){
             $('#title'+id).attr("readonly","readonly");
             alert("修改成功 ");
         });
-   
-
-
+    $('#title'+id).css("background-color", "transparent");
+    $('#title'+id).css("border", "none");
+    $('#title'+id).css("cursor", "pointer");
 }
 
 //删除选中
