@@ -253,11 +253,11 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
               $sqlWhere = $sqlWhere . ' and cid='.$cid;  
             }
             else{
-                $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
+                $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM info_class where campus_id='.$campus.' )';
             }
         }
         else{
-            $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
+            $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM info_class where campus_id='.$campus.' )';
         }
 
         if(isset($params['start_time'])){
