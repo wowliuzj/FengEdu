@@ -112,12 +112,16 @@ class InfoClassController extends Controller
         $session = Yii::$app->session;
         $ftype = $session['USER_SESSION']['ftype'];
         $campus_id = $session['USER_SESSION']['campus_id'];
+        $school_id = $session['USER_SESSION']['school_id'];
 
         $sql = 'SELECT icl_id,icl_number from info_class where status=1 ';
         $tid = Yii::$app->request->get("tid","");
 
         if($tid=='' or $tid==0){
-            $sql = $sql . " and campus_id= ".$campus_id;
+            if($campus_id)
+                $sql = $sql . " and campus_id = ".$campus_id;
+            else
+                $sql = $sql . "and campus_id in (select ic_id from info_campus where ic_school_id = $school_id)";
         }
         if($tid!=""){
             $sql = $sql . " and (icl_id in (SELECT cid from class_teacher where tid=$tid) or icl_tid=$tid )";
