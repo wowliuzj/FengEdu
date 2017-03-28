@@ -169,6 +169,26 @@ class OutlineController extends Controller
         }
     }
 
+    public function actionSaveTitle()
+    {
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $title = Yii::$app->request->post('title');
+
+        $model = $this->findModel($id);
+        $model->title=$title;
+        if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
+            //return $this->redirect(['view', 'id' => $model->id]);
+            $response->data = \Tool::toResJson(1, $model->id);
+        } else {
+            //return $this->render('update', [
+            //    'model' => $model,
+            //]);
+            $response->data = \Tool::toResJson(0, "修改失败");
+        }
+    }
+
     /**
      * Deletes an existing Outline model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

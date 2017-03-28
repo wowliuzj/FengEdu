@@ -16,17 +16,17 @@ function showResponse(responseText, statusText)  {
         var data_body = $("#data_body");
         var cnt = '<tr>\
                 <td>\
-                    <input type=\'checkbox\' name=\'did#id#\' value=\'#id#\' readonly="readonly"/>\
+                    <input type=\'checkbox\' name=\'did#id#\' value=\'#id#\' />\
                 </td>\
                 <td style="text-align:center;width:50%">\
-                <input type=\'input\' name=\'title#id#\' value=\'#title#\'/>\
+                <input type=\'text\' id=\'title#id#\' value=\'#title#\' readonly="readonly"/>\
                 </td>\
                 <td style="text-align:center;width:10%">#icl_number#</td>\
                 <td style="text-align:center;width:20%">#time#</td>\
                 <td style="text-align:center">\
                     <button type="button" onclick="javascript:edit(\'#id#\')">课程管理</button>\
-                     <button type="button" onclick="javascript:update(\'#id#\')" id="updateTitle">修改大纲</button>\
-                     <button type="button" onclick="javascript:save(\'#id#\')" id="saveTitle" style="display:none;">保存大纲</button>\
+                     <button type="button" onclick="javascript:update(\'#id#\')" id=\'update#id#\'>修改大纲</button>\
+                     <button type="button" onclick="javascript:save(\'#id#\')" id=\'save#id#\'  style="display:none;">保存大纲</button>\
                 </td>\
                </tr>';
         data_body.empty();
@@ -53,11 +53,24 @@ function buttonClickSearch(){
 function edit(id){
     document.location.href="index.php?r=/education&page=course/index&id="+id;
 }
-function edit(id){
-    document.location.href="index.php?r=/education&page=course/index&id="+id;
+function update(id){
+    $('#update'+id).hide();
+    $('#save'+id).show();
+    $('#title'+id).removeAttr("readonly");
+
 }
-function add(){
-    document.location.href="index.php?r=/education&page=outline/add";
+function save(id){
+    $('#save'+id).hide();
+    $('#update'+id).show();
+    var title=$('#title'+id).val();
+    $.post("index.php?r=/education/outline/update", { id: id, title: title },
+        function(data){
+            $('#title'+id).attr("readonly","readonly");
+            alert("修改成功 ");
+        });
+   
+
+
 }
 
 //删除选中
