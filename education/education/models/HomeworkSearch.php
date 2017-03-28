@@ -243,12 +243,9 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
         return $dataProvider;
     }
 
-    public function searchByTongji($params)
+    public function searchByTongji($params,$campus)
     {
-        $session = Yii::$app->session;
-        $info = $session['USER_SESSION'];
 
-        $campus = $info['campus_id'];
         $sqlWhere = "";
         if(isset($params['cid'])){
             $cid = $params['cid'];

@@ -185,11 +185,14 @@ class HomeworkController extends Controller
 
     public function actionTongji()
     {
+        $session = Yii::$app->session;
+        $info = $session['USER_SESSION'];
 
+        $campus = $info['campus_id'];
         $searchModel = new HomeworkSearch();
         $params = Yii::$app->request->queryParams;
 
-        $dataProvider = $searchModel->searchByTongji($params);
+        $dataProvider = $searchModel->searchByTongji($params,$campus);
 
         // 获取分页和排序数据
         $models = $dataProvider->getModels();
