@@ -77,9 +77,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		var campusId=$('#campus_id').val();
 		getSchoolList("campus_id");
 		getTeacherList("tid", null);
-		getAllClassList("cid", null);
+		getAllClassList("cid", campusId);
 		//校区修改联动老师
 		var change_btn = $('#campus_id');
 		change_btn.change(function() {

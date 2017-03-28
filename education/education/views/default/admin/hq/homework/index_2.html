@@ -98,8 +98,9 @@
 <script src="education/js/hq.js"></script> 
 <script type="text/javascript">
 $(document).ready(function(){
+	var campusId=$('#campus_id').val();
 	getSchoolList("campus_id");
 	getTeacherList("tid", null);
-	getAllClassList("cid", null);
+	getAllClassList("cid", campusId);
 });
 </script>
