@@ -35,8 +35,8 @@
 
         <div class="widget-content tab-content">
           <div class="control-group">
-            <form id="fbinfoform" method="post" class="form-vertical" style="margin-top:10px;" action="index.php?r=/education/activity/create">
-              <input type="text" class="span3" style="margin-top:-1px;" placeholder="标题" name="name"/>
+            <form id="infoform" method="post" class="form-vertical" style="margin-top:10px;" action="index.php?r=/education/activity/create">
+              <input type="text" class="span3" style="margin-top:-1px;" placeholder="标题" name="name" id="name"/>
               <select name="cid" id="select" style="width:200px;">
                 
               </select>
@@ -44,7 +44,7 @@
               <input type="hidden"  name="type" value="1"/>
               
               <div class="controls">
-                <textarea name="desc" class="textarea_editor span12" rows="6" placeholder="Enter text ..."></textarea>
+                <textarea name="desc" id="desc" class="textarea_editor span12" rows="6" placeholder="Enter text ..."></textarea>
               </div>
               <input type="submit" value="发布" class="btn btn-success">
             </form>

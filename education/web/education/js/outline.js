@@ -16,13 +16,17 @@ function showResponse(responseText, statusText)  {
         var data_body = $("#data_body");
         var cnt = '<tr>\
                 <td>\
-                    <input type=\'checkbox\' name=\'did#id#\' value=\'#id#\'/>\
+                    <input type=\'checkbox\' name=\'did#id#\' value=\'#id#\' readonly="readonly"/>\
                 </td>\
-                <td style="text-align:center;width:50%">#title#</td>\
+                <td style="text-align:center;width:50%">\
+                <input type=\'input\' name=\'title#id#\' value=\'#title#\'/>\
+                </td>\
                 <td style="text-align:center;width:10%">#icl_number#</td>\
                 <td style="text-align:center;width:20%">#time#</td>\
                 <td style="text-align:center">\
                     <button type="button" onclick="javascript:edit(\'#id#\')">课程管理</button>\
+                     <button type="button" onclick="javascript:update(\'#id#\')" id="updateTitle">修改大纲</button>\
+                     <button type="button" onclick="javascript:save(\'#id#\')" id="saveTitle" style="display:none;">保存大纲</button>\
                 </td>\
                </tr>';
         data_body.empty();
@@ -46,6 +50,9 @@ function buttonClickSearch(){
      search();
 }
 
+function edit(id){
+    document.location.href="index.php?r=/education&page=course/index&id="+id;
+}
 function edit(id){
     document.location.href="index.php?r=/education&page=course/index&id="+id;
 }
