@@ -69,7 +69,8 @@ function loadHomeWork() {
                         div_1_cnt += "<a href='"+data1.uploadList[i].path+data1.uploadList[i].file+"' alt='' style='padding: 5px 10px 15px 0;' target='_blank'><img src='/img/006.png' title='下载' /></a>";
 					}	
 				}
-				
+
+                   
                 $("#uploadListPanel").append(div_1_cnt);
             }
 

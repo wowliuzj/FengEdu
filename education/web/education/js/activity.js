@@ -64,6 +64,8 @@ $(document).ready(function(){
 //考试通知表单提交
 ///////////////////////
 	var fbinfoform = $('#fbinfoform');
+	var infoform = $('#infoform');
+
 	var fbinfoform_options = {
 		success: fbShowResponse,
 		resetForm: true,
@@ -73,8 +75,9 @@ $(document).ready(function(){
 	function fbShowResponse(responseText, statusTest){
 		
 		if(responseText.s == 1){
+			alert("发布成功");
 			// document.location.href='index.php?r=/education&page=exam/index';
-			alert(responseText.data);
+			//alert(responseText.data);
 		}else{
 			$("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
 		}
@@ -82,12 +85,30 @@ $(document).ready(function(){
 
 	fbinfoform.submit(function(){
         if($("#id").val()==""){
-            alert("请选择一项活动写活动总结。")
+            alert("请选择一项活动写活动总结。");
             return false;
         }
+
 		$(this).ajaxSubmit(fbinfoform_options);
 		return false;
 	});
+
+	infoform.submit(function () {
+		if($("#name").val()==""){
+			alert("标题不能为空。");
+			return false;
+		}
+		if($("#select").val()==0){
+			alert("请选择班级。");
+			return false;
+		}
+		if($("#desc").val()==0){
+			alert("内容不能为空。");
+			return false;
+		}
+		$(this).ajaxSubmit(fbinfoform_options);
+		return false;
+	})
 
 });
 

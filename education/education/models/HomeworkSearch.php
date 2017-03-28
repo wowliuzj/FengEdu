@@ -245,12 +245,22 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
 
     public function searchByTongji($params)
     {
+        $session = Yii::$app->session;
+        $info = $session['USER_SESSION'];
+
+        $campus = $info['campus_id'];
         $sqlWhere = "";
         if(isset($params['cid'])){
             $cid = $params['cid'];
             if($cid!='0'){
               $sqlWhere = $sqlWhere . ' and cid='.$cid;  
             }
+            else{
+                $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
+            }
+        }
+        else{
+            $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
         }
 
         if(isset($params['start_time'])){
