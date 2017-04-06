@@ -1,0 +1,142 @@
+<script src="education/js/login.js"></script>
+<style>
+    .toggler { width: 470px; }
+
+    #loginPanel {
+        float: right; background-color: #03b2b8; height: 100%; width: 170px; color: #ffffff; text-align: center;
+    }
+</style>
+
+<div class="jumbotron" style="padding: 0px; margin: 0px; width:100%; height: 100%; background-color: aquamarine; background: url('/images/resource.png') no-repeat center; background-size: cover;">
+    <div style="color: #ffffff; display: inline-block; float: left; padding-left: 120px;">
+        <ul style="list-style: none; text-align: left; padding-top: 75px;">
+            <li>
+                <img src="/images/feng_logo.png">
+            </li>
+            <li style="padding-top: 65px;">
+                <p style="font-size: 4.3em; font-weight: 500;">數字媒體</p>
+            </li>
+            <li style="margin-top: 50px;">
+                <p style="font-size: 4.3em; font-weight: 500;">互動學習社區</p>
+            </li>
+            <li style="margin-top: 80px;">
+                <p style="font-size: 4.3em; font-weight: 500;">Digital Media</p>
+            </li>
+            <li style="margin-top: 40px;">
+                <p style="font-size: 4.3em; font-weight: 500;">Interactive Learning Platform</p>
+            </li>
+            <li style="margin-top: 60px;">
+                <img src="/images/bottom_logo2.png">
+            </li>
+        </ul>
+    </div>
+    <div id="loginPanel">
+        <div>
+            <img src="/images/login.png" style="padding-top: 130px;" />
+        </div>
+        <div id="loginInput" style="display: none;">
+            <form id="loginform" method="post" class="form-vertical" action="/index.php?r=/education/admin/login">
+
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <input type="text" id="user_name" name="user_name" placeholder="账号"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <input id="user_pwd" name="user_pwd" type="password" placeholder="密码"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group" style="text-align: center">
+                    <span class="pull-left" style="display:none"><a href="#" class="flip-link btn btn-info" id="to-recover">忘记密码?</a></span>
+                    <input type="submit" id="login" value="登录" class="btn btn-success"/>
+                </div>
+                <div class="control-group">
+                    <div id="errormsg" style="color: #ffffff;"></div>
+                </div>
+            </form>
+        </div>
+        <div style="padding-top: 15px;">
+            <span id="login_button" style="color: inherit; cursor: pointer; font-size: 1.7em; font-weight: 500; text-decoration: none;">登錄</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( function() {
+        var state = true;
+        $( "#login_button" ).on( "click", function() {
+            setTimeout(showLoginInput,1000);
+            $( "#loginPanel" ).animate({
+                backgroundColor: "#03b2b8",
+                color: "#03b2b8",
+                width: 370
+            }, 1000 );
+        });
+    } );
+
+    function showLoginInput() {
+        //$('#loginInput').css('display', 'block');
+        $( "#loginInput" ).show( "blind", null, 500, null );
+    }
+</script>
+
+<script>
+    // /*
+    // 判断浏览器名称和版本
+    // 目前只能判断:ie/firefox/chrome/opera/safari
+    // 2012年5月16日23:47:08
+    // 浏览器内核UA:UA;
+    // 浏览器内核名称:NV.name;
+    // 浏览器内核版本:NV.version;
+    // 浏览器外壳名称:NV.shell;
+    // */
+    var NV = {};
+    var UA = navigator.userAgent.toLowerCase();
+    try
+    {
+        NV.name=document.all?'ie':
+            (UA.indexOf("firefox")>0)?'firefox':
+                (UA.indexOf("chrome")>0)?'chrome':
+                    window.opera?'opera':
+                        window.openDatabase?'safari':
+                            'unkonw';
+    }catch(e){};
+    try
+    {
+        NV.version=(NV.name=='ie')?UA.match(/msie ([\d.]+)/)[1]:
+            (NV.name=='firefox')?UA.match(/firefox\/([\d.]+)/)[1]:
+                (NV.name=='chrome')?UA.match(/chrome\/([\d.]+)/)[1]:
+                    (NV.name=='opera')?UA.match(/opera.([\d.]+)/)[1]:
+                        (NV.name=='safari')?UA.match(/version\/([\d.]+)/)[1]:
+                            '0';
+    }catch(e){};
+    try
+    {
+        NV.shell=(UA.indexOf('360ee')>-1)?'360极速浏览器':
+            (UA.indexOf('360se')>-1)?'360安全浏览器':
+                (UA.indexOf('aoyou')>-1)?'遨游浏览器':
+                    (UA.indexOf('theworld')>-1)?'世界之窗浏览器':
+                        (UA.indexOf('worldchrome')>-1)?'世界之窗极速浏览器':
+                            (UA.indexOf('greenbrowser')>-1)?'绿色浏览器':
+                                (UA.indexOf('mqqbrowser')>-1)?'MQQ浏览器':
+                                    (UA.indexOf('qqbrowser')>-1)?'QQ浏览器':
+                                        (UA.indexOf('baidu')>-1)?'百度浏览器':
+                                            (UA.indexOf(' se ')>-1)?'搜狗浏览器':
+                                                '未知或无壳';
+    }catch(e){}
+    /*
+     document.write('<div><p>浏览器UA='+UA+
+     '</p><p>浏览器名称='+NV.name+
+     '</p><p>浏览器版本='+NV.version+
+     '</p><p>浏览器外壳='+NV.shell+'</p></div>');
+     */
+    if(NV.shell == 'MQQ浏览器'){
+        $("#user_name").css("margin-top","2px");
+        $("#user_pwd").css("margin-top","2px");
+    }
+</script>

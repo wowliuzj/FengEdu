@@ -95,3 +95,20 @@
     	
     ?>
 </div>
+
+<footer class="footer" style="background-color: #03b2b8; text-align: center; height: 270px;">
+    <div class="container" style="text-align: center;">
+        <img src="/images/feng.png" style="vertical-align: text-bottom; padding-right: 15px;" />
+        <div style="color: #ffffff; display: inline-block; font-size: 2.2em; padding-top: 40px;">
+            <p>高校數字媒體產教融合</p>
+            <p>創新應用示範基地項目</p>
+        </div>
+        <img src="/images/clogo.png" style="vertical-align: text-bottom; padding-left: 15px;" />
+    </div>
+    <div class="container" style="text-align: center; color: #fff; padding-top: 40px; font-size: 1.7em;">
+        <span style="padding-right: 20px;">幫助中心</span>
+        <span style="padding-right: 20px;">聯繫我們</span>
+        <span style="padding-right: 20px;">VIP服務</span>
+        <span>意見反饋</span>
+    </div>
+</footer>
