@@ -7,7 +7,10 @@
 	if($page === 'login'){
         include 'cover.html';
 	     //include 'login.html';
-	}else{
+	} else if($page === 'front'){
+        include 'front.html';
+        //include 'login.html';
+    } else {
 		include 'main.php';
 	}
 ?>
