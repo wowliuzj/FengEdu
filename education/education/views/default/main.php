@@ -21,12 +21,10 @@
 <script src="js/masked.js"></script>
 <script src="js/matrix.form_common.js"></script>
 
-<div id="header" style="padding-left: 20px; height: 75px;">
+<div id="header" style="padding-left: 20px; height: 75px;   ">
     <div style="float: left;">
-    <img src="img/logof.png" style="height: 60px; padding-top: 5px;" /></div>
-    <div style="float: left; width: 160px;">
-    <span style="color: antiquewhite; font-size: 2em;">数媒在线互动学习管理平台</span></div>
-	<!--<h1><a>凤凰教育</a></h1>-->
+        <img src="/images/feng_logo.png" style="height: 54px; padding-top: 10px;" />
+    </div>
 </div>
 
 <?php 
