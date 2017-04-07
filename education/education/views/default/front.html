@@ -1,10 +1,41 @@
+<script src="js/jquery-ui.min.js"></script>
 <link href="/css/bootstrap.css" rel="stylesheet">
 
 <div class="jumbotron" style="padding: 0px; margin: 0px; width:100%; height: 680px; padding-top: 75px; background-color: aquamarine; background: url('/images/resource.png') no-repeat center; background-size: cover;">
     <div>
+
+        <div id="switchPad" style="float: left; width: 0px; text-align: center; padding: 97px 0 0 30px; overflow: none; ">
+            <ul style="width: 100%; clear: both;">
+                <li>
+                    <ul>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon1.png" title="數字媒體生態資源協同創新育人平台" /></li>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon2.png" style="padding: 5px 0 0 5px;" title="數字媒體在線教學應用與資源平台" /></li>
+                        <li style="float: left;"><img src="/images/icon3.png" title="數字媒體互動學習社區" /></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul style="width: 100%; clear: both; padding-top: 33px;">
+                <li>
+                    <ul>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon4.png" style="padding-top: 3px;" title="數字媒體與網絡新媒體運營與管理平台" /></li>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon5.png" title="數字媒體商業交易運營與管理平台" /></li>
+                        <li style="float: left;"><img src="/images/icon6.png" style="padding-top: 4px;" title="數字媒體VR/AR實驗室（教育中心）" /></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul style="width: 100%; clear: both; padding-top: 33px;">
+                <li>
+                    <ul>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon7.png" style="padding-top: 5px;" title="數字媒體微課程資源管理平台" /></li>
+                        <li style="float: left; padding-right: 30px;"><img src="/images/icon8.png" title="數字媒體實習實訓外包服務平台" /></li>
+                        <li style="float: left;"><img src="/images/icon9.png" style="position: relative; top: -4px;" title="數字媒體企業與人力資源服務平台" /></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <div style="color: #ffffff; padding: 40px 30px 0 140px; float: left; text-align: center;">
             <div style="height: 110px; width: 3px; background-color: #ffffff; margin-bottom: 20px; margin-left: 26px;"></div>
-            <img src="/images/feng.png" />
+            <img id="switchButton" src="/images/feng.png" style="cursor: pointer;" title="數字媒體平台切換" />
             <div style="height: 110px; width: 3px; background-color: #ffffff; margin-top: 20px; margin-left: 26px;"></div>
         </div>
         <div style="color: #ffffff; float: left;">
@@ -134,6 +165,9 @@
 
 <script type="text/javascript">
     var page = 1;
+    var imgRowHeight = [0, 0, 0, 0];
+    var switchState = false;
+
     function seachPage(){
         if(page > 3) {
             location.href = '/index.php?r=/education&page=homework/wall';
@@ -157,7 +191,8 @@
                     var imgRow = new Array();
 
                     for(var i=0;i<data.length;i++) {
-                        imgRow[(i%4)] = (imgRow[(i%4)] ? imgRow[(i%4)] : '') + "<div style='border: 1px solid #aaa;" + (imgRow[(i%4)] || page > 1 ? 'margin-top: 20px;' : '') + "'>" +
+                        var min = minHeightRow(imgRowHeight);
+                        imgRow[min] = (imgRow[min] ? imgRow[min] : '') + "<div style='border: 1px solid #aaa;" + (imgRow[min] || page > 1 ? 'margin-top: 20px;' : '') + "'>" +
                             "<div style='width: 100%;'>" +
                             "<img src='"+ (data[i].thumb_img ? data[i].thumb_img : data[i].simg) +"' />" +
                             "</div>" +
@@ -169,6 +204,7 @@
                             "</span>" +
                             "</div>" +
                             "</div>";
+                        imgRowHeight[min] = parseInt(imgRowHeight[min]) + parseInt(data[i].img_height);
                     }
 
                     imgRow0.html(imgRow0.html() + imgRow[0]);
@@ -188,5 +224,36 @@
         });
     }
 
-    seachPage();
+    function minHeightRow(imgRowHeight)
+    {
+        var min = 0;
+        if(imgRowHeight[min] > imgRowHeight[1]) min = 1;
+        if(imgRowHeight[min] > imgRowHeight[2]) min = 2;
+        if(imgRowHeight[min] > imgRowHeight[3]) min = 3;
+        return min;
+    }
+
+    $( function() {
+        var state = true;
+        $( "#switchButton" ).on( "click", function() {
+            if(!switchState) {
+                switchState = true;
+                $( "#switchPad" ).animate({
+                    backgroundColor: "transparent",
+                    color: "#ffffff",
+                    width: 270
+                }, 1000 );
+            }
+            else {
+                switchState = false;
+                $( "#switchPad" ).animate({
+                    backgroundColor: "transparent",
+                    color: "#ffffff",
+                    width: 0
+                }, 1000 );
+            }
+        });
+
+        seachPage();
+    } );
 </script>
