@@ -30,7 +30,7 @@
         <script src="education/js/common.js"></script>
         <script src="education/js/storage.js"></script>
     </head> 
-    <body>
+    <body style="min-width: 1024px; min-height: 680px;">
         <?= $content ?>
     </body>
     <script>

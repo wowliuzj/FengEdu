@@ -1,11 +1,16 @@
 <?php
 	if(!isset($_REQUEST['page'])){
-		return;
+        include 'cover.html';
+        return;
 	}
 	$page = $_REQUEST["page"];
 	if($page === 'login'){
-	     include 'login.html';
-	}else{
+        include 'cover.html';
+	     //include 'login.html';
+	} else if($page === 'front'){
+        include 'front.html';
+        //include 'login.html';
+    } else {
 		include 'main.php';
 	}
 ?>
