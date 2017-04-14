@@ -76,7 +76,7 @@ class HomeworkSearch extends Homework
         return $dataProvider;
     }
 
-    public function searchBySql($params)
+    public function searchBySql($params,$campus)
     {
 		$sqlLeft="left join stu_work b on a.id = b.hid";
         $sqlWhere = "";
@@ -145,6 +145,7 @@ class HomeworkSearch extends Homework
                $sqlWhere = $sqlWhere . " and a.cid in (SELECT cid from class_teacher where tid=$sid)";
             }
         }
+        $sqlWhere = $sqlWhere . " and a.cid in (SELECT icl_id FROM info_class where campus_id=$campus)";
         
         $sql="select a.img,a.`desc`,a.time,a.title,it_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc,
 (select count(1) from eval_work where (eval_work.shid = b.id)) as ecount 
@@ -243,12 +244,9 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
         return $dataProvider;
     }
 
-    public function searchByTongji($params)
+    public function searchByTongji($params,$campus)
     {
-        $session = Yii::$app->session;
-        $info = $session['USER_SESSION'];
 
-        $campus = $info['campus_id'];
         $sqlWhere = "";
         if(isset($params['cid'])){
             $cid = $params['cid'];
@@ -256,11 +254,11 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
               $sqlWhere = $sqlWhere . ' and cid='.$cid;  
             }
             else{
-                $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
+                $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM info_class where campus_id='.$campus.' )';
             }
         }
         else{
-            $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM education.info_class where campus_id='.$campus.' )';
+            $sqlWhere = $sqlWhere . ' and cid in (SELECT icl_id FROM info_class where campus_id='.$campus.' )';
         }
 
         if(isset($params['start_time'])){

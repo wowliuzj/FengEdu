@@ -223,7 +223,6 @@ class StuWorkSearch extends StuWork
             $sqlCount = "select count(1) from work_wall_view";
         }
 
-
         $page = 1;
         if(isset($params['page'])){
             $page = $params['page'];
