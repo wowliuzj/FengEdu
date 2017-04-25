@@ -306,7 +306,7 @@ class StuWorkController extends Controller
                 }
 
                 //如果是图片文件，尝试生成缩略图
-                $thumb = $this->resizeImage($targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR, $row);
+                list($thumb, $thumb_width, $thumb_height, $width, $height) = $this->resizeImage($targetDir . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR, $row);
 
                 if(StuWorkUpload::find()->where(['file' => $row])->count()) continue;
                 $upload = new StuWorkUpload();
@@ -328,6 +328,10 @@ class StuWorkController extends Controller
                 }
                 $upload->file_ext = pathinfo($row, PATHINFO_EXTENSION);
                 $upload->thumb_img = $thumb ? $thumb : null;
+                $upload->thumb_width = $thumb_width;
+                $upload->thumb_height = $thumb_height;
+                $upload->img_width = $width;
+                $upload->img_height = $height;
                 $upload->save();
             }
             if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
@@ -431,7 +435,7 @@ class StuWorkController extends Controller
 
     protected function resizeImage($path, $im)
     {
-        if(!function_exists("imagecopyresampled")) return false;
+        if(!function_exists("imagecopyresampled")) return [null, 0, 0, 0, 0];
 
         $maxWidth=100;
         $maxHeight=100;
@@ -451,11 +455,11 @@ class StuWorkController extends Controller
                 $source_image = imagecreatefrompng($path.$im);
                 break;
             default:
-                return false;
+                return [null, 0, 0, 0, 0];
         }
 
         list($width, $height) = getimagesize($path.$im);
-        if($width <= $maxWidth && $height <= $maxHeight) return false;
+        if($width <= $maxWidth && $height <= $maxHeight) return [null, 0, 0, $width, $height];
 
         $new_width = 0;
         $new_height = 0;
@@ -503,9 +507,35 @@ class StuWorkController extends Controller
                 imagepng($new_image,$path.$thumb_name);
                 break;
             default:
-                return false;
+                return [null, 0,0, $width, $height];
         }
         imagedestroy($new_image);
-        return $thumb_name;
+        return [$thumb_name, $new_width,$new_height, $width, $height];
+    }
+
+    public function actionSize()
+    {
+        $result = StuWorkUpload::find()->where(' 3000 < id and id < 4000')->all();
+        foreach($result as $upload)
+        {
+            if(!$upload->img_file) continue;
+            $width = 0;
+            $height = 0;
+            $thumb_width = 0;
+            $thumb_height = 0;
+            list($width, $height) = getimagesize(dirname(__DIR__).'\\..\\web'.$upload->path.$upload->file);
+            if($upload->thumb_img)
+                list($thumb_width, $thumb_height) = getimagesize(dirname(__DIR__).'\\..\\web'.$upload->path.$upload->thumb_img);
+
+            $upload->thumb_width = $thumb_width;
+            $upload->thumb_height = $thumb_height;
+            $upload->img_width = $width;
+            $upload->img_height = $height;
+
+            $upload->save();
+
+            echo $upload->id.' done<br />';
+        }
+
     }
 }
