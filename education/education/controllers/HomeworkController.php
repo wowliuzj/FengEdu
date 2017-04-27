@@ -40,9 +40,13 @@ class HomeworkController extends Controller
         $params['status'] = 0;
 
         $session = Yii::$app->session;
+        $info = $session['USER_SESSION'];
+
+        $params['is_finish'] = 1;
+        $campus = $info['campus_id'];
         $params['fid'] = $session['USER_SESSION']['fid'];
         $params['ftype'] = $session['USER_SESSION']['ftype'];
-        $dataProvider = $searchModel->searchBySql($params);
+        $dataProvider = $searchModel->searchBySql($params,$campus);
 
         //return $this->render('index', [
         //    'searchModel' => $searchModel,
@@ -141,8 +145,6 @@ class HomeworkController extends Controller
 
         $params['is_finish'] = 1;
         $campus = $info['campus_id'];
-        $searchModel = new HomeworkSearch();
-        $params = Yii::$app->request->queryParams;
         $dataProvider = $searchModel->searchBySql($params,$campus);
 
         //return $this->render('index', [
