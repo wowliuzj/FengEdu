@@ -145,7 +145,7 @@ class HomeworkSearch extends Homework
                $sqlWhere = $sqlWhere . " and a.cid in (SELECT cid from class_teacher where tid=$sid)";
             }
         }
-        $sqlWhere = $sqlWhere . " and a.cid in (SELECT icl_id FROM info_class where campus_id=$campus)";
+        $sqlWhere = $sqlWhere . " and a.cid in (SELECT icl_id FROM info_class where campus_id=".$campus.")";
         
         $sql="select a.img,a.`desc`,a.time,a.title,it_name,score,a.id as hid,b.id as shid,b.sid,b.stime as stime,b.simg as simg,b.sdesc as sdesc,b.ttime as ttime,b.tdesc as tdesc,
 (select count(1) from eval_work where (eval_work.shid = b.id)) as ecount 
