@@ -127,7 +127,7 @@ class HomeworkSearch extends Homework
         if(isset($params['is_finish'])){
            $is_finish = $params['is_finish'];
            if($is_finish == 1){
-               $sqlWhere = $sqlWhere . " and (simg is not null or sdesc is not null)";
+              // $sqlWhere = $sqlWhere . " and (simg is not null or sdesc is not null)";
            }
         }
 
@@ -160,7 +160,6 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
         if(isset($params['pageSize'])){
             $pageSize = $params['pageSize'];
         }
-
         $sqlCount = "SELECT count(1) from homework as a left join view_homework as b on a.id = b.bhid  where 1=1 ".$sqlWhere;
         $count = Yii::$app->db->createCommand($sqlCount)->queryScalar();
         $dataProvider = new SqlDataProvider([
@@ -170,7 +169,7 @@ from homework as a ".$sqlLeft." left join info_teacher as c on a.tid = c.it_id w
                 'pageSize' => $pageSize,
                 'page' => $page - 1,
             ]
-        ]);
+        ]);;
         return $dataProvider;
     }
 

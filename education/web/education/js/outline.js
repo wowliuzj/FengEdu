@@ -53,9 +53,6 @@ function buttonClickSearch(){
 function edit(id){
     document.location.href="index.php?r=/education&page=course/index&id="+id;
 }
-function add(){
-    document.location.href="index.php?r=/education&page=outline/add";
-}
 function update(id){
     $('#update'+id).hide();
     $('#save'+id).show();
@@ -72,11 +69,9 @@ function save(id){
             $('#title'+id).attr("readonly","readonly");
             alert("修改成功 ");
         });
-
-    /*$('#title'+id).css("background-color", "transparent");
+    $('#title'+id).css("background-color", "transparent");
     $('#title'+id).css("border", "none");
-    $('#title'+id).css("cursor", "pointer");*/
-
+    $('#title'+id).css("cursor", "pointer");
 }
 
 //删除选中
