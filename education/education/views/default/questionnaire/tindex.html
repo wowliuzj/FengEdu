@@ -1,0 +1,57 @@
+<div class="row-fluid">
+<div class="span12">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px">
+        <div style="text-align: center;font-size: 80px;"  id="widget-title">
+
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-horizontal" method="post" action="index.php?r=/education/questionnaire/view" id="formId" novalidate="novalidate"  enctype="multipart/form-data">
+                <input id="category" type="hidden" name="category" >
+                <input type="hidden" name="course_id" id="course_id" value=""/>
+                <div style="margin-left:10px;" id="data_body">
+                    <!--<div>
+                        <h6>作业标题</h6>
+                        <div>
+                            <input class="required" type="text" name="title" id="title">
+                        </div>
+                    </div>
+                    <div>
+                        <h6>完成时间</h6>
+                        <div >
+                            <div  data-date="" data-date-format="yyyy-mm-dd" class="input-append date datepicker" style="margin-left:-60px;">
+                                <input type="text" value="选择日期" name="finish_time" id="finish_time" data-date-format="yyyy-mm-dd" class="span11" style="margin-left:60px; width:190px;">
+                                <span class="add-on"><i class="icon-th" ></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>作业要求</h6>
+                        <div style="width:95%;">
+                            <textarea name="desc" id="desc" class="textarea_editor span12" rows="10" placeholder="输入信息内容 ..."></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>上传图片</h6>
+                        <div id="file1" style="display:block;">
+                            <input onchange="PreviewImage(this,'imgHeadPhoto','divPreview');"  type="file" id="img" name="img"/>
+                        </div>
+                        <h6>参考图片</h6>
+                        <div id="divPreview" style="margin-bottom:5px;">
+                            <img id="imgHeadPhoto" src="" style="width:160px; height:170px; border:solid 1px #d2e2e2;"/>
+                        </div>
+
+                    </div>-->
+                </div>
+                <div class="form-actions">
+                    <span><input style='margin-top:5px;' type='button' value='返回' onclick='backHref()'/></span>
+                </div>
+            </form>
+
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript" src="education/js/questionnaire_view.js"/>

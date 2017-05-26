@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "activity".
  *
  * @property integer $id
- * @property string $name
+ * @property string $title
  * @property string $time
  * @property string $desc
  * @property integer $cid

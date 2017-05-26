@@ -33,7 +33,6 @@ class PermissionController extends Controller
         $session = Yii::$app->session;
         $rids = $session['USER_ROLE_ID'];
         $list = Yii::$app->cache->get('USER_PERMISSION_'.$rids);
-
         //$sql = 'SELECT * from permission where p_id in (SELECT p_id from access where r_id in (:rids))';
         //$list = Yii::$app->db->createCommand($sql,[':rids' => $session['USER_ROLE_ID']])->queryAll();
         $response = Yii::$app->response;
