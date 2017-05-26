@@ -1,0 +1,61 @@
+<div class="row-fluid">
+  <div class="widget-box" style="margin-left:10px;margin-right:10px;border-bottom:1px solid #cdcdcd;">
+    <div class="widget-box" style="margin-left:10px;margin-right:10px;">
+      <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th">
+                    </i>
+                </span>
+        <h5>
+          问卷管理
+        </h5>
+      </div>
+      <form class="form-horizontal" action="index.php?r=/education/question-title/answer" method="post" id="formId" novalidate="novalidate">
+        <input type="hidden" name="page" id="page" value="1"/>
+        <input type="hidden" name="category" id="category" />
+      </form>
+      <div class="widget-content nopadding">
+        <form id="classForm">
+          <table class="table table-bordered with-check">
+            <thead>
+            <tr>
+              <th style="width:20%">问卷调查返回信息</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="data_body">
+
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <div class="rows">
+        <div class="span6">
+        </div>
+
+      </div>
+      <div class="pagination pagination-right" style="margin-right:10px;">
+        <ul>
+          <li id="liPageFirst">
+            <a id="pageFirst" href="#">首页</a>
+          </li>
+          <li id="liPagePrevious">
+            <a id="pagePrevious" href="#">上一页</a>
+          </li>
+          <li>
+            <a id="pageNo" href="#"></a>
+          </li>
+          <li id="liPageNext">
+            <a id="pageNext" href="#">下一页</a>
+          </li>
+          <li id="liPageLast">
+            <a id="pageLast" href="#">末页</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="education/js/question_answer.js"/>

@@ -1,0 +1,48 @@
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="widget-box" style="margin-left:10px;margin-right:10px">
+        <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+          <h5>添加题目</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form class="form-horizontal" method="post" action="index.php?r=/education/questionnaire/create" id="formId" novalidate="novalidate">
+            <input id="category" type="hidden" name="category" >
+            <div class="control-group">
+              <label class="control-label">问题</label>
+              <div class="controls">
+                <input class="required" type="text" name="title" id="title">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">类型</label>
+              <div class="controls">
+                <select name="type" id="type" style="width:140px">
+                        <option value="0">选择类型</option>
+                        <option value="1">选择题</option>
+                        <option value="2">问答题</option>
+                </select>
+              </div>
+            </div>
+
+             <div class="control-group">
+              <label class="control-label">选择题的选项类型</label>
+              <div class="controls">
+                <select name="option" id="option" style="width:140px">
+                  <!--<option value="0">选择类型</option>
+                  <option value="1">同意类型</option>
+                  <option value="2">满意类型</option>-->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <input type="submit" value="保存" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="education/js/questionnaire_add.js"/>
