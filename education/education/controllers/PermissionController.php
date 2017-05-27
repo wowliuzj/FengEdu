@@ -33,7 +33,7 @@ class PermissionController extends Controller
         $session = Yii::$app->session;
         $rids = $session['USER_ROLE_ID'];
         $list1 = Yii::$app->cache->get('USER_PERMISSION_'.$rids);
-        $sql = 'SELECT * from permission where p_id in (SELECT p_id from access where r_id in (:rids))';
+        $sql = 'SELECT * from education.permission where p_id in (SELECT p_id from education.access where r_id in (:rids))';
         $list = Yii::$app->db->createCommand($sql,[':rids' => $session['USER_ROLE_ID']])->queryAll();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
