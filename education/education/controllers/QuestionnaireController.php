@@ -92,7 +92,7 @@ class QuestionnaireController extends Controller
         $params = Yii::$app->request->post();
         $category_id=($params['category_id']);
         $user_id=($params['user_id']);
-        $sql = "SELECT q.*,a.option_id,u.utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
+        $sql = "SELECT q.*,a.option_id,a.replay,u.utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
                 FROM education.questionnaire q 
                 left join education.answer a on a.category_id=q.category and a.question_id=q.id
                 left join education.question_title u on u.id=q.category
@@ -102,6 +102,7 @@ class QuestionnaireController extends Controller
         $model = Yii::$app->db->createCommand($sql)->queryAll();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
+        var_dump($model);die();
         $response->data = \Tool::toResJson(1,["list"=>$model] );
 
     }
@@ -111,16 +112,18 @@ class QuestionnaireController extends Controller
         $params = Yii::$app->request->post();
 
         $category_id=($params['category']);
-        $sql = "SELECT q.*,a.option_id,u.title as utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
+        $sql = "SELECT q.*,a.option_id,a.replay,u.title as utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
                 FROM education.questionnaire q 
                 left join education.answer a on a.category_id=q.category and a.question_id=q.id
                 left join education.question_title u on u.id=q.category
                 left join education.option o on q.option=o.id
                 where q.category= ".$category_id;
         $list =Yii::$app->db->createCommand($sql)->queryAll();
+        $question= QuestionTitle::findOne($category_id);
+        $searchModel = new QuestionnaireSearch();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = \Tool::toResJson(1,["list"=>$list]);
+        $response->data = \Tool::toResJson(1,["list"=>$list,"title"=>$question->title]);
 
         //return $this->render('view', [
         //    'model' => $this->findModel($id),

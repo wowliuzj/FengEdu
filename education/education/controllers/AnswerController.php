@@ -57,6 +57,22 @@ class AnswerController extends Controller
         ]);
     }
 
+    public function actionCheck($id)
+    {
+        $session = Yii::$app->session;
+        $userId=$session['USER_SESSION']['id'];
+        $sql = "SELECT * FROM education.answer q 
+                where q.user_id=".$userId." and q.category_id= ".$id;
+        $list =Yii::$app->db->createCommand($sql)->queryAll();
+        $response = Yii::$app->response;
+        $response->format = \yii\web\Response::FORMAT_JSON;
+        if(count($list)>0){
+            $response->data = \Tool::toResJson(1, ["user_id"=>$userId]);
+        }
+        else{
+            $response->data = \Tool::toResJson(2, "ok");
+        }
+    }
     /**
      * Creates a new Access model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -86,7 +102,7 @@ class AnswerController extends Controller
                 $answer->option_id=$v;
             }
             if(strpos($k, 'text')){
-                $tmparray = explode('.',$k);
+                $tmparray = explode('_',$k);
                 $answer->question_id=$tmparray[0];
                 $answer->question_style=1;
                 $answer->replay=$v;
