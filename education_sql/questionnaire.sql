@@ -44,3 +44,6 @@ CREATE  TABLE `education`.`option` (
   `user_id` INT NULL ,
   PRIMARY KEY (`id`) );
 
+  INSERT INTO `education`.`access` (`r_id`, `p_id`, `ac_r`, `ac_w`) VALUES ('8', '37', '1', '0');
+
+

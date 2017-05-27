@@ -25,16 +25,18 @@ function showResponse(responseText, statusText)  {
                 <label style="padding-left: 50px;padding-top: 20px;font-size: 16px;font-weight: bold;">'+key+'、'+list[key].title+'</label>'
             var cnt1 ='';
             if(list[key].type==2){
-                cnt1 ='<br><div style="padding-left: 80px; padding-bottom: 20px;"> <textarea class="form-control" rows="3"></textarea></div>';
+                cnt1 ='<br><div style="padding-left: 80px; padding-bottom: 20px;"> <textarea class="form-control" rows="3" value="'+list[key].replay+'">'+list[key].replay+'</textarea></div>';
             }
             if(list[key].type==1){
-                cnt1 ='<br><div style="padding-left: 80px; padding-bottom: 20px;font-size: 14px;">\
-                   <label style="display:inline;padding-left: 20px"><input type="radio"name="'+list[key].id+'.status" value="1"  '+(list[key].option_id==1)?'checked':''+'></label>'+list[key].option1+'\
-                    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="2"  '+(list[key].option_id==2)?'checked':''+'></label>'+list[key].option2+'\
-                    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="3"  '+(list[key].option_id==3)?'checked':''+'></label>'+list[key].option3+'\
-                    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="4" '+(list[key].option_id==4)?'checked':''+'></label>'+list[key].option4+'\
-                    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="5" '+(list[key].option_id==5)?'checked':''+'></label>'+list[key].option5+'\
-                    </div>';
+                cnt1 ='<br>';
+                cnt1 +='<div style="padding-left: 80px; padding-bottom: 20px;font-size: 14px;">';
+                cnt1 +='    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="1" '+(list[key].option_id==1?'checked':'')+'/>'+list[key].option1+'</label>';
+                cnt1 +='    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="2" '+(list[key].option_id==2?'checked':'')+'/>'+list[key].option2+'</label>';
+                cnt1 +='    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="3" '+(list[key].option_id==3?'checked':'')+'/>'+list[key].option3+'</label>';
+                cnt1 +='    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="4" '+(list[key].option_id==4?'checked':'')+'/>'+list[key].option4+'</label>';
+                cnt1 +='    <label style="display:inline;padding-left: 20px"><input type="radio" name="'+list[key].id+'.status" value="5" '+(list[key].option_id==5?'checked':'')+'/>'+list[key].option5+'</label>';
+                cnt1 +='</div>';
+
             }
             var cnt2 ='</div>\
             </div>';
