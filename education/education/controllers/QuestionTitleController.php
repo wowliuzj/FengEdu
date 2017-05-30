@@ -181,7 +181,7 @@ class QuestionTitleController extends Controller
     {
         $params = Yii::$app->request->post();
         $id=($params['category']);
-        $sql = "SELECT distinct a.`user_name`,a.`user_id`,b.title,a.category_id FROM education.answer a, education.question_title b WHERE a.`category_id` = b.`id` AND a.`category_id` = ".$id;
+        $sql = "SELECT distinct a.`user_name`,a.`user_id`,b.title,a.category_id FROM answer a, question_title b WHERE a.`category_id` = b.`id` AND a.`category_id` = ".$id;
 
         $model = Yii::$app->db->createCommand($sql)->queryAll();
         $response = Yii::$app->response;
@@ -196,10 +196,10 @@ class QuestionTitleController extends Controller
         $category_id=($params['category_id']);
         $user_id=($params['user_id']);
         $sql = "SELECT q.*,a.option_id,u.utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
-                FROM education.questionnaire q 
-                left join education.answer a on a.category_id=q.category and a.question_id=q.id
-                left join education.question_title u on u.id=q.category
-                left join education.option o on a.option=q.id
+                FROM questionnaire q 
+                left join answer a on a.category_id=q.category and a.question_id=q.id
+                left join question_title u on u.id=q.category
+                left join option o on a.option=q.id
                 where q.category= ".$category_id;
 
         $model = Yii::$app->db->createCommand($sql)->queryAll();
