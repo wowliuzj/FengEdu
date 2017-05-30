@@ -61,7 +61,7 @@ class AnswerController extends Controller
     {
         $session = Yii::$app->session;
         $userId=$session['USER_SESSION']['id'];
-        $sql = "SELECT * FROM education.answer q 
+        $sql = "SELECT * FROM answer q 
                 where q.user_id=".$userId." and q.category_id= ".$id;
         $list =Yii::$app->db->createCommand($sql)->queryAll();
         $response = Yii::$app->response;

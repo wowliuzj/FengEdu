@@ -73,15 +73,19 @@ class QuestionnaireController extends Controller
             $category=($params['category']);
         }
         $sql='SELECT a.*,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
-            FROM questionnaire a left join option o on a.option=o.id where a.category='.$category;
+            FROM questionnaire a left join education_release.option o on a.option=o.id where a.category='.$category;
+		  $sql2='SELECT a.*
+            FROM questionnaire a where a.type=2';
         $list =Yii::$app->db->createCommand($sql)->queryAll();
+        $list2 =Yii::$app->db->createCommand($sql2)->queryAll();
+		$list3 = array_merge($list, $list2); 
         $question= QuestionTitle::findOne($category);
         $searchModel = new QuestionnaireSearch();
         $dataProvider = $searchModel->searchByCategory($category);
         $models = $dataProvider->getModels();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = \Tool::toResJson(1,["list"=>$list,"title"=>$question->title]);
+        $response->data = \Tool::toResJson(1,["list"=>$list3,"title"=>$question->title]);
 		
         //return $this->render('view', [
         //    'model' => $this->findModel($id),
@@ -96,7 +100,7 @@ class QuestionnaireController extends Controller
                 FROM questionnaire q 
                 left join answer a on a.category_id=q.category and a.question_id=q.id
                 left join question_title u on u.id=q.category
-                left join option o on a.option=q.id
+                left join education_release.option o on a.option=q.id
                 where q.category= ".$category_id;
 
         $model = Yii::$app->db->createCommand($sql)->queryAll();
@@ -116,14 +120,19 @@ class QuestionnaireController extends Controller
                 FROM questionnaire q 
                 left join answer a on a.category_id=q.category and a.question_id=q.id
                 left join question_title u on u.id=q.category
-                left join option o on q.option=o.id
+                left join education_release.option o on q.option=o.id
                 where q.category= ".$category_id;
+        $sql2='SELECT q.*,a.replay
+            FROM questionnaire q left join answer a on a.category_id=q.category and a.question_id=q.id  where q.type=2 and q.category='.$category_id;
+        
         $list =Yii::$app->db->createCommand($sql)->queryAll();
+        $list2 =Yii::$app->db->createCommand($sql2)->queryAll();
+        $list3 = array_merge($list, $list2);
         $question= QuestionTitle::findOne($category_id);
         $searchModel = new QuestionnaireSearch();
         $response = Yii::$app->response;
         $response->format = \yii\web\Response::FORMAT_JSON;
-        $response->data = \Tool::toResJson(1,["list"=>$list,"title"=>$question->title]);
+        $response->data = \Tool::toResJson(1,["list"=>$list3,"title"=>$question->title]);
 
         //return $this->render('view', [
         //    'model' => $this->findModel($id),
@@ -144,7 +153,7 @@ class QuestionnaireController extends Controller
         $model->school_id = $session['USER_SESSION']['school_id'];
         if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
-			$response->data = \Tool::toResJson(1, $model->id);
+			$response->data = \Tool::toResJson(1,  $model->category);
         } else {
             //return $this->render('create', [
             //    'model' => $model,
