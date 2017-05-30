@@ -123,7 +123,7 @@ class OptionController extends Controller
 
         $tid = $session['USER_SESSION']['fid'];
 
-        $sql = 'SELECT * FROM option a';
+        $sql = 'SELECT * FROM option';
         //echo $sql . $tid;die();
         $list =Yii::$app->db->createCommand($sql)->queryAll();
 
