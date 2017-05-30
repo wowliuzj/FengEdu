@@ -113,7 +113,7 @@ class QuestionnaireController extends Controller
 
         $category_id=($params['category']);
         $sql = "SELECT q.*,a.option_id,a.replay,u.title as utitle,o.id as oid,o.title as otitle,o.option1,o.option2,o.option3,o.option4,o.option5 
-                FROM education.questionnaire q 
+                FROM questionnaire q 
                 left join answer a on a.category_id=q.category and a.question_id=q.id
                 left join question_title u on u.id=q.category
                 left join option o on q.option=o.id
