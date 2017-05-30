@@ -199,7 +199,7 @@ class QuestionTitleController extends Controller
                 FROM questionnaire q 
                 left join answer a on a.category_id=q.category and a.question_id=q.id
                 left join question_title u on u.id=q.category
-                left join option o on a.option=q.id
+                left join education_release.option o on a.option=q.id
                 where q.category= ".$category_id;
 
         $model = Yii::$app->db->createCommand($sql)->queryAll();

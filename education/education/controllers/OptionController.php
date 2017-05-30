@@ -123,7 +123,7 @@ class OptionController extends Controller
 
         $tid = $session['USER_SESSION']['fid'];
 
-        $sql = 'SELECT * FROM option';
+        $sql = "SELECT * FROM education_release.option";
         //echo $sql . $tid;die();
         $list =Yii::$app->db->createCommand($sql)->queryAll();
 
@@ -134,7 +134,7 @@ class OptionController extends Controller
 
     /**
      * Deletes an existing Option model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+   
      * @param integer $id
      * @return mixed
      */
@@ -151,39 +151,7 @@ class OptionController extends Controller
         }
     }
 
-    public function actionDeletes($ids)
-    {
-        /**
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".Option::tableName()." where id in(".$ids.")";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-        if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
-        }else{
-            $response->data = \Tool::toResJson(1, "删除成功");
-        }
-        */
-        $request = Yii::$app->request;
-        $idArray = $request->get();
-        $ids = array();
-        foreach($idArray as $k=>$v){
-            if($k=='r'){
-                continue;
-            }
-            array_push($ids,$v);
-        }
-        $strIds = implode(",", $ids);
-        $response = Yii::$app->response;
-        $response->format = \yii\web\Response::FORMAT_JSON;
-        $sql = "delete from ".Option::tableName()." where id in(".$strIds.")";
-        $res = Yii::$app->db->createCommand($sql)->execute();
-        if($res == 0){
-            $response->data = \Tool::toResJson(0, "找不到该记录，删除失败");
-        }else{
-            $response->data = \Tool::toResJson(1, "删除成功");
-        }
-    }
+   
 
     /**
      * Finds the Option model based on its primary key value.
