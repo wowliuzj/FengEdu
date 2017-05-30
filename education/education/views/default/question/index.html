@@ -10,12 +10,6 @@
           问卷管理
         </h5>
       </div>
-      <div class="rows">
-        <div class="span6">
-          <a href="index.php?r=/education&page=option/index">问卷选项管理</a>
-        </div>
-
-      </div>
       <form id="formId" class="form-horizontal" action="index.php?r=/education/question-title/index" method="get">
         <input type="hidden" name="page" id="page" value="1"/>
 
@@ -46,6 +40,9 @@
           </button>
           <button style="margin-left:15px" type="button" onclick="add()" id="modify_btn">
             添加
+          </button>
+          <button style="margin-left:15px" type="button" onclick="addopt()" id="option_btn">
+            问卷选项管理
           </button>
         </div>
 
