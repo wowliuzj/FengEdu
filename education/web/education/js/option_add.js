@@ -11,7 +11,7 @@ $(document).ready(function(){
 
             alert("添加成功");
             var id=responseText.data;
-            document.location.href="index.php?r=/education&page=questionnaire/add&id="+id;
+            document.location.href="index.php?r=/education&page=option/index";
         }else{
             $("#errormsg").html(responseText.data).show(300).delay(3000).hide(300);
         }

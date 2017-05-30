@@ -59,6 +59,9 @@ function add(){
 function addQuestion(id){
     document.location.href="index.php?r=/education&page=questionnaire/add&id="+id;
 }
+function addopt(){
+    document.location.href="index.php?r=/education&page=option/index";
+}
 
 function getCampusClassList(selId){
     //请求教师班级列表
