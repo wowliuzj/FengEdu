@@ -104,7 +104,7 @@ function getCampusClassList(selId){
 function delChecked(){
     var options = {
         success:   showResponse,  //处理完成
-        url: "index.php?r=/education/teacher/deletes",
+        url: "index.php?r=/education/question/deletes",
         resetForm: false,
         dataType:  'json'
     };
