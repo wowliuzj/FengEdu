@@ -59,6 +59,7 @@ class InfoCampus extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    
     public function getInfoColleges()
     {
         return $this->hasMany(InfoCollege::className(), ['ic_name' => 'ic_name']);

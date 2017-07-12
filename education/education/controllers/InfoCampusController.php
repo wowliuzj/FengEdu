@@ -119,6 +119,7 @@ class InfoCampusController extends Controller
             //return $this->redirect(['view', 'id' => $model->ic_id]);
 			$response->data = \Tool::toResJson(1, $model->ic_id);
         } else {
+            
             //return $this->render('create', [
             //    'model' => $model,
             //]);

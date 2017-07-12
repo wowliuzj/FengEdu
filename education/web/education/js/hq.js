@@ -20,7 +20,6 @@ $(document).ready(function(){
 				alert("没有数据");
 				return;
 			}
-
 			for(var key in data){
 				var teachRate = data[key].teachRate + "%";
 				var compRate = data[key].compRate + "%";

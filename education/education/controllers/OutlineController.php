@@ -91,6 +91,7 @@ class OutlineController extends Controller
      */
     public function actionCreate()
     {
+        
         $session = Yii::$app->session;
         $tid = $session['USER_SESSION']['fid'];
         $cid = Yii::$app->request->post("cid",'');

@@ -110,4 +110,5 @@ class InfoCampusSearch extends InfoCampus
         ]);
         return $dataProvider;
     }
+    
 }
